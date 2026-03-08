@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoVibe.API", "GoVibe.API\GoVibe.API.csproj", "{F9724FFB-906C-4C34-831F-A4D23AD61F2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoVibe.Domain", "GoVibe.Domain\GoVibe.Domain.csproj", "{9016DE2F-4DDA-48B4-A77B-5A0668952CAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoVibe.Infrastructure", "GoVibe.Infrastructure\GoVibe.Infrastructure.csproj", "{35AC2763-6FD9-47C4-A65D-4C36AE64B0E9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F9724FFB-906C-4C34-831F-A4D23AD61F2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9724FFB-906C-4C34-831F-A4D23AD61F2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9724FFB-906C-4C34-831F-A4D23AD61F2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9724FFB-906C-4C34-831F-A4D23AD61F2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9016DE2F-4DDA-48B4-A77B-5A0668952CAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9016DE2F-4DDA-48B4-A77B-5A0668952CAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9016DE2F-4DDA-48B4-A77B-5A0668952CAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9016DE2F-4DDA-48B4-A77B-5A0668952CAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35AC2763-6FD9-47C4-A65D-4C36AE64B0E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35AC2763-6FD9-47C4-A65D-4C36AE64B0E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35AC2763-6FD9-47C4-A65D-4C36AE64B0E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35AC2763-6FD9-47C4-A65D-4C36AE64B0E9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
