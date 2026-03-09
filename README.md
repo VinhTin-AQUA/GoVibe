@@ -123,3 +123,31 @@ Entities:
 
     PRIMARY KEY(place_id, amenity_id)
     ```
+
+## Migration
+
+- get
+
+```bash
+dotnet ef migrations list --project GoVibe.Infrastructure --startup-project GoVibe.API 
+```
+
+- Add
+
+```bash
+dotnet ef migrations add InitialCreate --project GoVibe.Infrastructure --startup-project GoVibe.API
+```
+
+- update database
+
+```bash
+dotnet ef database update --project GoVibe.Infrastructure --startup-project GoVibe.API
+
+dotnet ef database update 0 --project GoVibe.Infrastructure --startup-project GoVibe.API 
+```
+
+- remove migration
+
+```bash
+dotnet ef migrations remove --project GoVibe.Infrastructure --startup-project GoVibe.API 
+```

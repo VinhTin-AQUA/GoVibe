@@ -1,10 +1,11 @@
 using GoVibe.Infrastructure.Data;
-using GoVibe.Infrastructure.Repositories.Addresses;
+using GoVibe.Infrastructure.Repositories.Amenities;
+using GoVibe.Infrastructure.Repositories.Categories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GoVibe.Infrastructure.Configurations
+namespace GoVibe.Infrastructure.Extensions
 {
     public static class DependencyInjection
     {
@@ -21,10 +22,11 @@ namespace GoVibe.Infrastructure.Configurations
             services.AddPooledDbContextFactory<AppDbContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("PostgresConnectionString")));
             
+            services.AddScoped<IAmenityCommandRepository, AmenityCommandRepository>();
+            services.AddScoped<IAmenityQueryRepository, AmenityQueryRepository>();
             
-            services.AddScoped<IAddressCommandRepository, AddressCommandRepository>();
-            services.AddScoped<IAddressQueryRepository, AddressQueryRepository>();
-
+            services.AddScoped<ICategoryCommandRepository, CategoryCommandRepository>();
+            services.AddScoped<ICategoryQueryRepository, CategoryQueryRepository>();
             return services;
         }
     }

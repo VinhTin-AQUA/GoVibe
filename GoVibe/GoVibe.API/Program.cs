@@ -1,4 +1,4 @@
-using GoVibe.Infrastructure.Configurations;
+using GoVibe.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
