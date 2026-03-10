@@ -151,3 +151,15 @@ dotnet ef database update 0 --project GoVibe.Infrastructure --startup-project Go
 ```bash
 dotnet ef migrations remove --project GoVibe.Infrastructure --startup-project GoVibe.API 
 ```
+
+## Frontend
+
+```bash
+ng new my-workspace --no-create-application
+
+cd my-workspace
+ng generate application my-app
+ng generate library my-lib
+
+ng s dashboard
+```

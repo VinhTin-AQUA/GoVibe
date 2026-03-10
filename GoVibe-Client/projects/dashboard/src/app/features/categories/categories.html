@@ -1,0 +1,135 @@
+<div class="p-6 bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-800">Category Management</h1>
+            <p class="text-sm text-gray-500">Manage product categories</p>
+        </div>
+
+        <button
+            (click)="openModal()"
+            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow"
+        >
+            + Add Category
+        </button>
+    </div>
+
+    <!-- Search -->
+    <div class="bg-white p-4 rounded-xl shadow mb-6">
+        <input
+            type="text"
+            placeholder="Search category..."
+            [(ngModel)]="search"
+            class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none"
+        />
+    </div>
+
+    <!-- Table -->
+    <div class="bg-white rounded-xl shadow overflow-hidden">
+        <table class="w-full text-left">
+            <thead class="bg-gray-100 text-gray-600 text-sm">
+                <tr>
+                    <th class="p-4">#</th>
+                    <th class="p-4">Category Name</th>
+                    <th class="p-4">Description</th>
+                    <th class="p-4">Status</th>
+                    <th class="p-4">Created</th>
+                    <th class="p-4 text-center">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for (c of categories; track $index) {
+                    <tr class="border-t hover:bg-gray-50">
+                        <td class="p-4">{{ $index + 1 }}</td>
+
+                        <td class="p-4 font-medium text-gray-700">
+                            {{ c.name }}
+                        </td>
+
+                        <td class="p-4 text-gray-500">
+                            {{ c.description }}
+                        </td>
+
+                        <td class="p-4">
+                            <span
+                                class="px-3 py-1 text-xs rounded-full"
+                                [ngClass]="{
+                                    'bg-green-100 text-green-600': c.active,
+                                    'bg-red-100 text-red-600': !c.active,
+                                }"
+                            >
+                                {{ c.active ? 'Active' : 'Inactive' }}
+                            </span>
+                        </td>
+
+                        <td class="p-4 text-gray-500">
+                            {{ c.createdAt | date }}
+                        </td>
+
+                        <td class="p-4 flex justify-center gap-2">
+                            <button
+                                (click)="editCategory(c)"
+                                class="px-3 py-1 text-sm bg-yellow-400 hover:bg-yellow-500 text-white rounded"
+                            >
+                                Edit
+                            </button>
+
+                            <button
+                                (click)="deleteCategory(c)"
+                                class="px-3 py-1 text-sm bg-red-500 hover:bg-red-600 text-white rounded"
+                            >
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    @if (showModal) {
+        <div class="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+            <div class="bg-white rounded-xl shadow-lg w-100 p-6">
+                <h2 class="text-lg font-semibold mb-4">
+                    {{ editing ? 'Edit Category' : 'Add Category' }}
+                </h2>
+
+                <div class="space-y-4">
+                    <input
+                        type="text"
+                        placeholder="Category Name"
+                        [(ngModel)]="form.name"
+                        class="w-full border rounded-lg px-3 py-2"
+                    />
+
+                    <textarea
+                        placeholder="Description"
+                        [(ngModel)]="form.description"
+                        class="w-full border rounded-lg px-3 py-2"
+                    >
+                    </textarea>
+
+                    <label class="flex items-center gap-2">
+                        <input type="checkbox" [(ngModel)]="form.active" />
+                        Active
+                    </label>
+                </div>
+
+                <div class="flex justify-end gap-2 mt-6">
+                    <button (click)="closeModal()" class="px-4 py-2 border rounded-lg">
+                        Cancel
+                    </button>
+
+                    <button
+                        (click)="saveCategory()"
+                        class="px-4 py-2 bg-blue-600 text-white rounded-lg"
+                    >
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
