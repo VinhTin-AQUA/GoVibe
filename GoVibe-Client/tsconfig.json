@@ -4,6 +4,11 @@
     "compileOnSave": false,
     "compilerOptions": {
         "strict": true,
+        "paths": {
+          "icons": [
+            "./dist/icons"
+          ]
+        },
         "noImplicitOverride": true,
         "noPropertyAccessFromIndexSignature": true,
         "noImplicitReturns": true,
@@ -34,6 +39,12 @@
       },
       {
         "path": "./projects/portal/tsconfig.spec.json"
+      },
+      {
+        "path": "./libs/icons/tsconfig.lib.json"
+      },
+      {
+        "path": "./libs/icons/tsconfig.spec.json"
       }
     ]
 }
