@@ -1,5 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36717.8 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoVibe.API", "GoVibe.API\GoVibe.API.csproj", "{F9724FFB-906C-4C34-831F-A4D23AD61F2A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoVibe.Domain", "GoVibe.Domain\GoVibe.Domain.csproj", "{9016DE2F-4DDA-48B4-A77B-5A0668952CAB}"
@@ -24,5 +27,11 @@ Global
 		{35AC2763-6FD9-47C4-A65D-4C36AE64B0E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35AC2763-6FD9-47C4-A65D-4C36AE64B0E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35AC2763-6FD9-47C4-A65D-4C36AE64B0E9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A41CF192-2806-4F7E-A410-0A16C0D9270E}
 	EndGlobalSection
 EndGlobal

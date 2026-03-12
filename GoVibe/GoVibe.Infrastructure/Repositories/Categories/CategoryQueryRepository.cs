@@ -2,24 +2,22 @@
 using GoVibe.Domain.Entities;
 using GoVibe.Infrastructure.Data;
 using GoVibe.Infrastructure.Repositories.Common;
-using GoVibe.Infrastructure.Repositories.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GoVibe.Infrastructure.Repositories.Categories
 {    
     public interface ICategoryQueryRepository : IQueryRepository<Category>
     {
-        Task<List<Category>> GetByMarkAsync();
+        Task<(List<Category>, int)> GetAllPagination(int pageIndex = 0, int pageSize = 50);
     }
     
     public class CategoryQueryRepository(IDbContextFactory<AppDbContext> contextFactory) : QueryRepository<Category>(contextFactory), ICategoryQueryRepository
     {
-        public async Task<List<Category>> GetByMarkAsync()
+        public async Task<(List<Category>, int)> GetAllPagination(int pageIndex = 0, int pageSize = 50)
         {
-            QueryOptionsBuilder<Category> builder = new();
-            // builder.Where(x => x.Mark == mark);
-            var r = await FilterAsync(builder.Build());
-            return r;
+            var r = await GetPagedAsync(pageIndex, pageSize);
+            var total = await CountAsync(x => true);
+            return (r, total);
         }
     }
 }

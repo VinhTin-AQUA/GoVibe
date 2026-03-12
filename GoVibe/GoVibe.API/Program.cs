@@ -1,3 +1,5 @@
+using GoVibe.API.Extensions;
+using GoVibe.API.Middlewares;
 using GoVibe.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddAutoMapperProfiles();
 builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
@@ -22,8 +25,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
