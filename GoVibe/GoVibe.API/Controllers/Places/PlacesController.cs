@@ -18,7 +18,7 @@ namespace GoVibe.API.Controllers.Places
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AddPlaceRequest request)
+        public async Task<IActionResult> Add([FromForm] AddPlaceRequest request)
         {
             var r = await placeService.Add(request);
             return Ok(new ApiResponse<object>

@@ -6,6 +6,7 @@ using GoVibe.Infrastructure.Repositories.PlaceImages;
 using GoVibe.Infrastructure.Repositories.Places;
 using GoVibe.Infrastructure.Repositories.ReviewImages;
 using GoVibe.Infrastructure.Repositories.Reviews;
+using GoVibe.Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +27,8 @@ namespace GoVibe.Infrastructure.Extensions
            
             services.AddPooledDbContextFactory<AppDbContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("PostgresConnectionString")));
+            
+            services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
             
             services.AddScoped<IAmenityCommandRepository, AmenityCommandRepository>();
             services.AddScoped<IAmenityQueryRepository, AmenityQueryRepository>();

@@ -1,4 +1,6 @@
-﻿using GoVibe.Domain.Entities;
+﻿using GoVibe.API.Models.Amenities;
+using GoVibe.API.Models.Reviews;
+using GoVibe.Domain.Entities;
 using GoVibe.Domain.Enums;
 
 namespace GoVibe.API.Models.Places
@@ -25,6 +27,10 @@ namespace GoVibe.API.Models.Places
         public int TotalReviews { get; set; }
         public EPlaceStatus Status { get; set; } = EPlaceStatus.None;
         public DateTime UpdatedAt { get; set; }
+        
+        public ICollection<PlaceImageModel> Images { get; set; } = [];
+        public ICollection<ReviewModel> Reviews { get; set; } = [];
+        public ICollection<AmenityModel> Amenities { get; set; } = [];
     }
 
     public class AddPlaceRequest
@@ -44,6 +50,9 @@ namespace GoVibe.API.Models.Places
         public string Website { get; set; } = "";
         public string OpeningHours { get; set; } = "";
         public EPlaceStatus Status { get; set; } = EPlaceStatus.None;
+        
+        public List<IFormFile> Images { get; set; } = [];
+        public List<string> AmenityIds { get; set; } = [];
     }
 
     public class UpdatePlaceRequest
@@ -62,6 +71,10 @@ namespace GoVibe.API.Models.Places
         public string Website { get; set; } = "";
         public string OpeningHours { get; set; } = "";
         public EPlaceStatus Status { get; set; } = EPlaceStatus.None;
+        
+        public List<IFormFile> Images { get; set; } = []; // new Image
+        public List<string> DeleteImages { get; set; } = []; // old images to remove
+        public List<string> AmenityIds { get; set; } = [];
     }
 
     public class DeleteManyPlacesRequest

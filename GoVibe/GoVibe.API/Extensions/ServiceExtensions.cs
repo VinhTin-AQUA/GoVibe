@@ -9,7 +9,8 @@ namespace GoVibe.API.Extensions
             services.AddScoped<CategoryService>();
             services.AddScoped<AmenityService>();
             services.AddScoped<PlaceService>();
-
+            services.AddScoped<ReviewService>();
+            
             return services;
         }
     }

@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
-using AutoMapper.Configuration.Conventions;
 using GoVibe.API.Exceptions;
 using GoVibe.API.Models;
 using GoVibe.API.Models.Places;
 using GoVibe.Domain.Entities;
 using GoVibe.Infrastructure.Repositories.Places;
-using System.Diagnostics.Metrics;
-using System.Numerics;
-using System.Xml.Linq;
+using GoVibe.Infrastructure.Repositories.PlaceAmenities;
+using GoVibe.Infrastructure.Repositories.PlaceImages;
+using GoVibe.Infrastructure.UnitOfWork;
 
 namespace GoVibe.API.Services
 {
@@ -15,46 +14,95 @@ namespace GoVibe.API.Services
     {
         private readonly IPlaceQueryRepository placeQueryRepository;
         private readonly IPlaceCommandRepository placeCommandRepository;
+        private readonly IPlaceImageCommandRepository placeImageCommandRepository;
+        private readonly IPlaceImageQueryRepository placeImageQueryRepository;
+        private readonly IPlaceAmenityCommandRepository placeAmenityCommandRepository;
+        private readonly IPlaceAmenityQueryRepository placeAmenityQueryRepository;
+        private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
 
         public PlaceService(
             IPlaceQueryRepository placeQueryRepository,
             IPlaceCommandRepository placeCommandRepository,
+            IPlaceImageCommandRepository  placeImageCommandRepository,
+            IPlaceImageQueryRepository placeImageQueryRepository,
+            IPlaceAmenityCommandRepository placeAmenityCommandRepository,
+            IPlaceAmenityQueryRepository placeAmenityQueryRepository,
+            IUnitOfWork unitOfWork,
             IMapper mapper)
         {
             this.placeQueryRepository = placeQueryRepository;
             this.placeCommandRepository = placeCommandRepository;
+            this.placeImageCommandRepository = placeImageCommandRepository;
+            this.placeImageQueryRepository = placeImageQueryRepository;
+            this.placeAmenityCommandRepository = placeAmenityCommandRepository;
+            this.placeAmenityQueryRepository = placeAmenityQueryRepository;
+            this.unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
 
         public async Task<PlaceModel> Add(AddPlaceRequest request)
         {
-            var nameExists = await placeQueryRepository.ExistsAsync((x) => x.Name.ToLower() == request.Name.ToLower());
-            if (nameExists)
+            try
             {
-                throw new ArgumentException("Place Name already exists");
+                await unitOfWork.BeginTransactionAsync();
+                var nameExists =
+                    await placeQueryRepository.ExistsAsync((x) => x.Name.ToLower() == request.Name.ToLower());
+                if (nameExists)
+                {
+                    throw new ArgumentException("Place Name already exists");
+                }
+
+                Place newPlace = new()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = request.Name,
+                    Description = request.Description,
+                    Street = request.Street,
+                    Ward = request.Ward,
+                    District = request.District,
+                    City = request.City,
+                    Country = request.Country,
+                    CategoryId = Guid.Parse(request.CategoryId),
+                    Phone = request.Phone,
+                    Website = request.Website,
+                    OpeningHours = request.OpeningHours,
+                    Status = request.Status,
+                };
+                await placeCommandRepository.AddAsync(newPlace);
+
+                List<PlaceImage> placeImages = [];
+                foreach (var image in request.Images)
+                {
+                    string url = ""; //
+                    PlaceImage placeImage = new()
+                    {
+                        PlaceId = newPlace.Id,
+                        ImageUrl = url,
+                    };
+                    placeImages.Add(placeImage);
+                }
+                await placeImageCommandRepository.AddRangeAsync(placeImages);
+
+                List<PlaceAmenity> placeAmenities = [];
+                foreach (var amenityId in request.AmenityIds)
+                {
+                    PlaceAmenity placeAmenity = new()
+                    {
+                        PlaceId = newPlace.Id,
+                        AmenityId = Guid.Parse(amenityId)
+                    };
+                    placeAmenities.Add(placeAmenity);
+                }
+                await placeAmenityCommandRepository.AddRangeAsync(placeAmenities);
+                await unitOfWork.CommitAsync();
+                return mapper.Map<PlaceModel>(newPlace);
             }
-
-            Place newPlace = new()
+            catch
             {
-                Name = request.Name,
-                Description = request.Description,
-                Street = request.Street,
-                Ward = request.Ward,
-                District = request.District,
-                City = request.City,
-                Country = request.Country,
-                CategoryId = Guid.Parse(request.CategoryId),
-                Phone = request.Phone,
-                Website = request.Website,
-                OpeningHours = request.OpeningHours,
-                Status = request.Status,
-            };
-
-            await placeCommandRepository.AddAsync(newPlace);
-            var r = await placeCommandRepository.SaveChangesAsync();
-
-            return mapper.Map<PlaceModel>(newPlace);
+                await unitOfWork.RollbackAsync();
+                throw;
+            }
         }
 
         public async Task<Pagination<PlaceModel>> GetAllPagination(int pageIndex = 0, int pageSize = 20)
@@ -72,29 +120,75 @@ namespace GoVibe.API.Services
 
         public async Task<PlaceModel> Update(UpdatePlaceRequest request)
         {
-            var place = await placeQueryRepository.GetByIdAsync(Guid.Parse(request.Id));
-            if (place == null)
+            try
             {
-                throw new NotFoundException("Amenty not found");
+                await unitOfWork.BeginTransactionAsync();
+                var place = await placeQueryRepository.GetPlaceByIdIncludePlaceAmenities(Guid.Parse(request.Id));
+                if (place == null)
+                {
+                    throw new NotFoundException("Amenty not found");
+                }
+
+                place.Name = request.Name;
+                place.Description = request.Description;
+                place.Street = request.Street;
+                place.Ward = request.Ward;
+                place.District = request.District;
+                place.City = request.City;
+                place.Country = request.Country;
+                place.CategoryId = Guid.Parse(request.CategoryId);
+                place.Phone = request.Phone;
+                place.Website = request.Website;
+                place.OpeningHours = request.OpeningHours;
+                place.Status = request.Status;
+                await placeCommandRepository.UpdateAsync(place);
+
+                List<PlaceImage> placeImages = [];
+                foreach (var image in request.Images)
+                {
+                    string url = ""; //
+                    PlaceImage placeImage = new()
+                    {
+                        PlaceId = place.Id,
+                        ImageUrl = url,
+                    };
+                    placeImages.Add(placeImage);
+                }
+                await placeImageCommandRepository.AddRangeAsync(placeImages);
+
+                foreach (var deleteImage in request.DeleteImages)
+                {
+                    // remove deleteImage in storage
+                }
+                await placeImageCommandRepository.DeleteRangeAsync(request.DeleteImages.Select(x => Guid.Parse(x)));
+                
+                // public List<string> AmenityIds { get; set; } = [];
+                var oldAmenityIds = place.PlaceAmenities.Select(x => x.AmenityId.ToString()).ToList();
+                var removeAmenityIds = oldAmenityIds.Except(request.AmenityIds).ToList();
+                var addAmenityIds = request.AmenityIds.Except(oldAmenityIds).ToList();
+                
+                await placeAmenityCommandRepository.DeleteRangeAsync(removeAmenityIds.Select(x => Guid.Parse(x)));
+                
+                List<PlaceAmenity> placeAmenities = [];
+                foreach (var amenityId in addAmenityIds)
+                {
+                    PlaceAmenity placeAmenity = new()
+                    {
+                        PlaceId = place.Id,
+                        AmenityId = Guid.Parse(amenityId)
+                    };
+                    placeAmenities.Add(placeAmenity);
+                }
+                await placeAmenityCommandRepository.AddRangeAsync(placeAmenities);
+                
+                await unitOfWork.CommitAsync();
+                return mapper.Map<PlaceModel>(place);
             }
-
-            place.Name = request.Name;
-            place.Description = request.Description;
-            place.Street = request.Street;
-            place.Ward = request.Ward;
-            place.District = request.District;
-            place.City = request.City;
-            place.Country = request.Country;
-            place.CategoryId = Guid.Parse(request.CategoryId);
-            place.Phone = request.Phone;
-            place.Website = request.Website;
-            place.OpeningHours = request.OpeningHours;
-            place.Status = request.Status;
-
-            await placeCommandRepository.UpdateAsync(place);
-            var r = await placeCommandRepository.SaveChangesAsync();
-
-            return mapper.Map<PlaceModel>(place);
+            catch
+            {
+                await unitOfWork.RollbackAsync();
+                throw;
+            }
         }
 
         public async Task<PlaceModel> Delete(string id)

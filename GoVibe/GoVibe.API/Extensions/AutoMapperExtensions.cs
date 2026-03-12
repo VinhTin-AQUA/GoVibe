@@ -10,6 +10,8 @@ namespace GoVibe.API.Extensions
             typeof(CategoryProfile),
             typeof(AmenityProfile),
             typeof(PlaceProfile),
+            typeof(PlaceImageProfile),
+            typeof(ReviewProfile)
         ];
 
         public static IServiceCollection AddAutoMapperProfiles(this IServiceCollection services)

@@ -6,6 +6,5 @@ namespace GoVibe.Domain.Entities
         public Place? Place { get; set; }
         
         public string ImageUrl { get; set; } = "";
-        public string Caption { get; set; } = "";
     }
 }
