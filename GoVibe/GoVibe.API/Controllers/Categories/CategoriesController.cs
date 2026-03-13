@@ -26,7 +26,7 @@ namespace GoVibe.API.Controllers.Categories
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll(int pageIndex = 0, int pageSize = 20)
+        public async Task<IActionResult> GetAll(int pageIndex = 1, int pageSize = 20)
         {
             var r = await categoryService.GetAllPagination(pageIndex, pageSize);
             return Ok(new ApiResponse<object>

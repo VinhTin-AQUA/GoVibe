@@ -9,13 +9,13 @@ namespace GoVibe.API.Services
 {
     public class AmenityService
     {
-        private readonly AmenityQueryRepository amenityQueryRepository;
-        private readonly AmenityCommandRepository amenityCommandRepository;
+        private readonly IAmenityQueryRepository amenityQueryRepository;
+        private readonly IAmenityCommandRepository amenityCommandRepository;
         private readonly IMapper mapper;
 
         public AmenityService(
-            AmenityQueryRepository amenityQueryRepository,
-            AmenityCommandRepository amenityCommandRepository,
+            IAmenityQueryRepository amenityQueryRepository,
+            IAmenityCommandRepository amenityCommandRepository,
             IMapper mapper)
         {
             this.amenityQueryRepository = amenityQueryRepository;
@@ -40,6 +40,8 @@ namespace GoVibe.API.Services
 
         public async Task<Pagination<AmenityModel>> GetAllPagination(int pageIndex = 0, int pageSize = 20)
         {
+            pageIndex = Math.Max(pageIndex, 1);   // >= 1
+            pageSize = Math.Min(pageSize, 50);    // <= 50
             (List<Amenity> amenities, int total) = await amenityQueryRepository.GetAllPagination(pageIndex, pageSize);
 
             return new Pagination<AmenityModel>

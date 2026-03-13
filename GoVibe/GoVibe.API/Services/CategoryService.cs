@@ -37,8 +37,11 @@ namespace GoVibe.API.Services
             return mapper.Map<CategoryModel>(newCategory);
         }
 
-        public async Task<Pagination<CategoryModel>> GetAllPagination(int pageIndex = 0, int pageSize = 20)
+        public async Task<Pagination<CategoryModel>> GetAllPagination(int pageIndex = 1, int pageSize = 20)
         {
+            pageIndex = Math.Max(pageIndex, 1);   // >= 1
+            pageSize = Math.Min(pageSize, 50);    // <= 50
+
             (List<Category> categories, int total) = await categoryQueryRepository.GetAllPagination(pageIndex, pageSize);
 
             return new Pagination<CategoryModel>

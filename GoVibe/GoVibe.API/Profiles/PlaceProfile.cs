@@ -9,6 +9,7 @@ namespace GoVibe.API.Profiles
         public PlaceProfile()
         {
             CreateMap<Place, PlaceModel>();
+            CreateMap<Place, PlaceDetailsModel>();
         }
     }
 }

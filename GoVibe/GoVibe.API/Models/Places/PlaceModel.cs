@@ -1,11 +1,24 @@
 ﻿using GoVibe.API.Models.Amenities;
+using GoVibe.API.Models.Categories;
 using GoVibe.API.Models.Reviews;
-using GoVibe.Domain.Entities;
 using GoVibe.Domain.Enums;
 
 namespace GoVibe.API.Models.Places
 {
     public class PlaceModel
+    {
+        public string Id { get; set; } = "";
+        public string Name { get; set; } = "";
+
+        public CategoryModel? Category { get; set; }
+
+        public double AverageRating { get; set; }
+        public int TotalReviews { get; set; }
+        public EPlaceStatus Status { get; set; } = EPlaceStatus.None;
+        public DateTime UpdatedAt { get; set; }
+    }
+
+    public class PlaceDetailsModel
     {
         public string Id { get; set; } = "";
         public string Name { get; set; } = "";
@@ -17,8 +30,7 @@ namespace GoVibe.API.Models.Places
         public string City { get; set; } = "";
         public string Country { get; set; } = "";
 
-        public string CategoryId { get; set; } = "";
-        public Category? Category { get; set; }
+        public CategoryModel? Category { get; set; }
 
         public string Phone { get; set; } = "";
         public string Website { get; set; } = "";

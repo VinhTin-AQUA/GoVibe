@@ -46,8 +46,7 @@ namespace GoVibe.API.Services
             try
             {
                 await unitOfWork.BeginTransactionAsync();
-                var nameExists =
-                    await placeQueryRepository.ExistsAsync((x) => x.Name.ToLower() == request.Name.ToLower());
+                var nameExists = await placeQueryRepository.ExistsAsync((x) => x.Name.ToLower() == request.Name.ToLower());
                 if (nameExists)
                 {
                     throw new ArgumentException("Place Name already exists");
@@ -107,6 +106,8 @@ namespace GoVibe.API.Services
 
         public async Task<Pagination<PlaceModel>> GetAllPagination(int pageIndex = 0, int pageSize = 20)
         {
+            pageIndex = Math.Max(pageIndex, 1);   // >= 1
+            pageSize = Math.Min(pageSize, 50);    // <= 50
             (List<Place> places, int total) = await placeQueryRepository.GetAllPagination(pageIndex, pageSize);
 
             return new Pagination<PlaceModel>
@@ -118,12 +119,22 @@ namespace GoVibe.API.Services
             };
         }
 
+        public async Task<PlaceDetailsModel> Get(string id)
+        {
+            var place = await placeQueryRepository.GetByIdAsync(Guid.Parse(id), false, [x => x.Category, x => x.Images, x => x.Reviews, x => x.PlaceAmenities]);
+            if (place == null)
+            {
+                throw new NotFoundException("Place not found");
+            }
+            return mapper.Map<PlaceDetailsModel>(place);
+        }
+
         public async Task<PlaceModel> Update(UpdatePlaceRequest request)
         {
             try
             {
                 await unitOfWork.BeginTransactionAsync();
-                var place = await placeQueryRepository.GetPlaceByIdIncludePlaceAmenities(Guid.Parse(request.Id));
+                var place = await placeQueryRepository.GetByIdAsync(Guid.Parse(request.Id), false, [x => x.PlaceAmenities, (x) => x.Category]);
                 if (place == null)
                 {
                     throw new NotFoundException("Amenty not found");
