@@ -4,7 +4,6 @@ using GoVibe.API.Models;
 using GoVibe.API.Models.Places;
 using GoVibe.Domain.Entities;
 using GoVibe.Infrastructure.Repositories.Places;
-using GoVibe.Infrastructure.Repositories.PlaceAmenities;
 using GoVibe.Infrastructure.Repositories.PlaceImages;
 using GoVibe.Infrastructure.UnitOfWork;
 
@@ -16,8 +15,6 @@ namespace GoVibe.API.Services
         private readonly IPlaceCommandRepository placeCommandRepository;
         private readonly IPlaceImageCommandRepository placeImageCommandRepository;
         private readonly IPlaceImageQueryRepository placeImageQueryRepository;
-        private readonly IPlaceAmenityCommandRepository placeAmenityCommandRepository;
-        private readonly IPlaceAmenityQueryRepository placeAmenityQueryRepository;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
 
@@ -26,8 +23,6 @@ namespace GoVibe.API.Services
             IPlaceCommandRepository placeCommandRepository,
             IPlaceImageCommandRepository  placeImageCommandRepository,
             IPlaceImageQueryRepository placeImageQueryRepository,
-            IPlaceAmenityCommandRepository placeAmenityCommandRepository,
-            IPlaceAmenityQueryRepository placeAmenityQueryRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper)
         {
@@ -35,8 +30,6 @@ namespace GoVibe.API.Services
             this.placeCommandRepository = placeCommandRepository;
             this.placeImageCommandRepository = placeImageCommandRepository;
             this.placeImageQueryRepository = placeImageQueryRepository;
-            this.placeAmenityCommandRepository = placeAmenityCommandRepository;
-            this.placeAmenityQueryRepository = placeAmenityQueryRepository;
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
@@ -82,18 +75,6 @@ namespace GoVibe.API.Services
                     placeImages.Add(placeImage);
                 }
                 await placeImageCommandRepository.AddRangeAsync(placeImages);
-
-                List<PlaceAmenity> placeAmenities = [];
-                foreach (var amenityId in request.AmenityIds)
-                {
-                    PlaceAmenity placeAmenity = new()
-                    {
-                        PlaceId = newPlace.Id,
-                        AmenityId = Guid.Parse(amenityId)
-                    };
-                    placeAmenities.Add(placeAmenity);
-                }
-                await placeAmenityCommandRepository.AddRangeAsync(placeAmenities);
                 await unitOfWork.CommitAsync();
                 return mapper.Map<PlaceModel>(newPlace);
             }
@@ -121,7 +102,7 @@ namespace GoVibe.API.Services
 
         public async Task<PlaceDetailsModel> Get(string id)
         {
-            var place = await placeQueryRepository.GetByIdAsync(Guid.Parse(id), false, [x => x.Category, x => x.Images, x => x.Reviews, x => x.PlaceAmenities]);
+            var place = await placeQueryRepository.GetByIdAsync(Guid.Parse(id), false, [x => x.Category, x => x.Images, x => x.Reviews]);
             if (place == null)
             {
                 throw new NotFoundException("Place not found");
@@ -134,7 +115,7 @@ namespace GoVibe.API.Services
             try
             {
                 await unitOfWork.BeginTransactionAsync();
-                var place = await placeQueryRepository.GetByIdAsync(Guid.Parse(request.Id), false, [x => x.PlaceAmenities, (x) => x.Category]);
+                var place = await placeQueryRepository.GetByIdAsync(Guid.Parse(request.Id), false, [(x) => x.Category]);
                 if (place == null)
                 {
                     throw new NotFoundException("Amenty not found");
@@ -172,25 +153,6 @@ namespace GoVibe.API.Services
                     // remove deleteImage in storage
                 }
                 await placeImageCommandRepository.DeleteRangeAsync(request.DeleteImages.Select(x => Guid.Parse(x)));
-                
-                // public List<string> AmenityIds { get; set; } = [];
-                var oldAmenityIds = place.PlaceAmenities.Select(x => x.AmenityId.ToString()).ToList();
-                var removeAmenityIds = oldAmenityIds.Except(request.AmenityIds).ToList();
-                var addAmenityIds = request.AmenityIds.Except(oldAmenityIds).ToList();
-                
-                await placeAmenityCommandRepository.DeleteRangeAsync(removeAmenityIds.Select(x => Guid.Parse(x)));
-                
-                List<PlaceAmenity> placeAmenities = [];
-                foreach (var amenityId in addAmenityIds)
-                {
-                    PlaceAmenity placeAmenity = new()
-                    {
-                        PlaceId = place.Id,
-                        AmenityId = Guid.Parse(amenityId)
-                    };
-                    placeAmenities.Add(placeAmenity);
-                }
-                await placeAmenityCommandRepository.AddRangeAsync(placeAmenities);
                 
                 await unitOfWork.CommitAsync();
                 return mapper.Map<PlaceModel>(place);

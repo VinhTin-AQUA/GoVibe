@@ -24,6 +24,5 @@ namespace GoVibe.Domain.Entities
         public EPlaceStatus Status { get; set; } = EPlaceStatus.None;
         public ICollection<PlaceImage> Images { get; set; } = [];
         public ICollection<Review> Reviews { get; set; } = [];
-        public ICollection<PlaceAmenity> PlaceAmenities { get; set; } = [];
     }
 }

@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { Icons, IconNames } from 'icons';
 import { MenuItem } from './models/menu-item';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
     selector: 'app-sidebar',
-    imports: [CommonModule, Icons, RouterLink],
+    imports: [CommonModule, Icons, RouterLink, RouterLinkActive],
     templateUrl: './sidebar.html',
     styleUrl: './sidebar.css',
 })

@@ -7,7 +7,6 @@ namespace GoVibe.API.Extensions
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddScoped<CategoryService>();
-            services.AddScoped<AmenityService>();
             services.AddScoped<PlaceService>();
             services.AddScoped<ReviewService>();
             

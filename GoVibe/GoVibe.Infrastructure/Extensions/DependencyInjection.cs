@@ -1,7 +1,5 @@
 using GoVibe.Infrastructure.Data;
-using GoVibe.Infrastructure.Repositories.Amenities;
 using GoVibe.Infrastructure.Repositories.Categories;
-using GoVibe.Infrastructure.Repositories.PlaceAmenities;
 using GoVibe.Infrastructure.Repositories.PlaceImages;
 using GoVibe.Infrastructure.Repositories.Places;
 using GoVibe.Infrastructure.Repositories.ReviewImages;
@@ -30,17 +28,11 @@ namespace GoVibe.Infrastructure.Extensions
             
             services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
             
-            services.AddScoped<IAmenityCommandRepository, AmenityCommandRepository>();
-            services.AddScoped<IAmenityQueryRepository, AmenityQueryRepository>();
-            
             services.AddScoped<ICategoryCommandRepository, CategoryCommandRepository>();
             services.AddScoped<ICategoryQueryRepository, CategoryQueryRepository>();
                 
             services.AddScoped<IPlaceCommandRepository, PlaceCommandRepository>();
             services.AddScoped<IPlaceQueryRepository, PlaceQueryRepository>();
-            
-            services.AddScoped<IPlaceAmenityCommandRepository, PlaceAmenityCommandRepository>();
-            services.AddScoped<IPlaceAmenityQueryRepository, PlaceAmenityQueryRepository>();
             
             services.AddScoped<IPlaceImageCommandRepository, PlaceImageCommandRepository>();
             services.AddScoped<IPlaceImageQueryRepository, PlaceImageQueryRepository>();

@@ -9,9 +9,7 @@ namespace GoVibe.Infrastructure.Data
         {
         }
 
-        public DbSet<Amenity> Amenities { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<PlaceAmenity> PlaceAmenities { get; set; }
         public DbSet<PlaceImage> PlaceImages { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<ReviewImage> ReviewImages { get; set; }

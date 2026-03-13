@@ -8,7 +8,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ddba8ae6-6af0-467c-823f-aef2c114acc4" name="Changes" comment="" />
+    <list default="true" id="ddba8ae6-6af0-467c-823f-aef2c114acc4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/app.html" beforeDir="false" afterPath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/app.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/app.routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/features/categories/categories.html" beforeDir="false" afterPath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/features/categories/categories.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/shared/components/sidebar/sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/shared/components/sidebar/sidebar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/shared/components/sidebar/sidebar.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/shared/components/sidebar/sidebar.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,29 +40,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.GoVibe: https.executor": "Debug",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.GoVibe: https.executor&quot;: &quot;Debug&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "GitStage.ChangesTree.GroupingKeys": [
-      "directory",
-      "module",
-      "repository"
+  &quot;keyToStringList&quot;: {
+    &quot;GitStage.ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;,
+      &quot;module&quot;,
+      &quot;repository&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.GoVibe: https">
     <configuration name="GoVibe: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/GoVibe.API/GoVibe.API.csproj" />
@@ -132,6 +138,7 @@
       <workItem from="1773067658466" duration="3240000" />
       <workItem from="1773153701346" duration="2155000" />
       <workItem from="1773330607111" duration="2825000" />
+      <workItem from="1773414319595" duration="2547000" />
     </task>
     <servers />
   </component>

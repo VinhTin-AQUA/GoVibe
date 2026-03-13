@@ -41,6 +41,7 @@
                 <a
                     [routerLink]="item.url"
                     routerLinkActive="bg-gray-700"
+                    [routerLinkActiveOptions]="{ exact: true }"
                     class="flex items-center gap-3 w-full p-2 rounded-lg hover:bg-gray-700 transition-colors"
                 >
                     <lib-icons [iconName]="item.icon" class="size-6"></lib-icons>

@@ -8,7 +8,6 @@ namespace GoVibe.API.Extensions
         private static readonly List<Type> types = 
         [
             typeof(CategoryProfile),
-            typeof(AmenityProfile),
             typeof(PlaceProfile),
             typeof(PlaceImageProfile),
             typeof(ReviewProfile)
