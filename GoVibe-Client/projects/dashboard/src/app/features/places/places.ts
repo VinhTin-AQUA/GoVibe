@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UpsertPlace } from "./components/upsert-place/upsert-place";
-import { TextEditor } from "../../shared/components/text-editor/text-editor";
 
 interface Place {
     id: string;
@@ -24,7 +23,7 @@ interface CategoryModel {
 
 @Component({
     selector: 'app-places',
-    imports: [FormsModule, CommonModule, UpsertPlace, TextEditor],
+    imports: [FormsModule, CommonModule, UpsertPlace],
     templateUrl: './places.html',
     styleUrl: './places.css',
 })

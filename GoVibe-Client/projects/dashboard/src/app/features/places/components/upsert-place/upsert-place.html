@@ -3,7 +3,7 @@
 >
     <h1 class="text-3xl font-semibold mb-8 text-gray-800 border-b pb-4">Add Place</h1>
 
-    <form class="grid grid-cols-4 gap-1">
+    <div class="grid grid-cols-4 gap-1">
         <lib-text-input
             class="col-span-4"
             label="Name"
@@ -37,11 +37,7 @@
             value="Arrial"
         ></lib-select-box>
 
-        <lib-text-area
-            class="col-span-4"
-            [label]="'Description'"
-            [formField]="placeForm.description"
-        ></lib-text-area>
+        <app-text-editor class="col-span-4" [formField]="placeForm.description"></app-text-editor>
 
         <div class="col-span-4 flex justify-end gap-4 pt-6 border-t">
             <button
@@ -59,5 +55,5 @@
                 Save
             </button>
         </div>
-    </form>
+    </div>
 </div>

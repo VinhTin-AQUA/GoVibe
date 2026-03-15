@@ -1,16 +1,19 @@
 import { Component, signal } from '@angular/core';
 import { form, FormField, required } from '@angular/forms/signals';
-import { TextInput, SelectBox, TextArea } from 'components';
+import { TextInput, SelectBox, TextEditor } from 'components';
 import { PlaceFormModel } from '../../models/add-place-model';
 import { OptionModel } from 'govibe-core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-upsert-place',
-    imports: [FormField, TextInput, SelectBox, TextArea],
+    imports: [FormField, TextInput, SelectBox, TextEditor, FormsModule],
     templateUrl: './upsert-place.html',
     styleUrl: './upsert-place.css',
 })
 export class UpsertPlace {
+    content: string = '';
+
     categories = signal<OptionModel[]>([
         {
             label: 'A',
@@ -63,5 +66,6 @@ export class UpsertPlace {
 
     save() {
         console.log('Form Value:', this.placeForm().value());
+        // console.log(this.content);
     }
 }
