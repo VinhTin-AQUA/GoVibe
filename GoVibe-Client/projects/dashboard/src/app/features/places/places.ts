@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { UpsertPlace } from "./components/upsert-place/upsert-place";
+import { UpsertPlace } from './components/upsert-place/upsert-place';
 
 interface Place {
     id: string;
@@ -29,7 +29,8 @@ interface CategoryModel {
 })
 export class Places {
     search = '';
-    showModal = false;
+    showUpsertModal = signal<boolean>(false);
+    d = signal<boolean>(false);
     editing = false;
 
     places: Place[] = [
@@ -183,7 +184,7 @@ export class Places {
     };
 
     openModal() {
-        this.showModal = true;
+        this.showUpsertModal.set(true);
         this.editing = false;
 
         this.form = {
@@ -195,11 +196,11 @@ export class Places {
     }
 
     closeModal() {
-        this.showModal = false;
+        this.showUpsertModal.set(false);
     }
 
     editPlace(place: Place) {
-        this.showModal = true;
+        this.showUpsertModal.set(true);
         this.editing = true;
         this.form = { ...place };
     }

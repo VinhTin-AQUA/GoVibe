@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import { form, FormField, required } from '@angular/forms/signals';
 import { TextInput, SelectBox, TextEditor } from 'components';
 import { PlaceFormModel } from '../../models/add-place-model';
@@ -13,6 +13,12 @@ import { FormsModule } from '@angular/forms';
 })
 export class UpsertPlace {
     content: string = '';
+
+    @Output() closePopup = new EventEmitter<void>();
+
+    handleClosePopup() {
+        this.closePopup.emit();
+    }
 
     categories = signal<OptionModel[]>([
         {
