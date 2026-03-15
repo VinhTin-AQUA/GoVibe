@@ -7,7 +7,7 @@
         "build": "ng build",
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
-        "build-all-lib": "ng build icons && ng build components"
+        "build-all-lib": "ng build icons && ng build components && ng build govibe-core"
     },
     "prettier": {
         "printWidth": 100,

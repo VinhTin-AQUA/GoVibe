@@ -3,13 +3,15 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../out-tsc/app",
+    "outDir": "../../out-tsc/lib",
+    "declaration": true,
+    "declarationMap": true,
     "types": []
   },
   "include": [
     "src/**/*.ts"
-, "../../libs/govibecore/src/lib/models/category-model.ts", "../../libs/govibecore/src/lib/models/option-model.ts", "../../libs/govibecore/src/lib/models/place-model.ts"  ],
+  ],
   "exclude": [
-    "src/**/*.spec.ts"
+    "**/*.spec.ts"
   ]
 }

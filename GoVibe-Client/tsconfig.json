@@ -8,6 +8,9 @@
           "components": [
             "./dist/components"
           ],
+          "govibe-core": [
+            "./dist/govibe-core"
+          ],
           "icons": [
             "./dist/icons"
           ]
@@ -54,6 +57,12 @@
       },
       {
         "path": "./libs/components/tsconfig.spec.json"
+      },
+      {
+        "path": "./libs/govibecore/tsconfig.lib.json"
+      },
+      {
+        "path": "./libs/govibecore/tsconfig.spec.json"
       }
     ]
 }

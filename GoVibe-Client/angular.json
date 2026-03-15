@@ -183,6 +183,32 @@
           }
         }
       }
+    },
+    "govibe-core": {
+      "projectType": "library",
+      "root": "libs/govibecore",
+      "sourceRoot": "libs/govibecore/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/govibecore/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/govibecore/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "libs/govibecore/tsconfig.spec.json"
+          }
+        }
+      }
     }
   }
 }

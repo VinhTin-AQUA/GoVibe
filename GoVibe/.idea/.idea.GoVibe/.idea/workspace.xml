@@ -8,13 +8,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ddba8ae6-6af0-467c-823f-aef2c114acc4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/app.html" beforeDir="false" afterPath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/app.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/app.routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/features/categories/categories.html" beforeDir="false" afterPath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/features/categories/categories.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/shared/components/sidebar/sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/shared/components/sidebar/sidebar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/shared/components/sidebar/sidebar.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/shared/components/sidebar/sidebar.ts" afterDir="false" />
-    </list>
+    <list default="true" id="ddba8ae6-6af0-467c-823f-aef2c114acc4" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -139,6 +133,7 @@
       <workItem from="1773153701346" duration="2155000" />
       <workItem from="1773330607111" duration="2825000" />
       <workItem from="1773414319595" duration="2547000" />
+      <workItem from="1773547844597" duration="623000" />
     </task>
     <servers />
   </component>

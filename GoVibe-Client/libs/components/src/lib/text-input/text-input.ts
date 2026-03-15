@@ -2,7 +2,7 @@ import { Component, EventEmitter, forwardRef, Input, Output, signal } from '@ang
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FieldTree, FormField } from '@angular/forms/signals';
 
-export interface OptionModel<T = any> {
+interface OptionModel<T = any> {
     label: string;
     value: T;
 }

@@ -1,0 +1,81 @@
+@layer components {
+    /* Wrapper */
+    .textarea-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    /* Label */
+    .textarea-label {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--foreground);
+    }
+
+    /* Base textarea */
+    .textarea {
+        width: 100%;
+        padding: 10px 14px;
+        font-size: 14px;
+        border-radius: 10px;
+        border: 1px solid var(--brightWhite);
+        background: var(--background);
+        color: var(--foreground);
+        transition: all 0.2s ease;
+        outline: none;
+    }
+
+    /* Placeholder */
+    .textarea::placeholder {
+        color: var(--white);
+    }
+
+    /* Hover */
+    .textarea:hover {
+        border-color: var(--brightBlack);
+    }
+
+    /* Focus */
+    .textarea:focus {
+        border-color: var(--blue);
+        /* box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue) 20%, transparent); */
+    }
+
+    /* Disabled */
+    .textarea:disabled {
+        background: color-mix(in srgb, var(--background) 90%, var(--brightWhite));
+        color: var(--white);
+        cursor: not-allowed;
+    }
+
+    /* SUCCESS */
+    .textarea-success {
+        border-color: var(--green);
+    }
+
+    .textarea-success:focus {
+        border-color: var(--brightGreen);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 20%, transparent);
+    }
+
+    /* ERROR */
+    .textarea-error {
+        border-color: var(--red);
+    }
+
+    .textarea-error:focus {
+        border-color: var(--brightRed);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--red) 20%, transparent);
+    }
+
+    /* WARNING */
+    .textarea-warning {
+        border-color: var(--yellow);
+    }
+
+    .textarea-warning:focus {
+        border-color: var(--brightYellow);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--yellow) 20%, transparent);
+    }
+}
