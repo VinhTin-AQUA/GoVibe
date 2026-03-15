@@ -7,7 +7,7 @@
         "build": "ng build",
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
-        "build-all-lib": "ng build icons"
+        "build-all-lib": "ng build icons && ng build components"
     },
     "prettier": {
         "printWidth": 100,

@@ -5,6 +5,9 @@
     "compilerOptions": {
         "strict": true,
         "paths": {
+          "components": [
+            "./dist/components"
+          ],
           "icons": [
             "./dist/icons"
           ]
@@ -45,6 +48,12 @@
       },
       {
         "path": "./libs/icons/tsconfig.spec.json"
+      },
+      {
+        "path": "./libs/components/tsconfig.lib.json"
+      },
+      {
+        "path": "./libs/components/tsconfig.spec.json"
       }
     ]
 }

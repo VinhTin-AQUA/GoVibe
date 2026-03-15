@@ -1,43 +1,38 @@
 import { Component, signal } from '@angular/core';
 import { form, FormField, required } from '@angular/forms/signals';
+import { TextInput } from 'components';
 
 export interface PlaceFormModel {
-    street: string;
-    city: string;
     name: string;
     phone: string;
-    district: string;
-    status: number;
+    address: string;
     country: string;
+    status: number;
     openingHours: string;
     images: File[];
     categoryId: string;
     website: string;
-    ward: string;
     description: string;
     amenityIds: string[];
 }
 
 @Component({
     selector: 'app-upsert-place',
-    imports: [FormField],
+    imports: [FormField, TextInput],
     templateUrl: './upsert-place.html',
     styleUrl: './upsert-place.css',
 })
 export class UpsertPlace {
     model = signal<PlaceFormModel>({
-        street: '',
-        city: '',
         name: '',
         phone: '',
-        district: '',
+        address: '',
         status: 1,
         country: '',
         openingHours: '',
         images: [],
         categoryId: '',
         website: '',
-        ward: '',
         description: '',
         amenityIds: [],
     });

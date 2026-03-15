@@ -161,5 +161,7 @@ cd my-workspace
 ng generate application my-app
 ng generate library my-lib
 
+ng g library components --project-root=libs/components;
+
 ng s dashboard
 ```
