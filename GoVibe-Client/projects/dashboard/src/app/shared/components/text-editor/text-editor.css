@@ -1,0 +1,98 @@
+.editor-wrapper {
+    height: 80vh;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    background: var(--background);
+    color: var(--foreground);
+    border: 1px solid var(--brightWhite);
+}
+
+.editor {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* toolbar */
+.editor ::ng-deep .ql-toolbar {
+    border: none;
+    flex-shrink: 0;
+    background: var(--background);
+    border-bottom: 1px solid var(--brightWhite);
+}
+
+/* toolbar icons */
+.editor ::ng-deep .ql-toolbar button {
+    color: var(--brightBlack);
+}
+
+.editor ::ng-deep .ql-toolbar button:hover {
+    color: var(--blue);
+}
+
+.editor ::ng-deep .ql-toolbar button.ql-active {
+    color: var(--brightBlue);
+}
+
+/* dropdown labels */
+.editor ::ng-deep .ql-picker-label {
+    color: var(--brightBlack);
+}
+
+.editor ::ng-deep .ql-picker-options {
+    background: var(--background);
+    border: 1px solid var(--brightWhite);
+}
+
+/* container */
+.editor ::ng-deep .ql-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border: none;
+    overflow: hidden;
+}
+
+/* editor content */
+.editor ::ng-deep .ql-editor {
+    flex: 1;
+    overflow-y: auto;
+    /* padding: 20px; */
+
+    font-size: 15px;
+    line-height: 1.6;
+
+    background: var(--background);
+    color: var(--foreground);
+    caret-color: var(--cursor);
+}
+
+/* links */
+.editor ::ng-deep .ql-editor a {
+    color: var(--blue);
+}
+
+/* selection */
+.editor ::ng-deep .ql-editor::selection {
+    background: var(--selectionBackground);
+    color: var(--selectionForeground);
+}
+
+/* scrollbar */
+.editor ::ng-deep .ql-editor::-webkit-scrollbar {
+    width: 8px;
+}
+
+.editor ::ng-deep .ql-editor::-webkit-scrollbar-thumb {
+    background: var(--brightWhite);
+    border-radius: 6px;
+}
+
+.editor ::ng-deep .ql-editor::-webkit-scrollbar-thumb:hover {
+    background: var(--brightBlack);
+}
