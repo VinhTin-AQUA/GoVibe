@@ -1,0 +1,26 @@
+.place-page {
+    background: var(--background);
+    color: var(--foreground);
+}
+
+/* modal overlay */
+
+.modal-overlay {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+}
+
+/* table rows */
+
+.table-head {
+    background: var(--selectionInactiveBackground);
+    color: var(--white);
+}
+
+.table-row {
+    border-top: 1px solid var(--brightWhite);
+}
+
+.table-row:hover {
+    background: var(--selectionBackground);
+}

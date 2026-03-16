@@ -1,22 +1,22 @@
-<div class="fixed inset-0 bg-black/40 flex items-center justify-center z-50 animate-fadeIn">
+<div class="modal-overlay fixed inset-0 flex items-center justify-center z-50 animate-fadeIn">
     <div
-        class="bg-white w-200 max-h-[85vh] rounded-xl shadow-xl p-6 animate-popupOpen flex flex-col"
+        class="review-modal w-200 max-h-[85vh] rounded-xl shadow-xl p-6 animate-popupOpen flex flex-col"
     >
         <!-- Header -->
         <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-semibold">Đánh giá sản phẩm ({{ totalComments }})</h2>
+            <h2 class="text-xl font-semibold">Product Reviews ({{ totalComments }})</h2>
 
-            <button (click)="onClose()" class="text-gray-400 hover:text-black text-xl">✕</button>
+            <button (click)="onClose()" class="modal-close text-xl">✕</button>
         </div>
 
         <!-- Rating summary -->
         <div class="flex gap-6 mb-6">
             <div class="text-center w-32">
-                <div class="text-4xl font-bold text-orange-500">
+                <div class="rating-score text-4xl font-bold">
                     {{ averageRating }}
                 </div>
 
-                <div class="text-sm text-gray-500">{{ totalComments }} đánh giá</div>
+                <div class="text-sm text-muted">{{ totalComments }} reviews</div>
             </div>
 
             <!-- Breakdown -->
@@ -25,14 +25,14 @@
                     <div class="flex items-center gap-2 text-sm mb-1">
                         <span class="w-6">{{ star }}★</span>
 
-                        <div class="flex-1 bg-gray-200 h-2 rounded">
+                        <div class="rating-bar-bg flex-1 h-2 rounded">
                             <div
-                                class="bg-orange-400 h-2 rounded"
+                                class="rating-bar h-2 rounded"
                                 [style.width.%]="getPercent(star)"
                             ></div>
                         </div>
 
-                        <span class="w-8 text-gray-500">
+                        <span class="w-8 text-muted">
                             {{ countStar(star) }}
                         </span>
                     </div>
@@ -47,7 +47,7 @@
             (scroll)="onScroll($event)"
         >
             @for (comment of comments(); track $index) {
-                <div class="border-b pb-4">
+                <div class="comment-item pb-4">
                     <!-- user + star -->
                     <div class="flex justify-between">
                         <div class="font-medium text-sm">
@@ -60,8 +60,8 @@
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         class="w-4 h-4"
-                                        [class.fill-yellow-400]="star <= comment.rating"
-                                        [class.fill-gray-300]="star > comment.rating"
+                                        [class.star-active]="star <= comment.rating"
+                                        [class.star-inactive]="star > comment.rating"
                                         viewBox="0 0 24 24"
                                     >
                                         <path
@@ -74,7 +74,7 @@
                     </div>
 
                     <!-- content -->
-                    <p class="text-sm text-gray-600 mt-1">
+                    <p class="text-sm text-muted mt-1">
                         {{ comment.content }}
                     </p>
 
@@ -84,7 +84,7 @@
                             @for (img of comment.images; track $index) {
                                 <img
                                     [src]="img"
-                                    class="w-20 h-20 object-cover rounded cursor-pointer hover:scale-105 transition"
+                                    class="review-image w-20 h-20 object-cover rounded cursor-pointer transition"
                                 />
                             }
                         </div>
@@ -94,7 +94,7 @@
 
             <!-- loading -->
             @if (loading) {
-                <div class="text-center text-gray-400 py-3">Đang tải thêm...</div>
+                <div class="text-center text-muted py-3">Loading more...</div>
             }
         </div>
     </div>

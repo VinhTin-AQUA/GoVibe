@@ -12,3 +12,61 @@
 .animate-dropdown {
     animation: dropdown 0.18s ease-out;
 }
+
+/* header */
+
+.app-header {
+    background: var(--background);
+    border-bottom: 1px solid var(--brightWhite);
+}
+
+/* theme toggle */
+
+.theme-toggle {
+    background: var(--brightWhite);
+}
+
+.theme-toggle-knob {
+    background: var(--cursorAccent);
+}
+
+.theme-icon-sun {
+    color: var(--yellow);
+}
+
+.theme-icon-moon {
+    color: var(--magenta);
+}
+
+/* avatar */
+
+.avatar-img {
+    ring-color: var(--brightWhite);
+}
+
+.avatar-img:hover {
+    ring-color: var(--blue);
+}
+
+/* dropdown */
+
+.dropdown-menu {
+    background: var(--background);
+    border: 1px solid var(--brightWhite);
+}
+
+/* dropdown items */
+
+.dropdown-item {
+    color: var(--foreground);
+}
+
+.dropdown-item:hover {
+    background: var(--selectionBackground);
+}
+
+/* logout */
+
+.dropdown-danger {
+    color: var(--red);
+}

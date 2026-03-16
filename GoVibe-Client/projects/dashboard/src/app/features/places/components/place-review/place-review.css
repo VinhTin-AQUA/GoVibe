@@ -25,3 +25,70 @@
 .animate-fadeIn {
     animation: fadeIn 0.2s ease;
 }
+
+/* modal overlay */
+
+.modal-overlay {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/* modal */
+
+.review-modal {
+    background: var(--background);
+    color: var(--foreground);
+}
+
+/* close button */
+
+.modal-close {
+    color: var(--white);
+}
+
+.modal-close:hover {
+    color: var(--foreground);
+}
+
+/* rating score */
+
+.rating-score {
+    color: var(--yellow);
+}
+
+/* text */
+
+.text-muted {
+    color: var(--white);
+}
+
+/* rating bars */
+
+.rating-bar-bg {
+    background: var(--brightWhite);
+}
+
+.rating-bar {
+    background: var(--yellow);
+}
+
+/* comments */
+
+.comment-item {
+    border-bottom: 1px solid var(--brightWhite);
+}
+
+/* stars */
+
+.star-active {
+    fill: var(--yellow);
+}
+
+.star-inactive {
+    fill: var(--brightWhite);
+}
+
+/* images */
+
+.review-image:hover {
+    transform: scale(1.05);
+}

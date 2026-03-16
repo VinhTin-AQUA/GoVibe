@@ -1,3 +1,42 @@
 .active {
 	background: #374151;
 }
+
+/* sidebar */
+
+.sidebar {
+    background: var(--background);
+    color: var(--foreground);
+}
+
+/* divider */
+
+.sidebar-divider {
+    border-color: var(--brightBlack);
+}
+
+/* toggle */
+
+.sidebar-toggle:hover {
+    background: var(--brightBlack);
+}
+
+/* menu */
+
+.menu-item:hover {
+    background: var(--brightBlack);
+}
+
+/* active route */
+
+.menu-active {
+    background: var(--brightBlack);
+    color: var(--brightWhite);
+}
+
+/* footer */
+
+.sidebar-footer {
+    border-top: 1px solid var(--brightBlack);
+}
+

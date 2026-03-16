@@ -1,0 +1,61 @@
+.dashboard {
+    background: var(--background);
+    color: var(--foreground);
+}
+
+/* card */
+.card {
+    background: var(--background);
+}
+
+/* labels */
+.stat-label {
+    color: var(--white);
+}
+
+/* numbers */
+.stat-number {
+    font-size: 1.875rem;
+    font-weight: 700;
+}
+
+.stat-blue {
+    color: var(--blue);
+}
+
+.stat-green {
+    color: var(--green);
+}
+
+.stat-magenta {
+    color: var(--magenta);
+}
+
+/* sections */
+.section-title {
+    color: var(--foreground);
+}
+
+/* rows */
+.item-row {
+    border-bottom: 1px solid var(--brightWhite);
+}
+
+/* rating */
+.rating {
+    color: var(--yellow);
+}
+
+/* views */
+.views {
+    color: var(--blue);
+}
+
+/* progress bar */
+.progress-bg {
+    background: var(--brightWhite);
+}
+
+.progress-bar {
+    background: var(--yellow);
+}

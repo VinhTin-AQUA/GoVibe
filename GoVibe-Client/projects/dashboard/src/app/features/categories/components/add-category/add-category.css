@@ -1,0 +1,46 @@
+/* overlay */
+
+.modal-overlay {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/* modal */
+
+.category-modal {
+    background: var(--background);
+    color: var(--foreground);
+}
+
+/* inputs */
+
+.input-field {
+    border: 1px solid var(--brightWhite);
+    background: var(--background);
+    color: var(--foreground);
+}
+
+.input-field:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 2px var(--selectionBackground);
+    outline: none;
+}
+
+/* buttons */
+
+.btn-primary {
+    background: var(--blue);
+    color: var(--cursorAccent);
+}
+
+.btn-primary:hover {
+    background: var(--brightBlue);
+}
+
+.btn-secondary {
+    border: 1px solid var(--brightWhite);
+    color: var(--foreground);
+}
+
+.btn-secondary:hover {
+    background: var(--selectionBackground);
+}

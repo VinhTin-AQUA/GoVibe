@@ -1,5 +1,5 @@
-<div class="fixed inset-0 bg-gray-800/40 flex items-center justify-center">
-    <div class="bg-white rounded-xl shadow-lg w-100 p-6">
+<div class="modal-overlay fixed inset-0 flex items-center justify-center">
+    <div class="category-modal rounded-xl shadow-lg w-100 p-6">
         <h2 class="text-lg font-semibold mb-4">
             {{ editing ? 'Edit Category' : 'Add Category' }}
         </h2>
@@ -9,13 +9,13 @@
                 type="text"
                 placeholder="Category Name"
                 [(ngModel)]="form.name"
-                class="w-full border rounded-lg px-3 py-2"
+                class="input-field w-full rounded-lg px-3 py-2"
             />
 
             <textarea
                 placeholder="Description"
                 [(ngModel)]="form.description"
-                class="w-full border rounded-lg px-3 py-2"
+                class="input-field w-full rounded-lg px-3 py-2"
             >
             </textarea>
 
@@ -26,11 +26,11 @@
         </div>
 
         <div class="flex justify-end gap-2 mt-6">
-            <button (click)="closeModal()" class="px-4 py-2 border rounded-lg">Cancel</button>
-
-            <button (click)="saveCategory()" class="px-4 py-2 bg-blue-600 text-white rounded-lg">
-                Save
+            <button (click)="closeModal()" class="btn-secondary px-4 py-2 rounded-lg">
+                Cancel
             </button>
+
+            <button (click)="saveCategory()" class="btn-primary px-4 py-2 rounded-lg">Save</button>
         </div>
     </div>
 </div>

@@ -1,12 +1,12 @@
 <div
-    class="flex flex-col h-screen bg-gray-900 text-white p-2 transition-[width] duration-200 ease-in-out"
+    class="sidebar flex flex-col h-screen p-2 transition-[width] duration-200 ease-in-out"
     [class.w-56]="isOpen()"
     [class.w-14]="!isOpen()"
 >
     <!-- Logo / Toggle -->
     <button
         (click)="toggleSidebar()"
-        class="flex items-center gap-3 w-full p-2 rounded-lg hover:bg-gray-700"
+        class="sidebar-toggle flex items-center gap-3 w-full p-2 rounded-lg"
     >
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +32,7 @@
         </span>
     </button>
 
-    <hr />
+    <hr class="sidebar-divider" />
 
     <!-- Menu -->
     <div class="flex-1 overflow-y-auto overflow-x-hidden mt-4">
@@ -40,16 +40,18 @@
             @for (item of menuItems; track $index) {
                 <a
                     [routerLink]="item.url"
-                    routerLinkActive="bg-gray-700"
+                    routerLinkActive="menu-active"
                     [routerLinkActiveOptions]="{ exact: true }"
-                    class="flex items-center gap-3 w-full p-2 rounded-lg hover:bg-gray-700 transition-colors"
+                    class="menu-item flex items-center gap-3 w-full p-2 rounded-lg transition-colors"
                 >
-                    <lib-icons [iconName]="item.icon" class="size-6"></lib-icons>
+                    <lib-icons [iconName]="item.icon" class="size-6 shrink-0"></lib-icons>
 
                     <span
                         class="whitespace-nowrap overflow-hidden transition-all duration-200"
                         [class.opacity-0]="!isOpen()"
-                        [class.w-0]="!isOpen()"
+                        [class.opacity-100]="isOpen()"
+                        [class.max-w-0]="!isOpen()"
+                        [class.max-w-xs]="isOpen()"
                     >
                         {{ item.name }}
                     </span>
@@ -59,12 +61,8 @@
     </div>
 
     <!-- Bottom Settings -->
-    <div class="h-16 flex items-center justify-center border-t border-gray-700">
-        <a
-            routerLink="/settings"
-            routerLinkActive="active"
-            class="p-2 rounded-lg hover:bg-gray-700"
-        >
+    <div class="sidebar-footer h-16 flex items-center justify-center border-t">
+        <a routerLink="/settings" routerLinkActive="menu-active" class="menu-item p-2 rounded-lg">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

@@ -1,0 +1,38 @@
+.place-form {
+    background: var(--background);
+    color: var(--foreground);
+}
+
+/* header */
+
+.form-title {
+    background: var(--background);
+    color: var(--foreground);
+    border-bottom: 1px solid var(--brightWhite);
+}
+
+/* footer */
+
+.form-footer {
+    border-top: 1px solid var(--brightWhite);
+}
+
+/* buttons */
+
+.btn-primary {
+    background: var(--blue);
+    color: var(--cursorAccent);
+}
+
+.btn-primary:hover {
+    background: var(--brightBlue);
+}
+
+.btn-secondary {
+    border: 1px solid var(--brightWhite);
+    color: var(--foreground);
+}
+
+.btn-secondary:hover {
+    background: var(--selectionBackground);
+}

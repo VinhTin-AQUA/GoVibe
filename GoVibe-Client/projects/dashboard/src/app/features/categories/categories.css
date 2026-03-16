@@ -1,0 +1,89 @@
+.category-page {
+    background: var(--background);
+    color: var(--foreground);
+}
+
+/* cards */
+.card {
+    background: var(--background);
+}
+
+/* header */
+.page-title {
+    color: var(--foreground);
+}
+
+.page-subtitle {
+    color: var(--white);
+}
+
+/* buttons */
+
+.btn-primary {
+    background: var(--blue);
+    color: var(--cursorAccent);
+}
+
+.btn-primary:hover {
+    background: var(--brightBlue);
+}
+
+.btn-warning {
+    background: var(--yellow);
+    color: var(--cursorAccent);
+}
+
+.btn-warning:hover {
+    background: var(--brightYellow);
+}
+
+.btn-danger {
+    background: var(--red);
+    color: var(--cursorAccent);
+}
+
+.btn-danger:hover {
+    background: var(--brightRed);
+}
+
+/* input */
+
+.search-input {
+    border: 1px solid var(--brightWhite);
+    background: var(--background);
+    color: var(--foreground);
+}
+
+.search-input:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 2px var(--selectionBackground);
+}
+
+/* table */
+
+.table-head {
+    background: var(--selectionInactiveBackground);
+    color: var(--white);
+}
+
+.table-body {
+    border-top: 1px solid var(--brightWhite);
+}
+
+.table-row {
+    border-bottom: 1px solid var(--brightWhite);
+}
+
+.table-row:hover {
+    background: var(--selectionBackground);
+}
+
+/* text */
+
+.text-muted {
+    color: var(--white);
+}
+
+.category-name {
+    color: var(--foreground);
+}
