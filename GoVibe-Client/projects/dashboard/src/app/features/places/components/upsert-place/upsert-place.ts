@@ -54,7 +54,6 @@ export class UpsertPlace {
         categoryId: '',
         website: '',
         description: '',
-        amenityIds: [],
     });
 
     placeForm = form(this.model, (x) => {

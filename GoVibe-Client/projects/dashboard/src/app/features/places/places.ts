@@ -2,24 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UpsertPlace } from './components/upsert-place/upsert-place';
-
-interface Place {
-    id: string;
-    name: string;
-    category: CategoryModel;
-
-    averageRating: number;
-    totalReviews: number;
-    status: string;
-    updatedAt: Date;
-}
-
-interface CategoryModel {
-    id: string;
-    name: string;
-    description: string;
-    updatedAt: Date;
-}
+import { Place } from 'govibe-core';
 
 @Component({
     selector: 'app-places',

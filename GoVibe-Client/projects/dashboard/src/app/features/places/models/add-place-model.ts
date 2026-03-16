@@ -9,5 +9,4 @@ export interface PlaceFormModel {
     categoryId: string;
     website: string;
     description: string;
-    amenityIds: string[];
 }
