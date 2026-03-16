@@ -1,0 +1,101 @@
+<div class="fixed inset-0 bg-black/40 flex items-center justify-center z-50 animate-fadeIn">
+    <div
+        class="bg-white w-200 max-h-[85vh] rounded-xl shadow-xl p-6 animate-popupOpen flex flex-col"
+    >
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold">Đánh giá sản phẩm ({{ totalComments }})</h2>
+
+            <button (click)="onClose()" class="text-gray-400 hover:text-black text-xl">✕</button>
+        </div>
+
+        <!-- Rating summary -->
+        <div class="flex gap-6 mb-6">
+            <div class="text-center w-32">
+                <div class="text-4xl font-bold text-orange-500">
+                    {{ averageRating }}
+                </div>
+
+                <div class="text-sm text-gray-500">{{ totalComments }} đánh giá</div>
+            </div>
+
+            <!-- Breakdown -->
+            <div class="flex-1">
+                @for (star of [5, 4, 3, 2, 1]; track $index) {
+                    <div class="flex items-center gap-2 text-sm mb-1">
+                        <span class="w-6">{{ star }}★</span>
+
+                        <div class="flex-1 bg-gray-200 h-2 rounded">
+                            <div
+                                class="bg-orange-400 h-2 rounded"
+                                [style.width.%]="getPercent(star)"
+                            ></div>
+                        </div>
+
+                        <span class="w-8 text-gray-500">
+                            {{ countStar(star) }}
+                        </span>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Comment list -->
+        <div
+            class="overflow-y-auto space-y-6 pr-2"
+            style="max-height: 500px"
+            (scroll)="onScroll($event)"
+        >
+            @for (comment of comments(); track $index) {
+                <div class="border-b pb-4">
+                    <!-- user + star -->
+                    <div class="flex justify-between">
+                        <div class="font-medium text-sm">
+                            {{ comment.user }}
+                        </div>
+
+                        <div class="flex">
+                            @for (star of [1, 2, 3, 4, 5]; track $index) {
+                                <ng-container>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        class="w-4 h-4"
+                                        [class.fill-yellow-400]="star <= comment.rating"
+                                        [class.fill-gray-300]="star > comment.rating"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            d="M12 .587l3.668 7.431L24 9.75l-6 5.845L19.335 24 12 20.126 4.665 24 6 15.595 0 9.75l8.332-1.732z"
+                                        />
+                                    </svg>
+                                </ng-container>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- content -->
+                    <p class="text-sm text-gray-600 mt-1">
+                        {{ comment.content }}
+                    </p>
+
+                    <!-- review images -->
+                    @if (comment.images?.length) {
+                        <div class="flex gap-2 mt-2 flex-wrap">
+                            @for (img of comment.images; track $index) {
+                                <img
+                                    [src]="img"
+                                    class="w-20 h-20 object-cover rounded cursor-pointer hover:scale-105 transition"
+                                />
+                            }
+                        </div>
+                    }
+                </div>
+            }
+
+            <!-- loading -->
+            @if (loading) {
+                <div class="text-center text-gray-400 py-3">Đang tải thêm...</div>
+            }
+        </div>
+    </div>
+</div>

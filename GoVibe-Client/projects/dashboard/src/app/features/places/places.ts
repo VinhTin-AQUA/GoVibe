@@ -4,10 +4,18 @@ import { FormsModule } from '@angular/forms';
 import { UpsertPlace } from './components/upsert-place/upsert-place';
 import { Place } from 'govibe-core';
 import { Pagination, QuestionCancelDialog } from 'components';
+import { PlaceReview } from './components/place-review/place-review';
 
 @Component({
     selector: 'app-places',
-    imports: [FormsModule, CommonModule, UpsertPlace, Pagination, QuestionCancelDialog],
+    imports: [
+        FormsModule,
+        CommonModule,
+        UpsertPlace,
+        Pagination,
+        QuestionCancelDialog,
+        PlaceReview,
+    ],
     templateUrl: './places.html',
     styleUrl: './places.css',
 })
@@ -15,6 +23,7 @@ export class Places {
     search = '';
     showUpsertModal = signal<boolean>(false);
     showDeleteModal = signal<boolean>(false);
+    showReviewModal = signal<boolean>(false);
     placeToDelete: Place | null = null;
 
     pageIndex = 1;
@@ -210,6 +219,11 @@ export class Places {
         if (!this.placeToDelete) return;
 
         this.places = this.places.filter((c) => c.id !== this.placeToDelete!.id);
+    }
+
+    // review
+    openShowReviewModal(value: boolean) {
+        this.showReviewModal.set(value);
     }
 
     // pagination
