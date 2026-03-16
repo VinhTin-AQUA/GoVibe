@@ -1,0 +1,28 @@
+<div class="flex items-center justify-end gap-2 p-4 border-t bg-white">
+    <button
+        (click)="prevPage()"
+        class="px-3 py-1.5 text-sm border rounded-md hover:bg-gray-100 transition"
+    >
+        Prev
+    </button>
+
+    @for (page of visiblePages; track page) {
+        <button
+            (click)="goToPage(page)"
+            class="px-3 py-1.5 text-sm border rounded-md transition-all duration-200"
+            [ngClass]="{
+                'bg-blue-500 text-white border-blue-500 shadow-sm': page === pageIndex,
+                'hover:bg-gray-100': page !== pageIndex,
+            }"
+        >
+            {{ page }}
+        </button>
+    }
+
+    <button
+        (click)="nextPage()"
+        class="px-3 py-1.5 text-sm border rounded-md hover:bg-gray-100 transition"
+    >
+        Next
+    </button>
+</div>

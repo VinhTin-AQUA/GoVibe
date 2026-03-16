@@ -1,18 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
-interface Category {
-    id: number;
-    name: string;
-    description: string;
-    active: boolean;
-    createdAt: Date;
-}
+import { CategoryModel } from 'govibe-core';
+import { Pagination } from 'components';
 
 @Component({
     selector: 'app-categories',
-    imports: [FormsModule, CommonModule],
+    imports: [FormsModule, CommonModule, Pagination],
     templateUrl: './categories.html',
     styleUrl: './categories.css',
 })
@@ -21,20 +15,19 @@ export class Categories {
     showModal = false;
     editing = false;
 
-    categories: Category[] = [
+    categories: CategoryModel[] = [
         {
-            id: 1,
+            id: crypto.randomUUID().toString(),
             name: 'Electronics',
             description: 'Devices and gadgets',
-            active: true,
-            createdAt: new Date(),
+            updatedAt: new Date(),
         },
         {
-            id: 2,
+            id: crypto.randomUUID().toString(),
             name: 'Clothing',
             description: 'Fashion and apparel',
-            active: true,
-            createdAt: new Date(),
+
+            updatedAt: new Date(),
         },
     ];
 
@@ -44,6 +37,11 @@ export class Categories {
         description: '',
         active: true,
     };
+
+    pageIndex = 1;
+    totalPages = 20;
+
+    ngOnInit() {}
 
     openModal() {
         this.showModal = true;
@@ -61,7 +59,7 @@ export class Categories {
         this.showModal = false;
     }
 
-    editCategory(category: Category) {
+    editCategory(category: CategoryModel) {
         this.showModal = true;
         this.editing = true;
         this.form = { ...category };
@@ -85,7 +83,16 @@ export class Categories {
         this.closeModal();
     }
 
-    deleteCategory(category: Category) {
+    deleteCategory(category: CategoryModel) {
         this.categories = this.categories.filter((c) => c.id !== category.id);
+    }
+
+    onPageChange(page: number) {
+        this.pageIndex = page;
+
+        console.log('pageIndex:', page);
+
+        // load API
+        // this.loadCategories()
     }
 }

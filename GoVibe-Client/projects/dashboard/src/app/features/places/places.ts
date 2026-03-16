@@ -3,10 +3,11 @@ import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UpsertPlace } from './components/upsert-place/upsert-place';
 import { Place } from 'govibe-core';
+import { Pagination } from 'components';
 
 @Component({
     selector: 'app-places',
-    imports: [FormsModule, CommonModule, UpsertPlace],
+    imports: [FormsModule, CommonModule, UpsertPlace, Pagination],
     templateUrl: './places.html',
     styleUrl: './places.css',
 })
@@ -15,6 +16,9 @@ export class Places {
     showUpsertModal = signal<boolean>(false);
     d = signal<boolean>(false);
     editing = false;
+
+    pageIndex = 1;
+    totalPages = 20;
 
     places: Place[] = [
         {
@@ -166,6 +170,8 @@ export class Places {
         active: true,
     };
 
+    ngOnInit() {}
+
     openModal() {
         this.showUpsertModal.set(true);
         this.editing = false;
@@ -208,5 +214,16 @@ export class Places {
 
     deletePlace(place: Place) {
         this.places = this.places.filter((c) => c.id !== place.id);
+    }
+
+    // pagination
+
+    onPageChange(page: number) {
+        this.pageIndex = page;
+
+        console.log('pageIndex:', page);
+
+        // load API
+        // this.loadCategories()
     }
 }
