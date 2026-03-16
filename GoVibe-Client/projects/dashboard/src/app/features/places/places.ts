@@ -3,19 +3,19 @@ import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UpsertPlace } from './components/upsert-place/upsert-place';
 import { Place } from 'govibe-core';
-import { Pagination } from 'components';
+import { Pagination, QuestionCancelDialog } from 'components';
 
 @Component({
     selector: 'app-places',
-    imports: [FormsModule, CommonModule, UpsertPlace, Pagination],
+    imports: [FormsModule, CommonModule, UpsertPlace, Pagination, QuestionCancelDialog],
     templateUrl: './places.html',
     styleUrl: './places.css',
 })
 export class Places {
     search = '';
     showUpsertModal = signal<boolean>(false);
-    d = signal<boolean>(false);
-    editing = false;
+    showDeleteModal = signal<boolean>(false);
+    placeToDelete: Place | null = null;
 
     pageIndex = 1;
     totalPages = 20;
@@ -172,9 +172,10 @@ export class Places {
 
     ngOnInit() {}
 
-    openModal() {
+    // Add or update
+
+    openUpsertModal() {
         this.showUpsertModal.set(true);
-        this.editing = false;
 
         this.form = {
             id: null,
@@ -184,40 +185,34 @@ export class Places {
         };
     }
 
-    closeModal() {
+    closeUpsertModal() {
         this.showUpsertModal.set(false);
     }
 
-    editPlace(place: Place) {
+    openEditUpsertModal(place: Place) {
         this.showUpsertModal.set(true);
-        this.editing = true;
         this.form = { ...place };
     }
 
-    savePlace() {
-        if (this.editing) {
-            const index = this.places.findIndex((c) => c.id === this.form.id);
-
-            this.places[index] = {
-                ...this.form,
-            };
-        } else {
-            this.places.push({
-                ...this.form,
-                id: Date.now(),
-                createdAt: new Date(),
-            });
-        }
-
-        this.closeModal();
+    saveOrUpdatePlace() {
+        this.closeUpsertModal();
     }
 
-    deletePlace(place: Place) {
-        this.places = this.places.filter((c) => c.id !== place.id);
+    // delete
+    openShowDeleteModal(value: boolean, p: Place) {
+        this.showDeleteModal.set(value);
+        this.placeToDelete = p;
+    }
+
+    deletePlace(result: boolean) {
+        this.showDeleteModal.set(false);
+        if (!result) return;
+        if (!this.placeToDelete) return;
+
+        this.places = this.places.filter((c) => c.id !== this.placeToDelete!.id);
     }
 
     // pagination
-
     onPageChange(page: number) {
         this.pageIndex = page;
 

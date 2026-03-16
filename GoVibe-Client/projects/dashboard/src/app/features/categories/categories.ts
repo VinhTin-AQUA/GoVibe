@@ -1,19 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CategoryModel } from 'govibe-core';
-import { Pagination } from 'components';
+import { Pagination, QuestionCancelDialog } from 'components';
+import { AddCategory } from './components/add-category/add-category';
 
 @Component({
     selector: 'app-categories',
-    imports: [FormsModule, CommonModule, Pagination],
+    imports: [FormsModule, CommonModule, Pagination, AddCategory, QuestionCancelDialog],
     templateUrl: './categories.html',
     styleUrl: './categories.css',
 })
 export class Categories {
     search = '';
-    showModal = false;
     editing = false;
+    showUpsertModal = signal<boolean>(false);
+    showDeleteModal = signal<boolean>(false);
+    categoryToDelete: CategoryModel | null = null;
 
     categories: CategoryModel[] = [
         {
@@ -31,62 +34,38 @@ export class Categories {
         },
     ];
 
-    form: any = {
-        id: null,
-        name: '',
-        description: '',
-        active: true,
-    };
-
     pageIndex = 1;
     totalPages = 20;
 
     ngOnInit() {}
 
-    openModal() {
-        this.showModal = true;
+    // add or update
+    openAddModal() {
+        this.showUpsertModal.set(true);
         this.editing = false;
-
-        this.form = {
-            id: null,
-            name: '',
-            description: '',
-            active: true,
-        };
     }
 
-    closeModal() {
-        this.showModal = false;
-    }
-
-    editCategory(category: CategoryModel) {
-        this.showModal = true;
+    openEditModel(category: CategoryModel) {
+        this.showUpsertModal.set(true);
         this.editing = true;
-        this.form = { ...category };
     }
 
-    saveCategory() {
-        if (this.editing) {
-            const index = this.categories.findIndex((c) => c.id === this.form.id);
-
-            this.categories[index] = {
-                ...this.form,
-            };
-        } else {
-            this.categories.push({
-                ...this.form,
-                id: Date.now(),
-                createdAt: new Date(),
-            });
-        }
-
-        this.closeModal();
+    closeModal(event: boolean) {
+        this.showUpsertModal.set(event);
     }
 
-    deleteCategory(category: CategoryModel) {
-        this.categories = this.categories.filter((c) => c.id !== category.id);
+    // delete
+    openDeleteCategory(category: CategoryModel) {
+        this.categoryToDelete = category;
+        this.showDeleteModal.set(true);
     }
 
+    deletePlace(result: boolean) {
+        this.showDeleteModal.set(false);
+        if (!result) return;
+    }
+
+    // pagination
     onPageChange(page: number) {
         this.pageIndex = page;
 

@@ -1,0 +1,36 @@
+<div class="fixed inset-0 bg-gray-800/40 flex items-center justify-center">
+    <div class="bg-white rounded-xl shadow-lg w-100 p-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {{ editing ? 'Edit Category' : 'Add Category' }}
+        </h2>
+
+        <div class="space-y-4">
+            <input
+                type="text"
+                placeholder="Category Name"
+                [(ngModel)]="form.name"
+                class="w-full border rounded-lg px-3 py-2"
+            />
+
+            <textarea
+                placeholder="Description"
+                [(ngModel)]="form.description"
+                class="w-full border rounded-lg px-3 py-2"
+            >
+            </textarea>
+
+            <label class="flex items-center gap-2">
+                <input type="checkbox" [(ngModel)]="form.active" />
+                Active
+            </label>
+        </div>
+
+        <div class="flex justify-end gap-2 mt-6">
+            <button (click)="closeModal()" class="px-4 py-2 border rounded-lg">Cancel</button>
+
+            <button (click)="saveCategory()" class="px-4 py-2 bg-blue-600 text-white rounded-lg">
+                Save
+            </button>
+        </div>
+    </div>
+</div>
