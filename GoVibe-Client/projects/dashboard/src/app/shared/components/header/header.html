@@ -1,0 +1,52 @@
+<header
+    class="flex items-center justify-end h-14 px-4 border-b bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 transition-colors duration-300"
+>
+    <div class="flex items-center gap-4">
+        <!-- Toggle theme -->
+        <button
+            (click)="toggleTheme()"
+            class="relative w-12 h-6 rounded-full bg-gray-300 dark:bg-gray-600 transition duration-300"
+        >
+            <span
+                class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transform transition duration-300"
+                [class.translate-x-6]="isDark"
+            >
+            </span>
+        </button>
+
+        <!-- Avatar -->
+        <div class="relative avatar-menu">
+            <img
+                src="https://i.pravatar.cc/40"
+                (click)="toggleMenu()"
+                class="w-9 h-9 rounded-full cursor-pointer ring-2 ring-gray-300 hover:ring-blue-400 transition"
+            />
+
+            <!-- Dropdown -->
+            @if (menuOpen) {
+                <div
+                    class="absolute right-0 mt-3 w-44 origin-top-right bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg transform transition-all duration-200 animate-dropdown"
+                >
+                    <button
+                        class="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    >
+                        Profile
+                    </button>
+
+                    <button
+                        class="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    >
+                        Settings
+                    </button>
+
+                    <button
+                        (click)="logout()"
+                        class="w-full text-left px-4 py-2 text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    >
+                        Logout
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</header>

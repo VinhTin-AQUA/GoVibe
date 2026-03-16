@@ -79,7 +79,7 @@
                     </p>
 
                     <!-- review images -->
-                    @if (comment.images?.length) {
+                    @if (comment.images.length) {
                         <div class="flex gap-2 mt-2 flex-wrap">
                             @for (img of comment.images; track $index) {
                                 <img

@@ -9,4 +9,5 @@ export interface Place {
     totalReviews: number;
     status: string;
     updatedAt: Date;
+    totalViews: number
 }

@@ -5,15 +5,23 @@ import { MenuIconComponent } from './menu-icon.component';
 import { NgComponentOutlet } from '@angular/common';
 import { ObjectsColumnIconComponent } from './objects-column-icon.component';
 import { ExclamationCircleIconComponent } from './exclamation-circle.component';
+import { ChartBarconComponent } from './chart-bar.component';
 
 export const ICON_REGISTRY: Record<string, Type<any>> = {
     home: HomeIconComponent,
     menu: MenuIconComponent,
     objectsColumn: ObjectsColumnIconComponent,
     exclamationCircle: ExclamationCircleIconComponent,
+    charBar: ChartBarconComponent,
 };
 
-export type IconNames = 'home' | 'menu' | 'objectsColumn' | 'exclamationCircle' | 'error';
+export type IconNames =
+    | 'home'
+    | 'menu'
+    | 'objectsColumn'
+    | 'exclamationCircle'
+    | 'charBar'
+    | 'error';
 
 @Component({
     selector: 'lib-icons',

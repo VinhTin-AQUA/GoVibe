@@ -1,0 +1,87 @@
+<div class="h-screen overflow-y-auto">
+    <!-- Top statistics -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white shadow rounded-xl p-6">
+            <p class="text-gray-500">Tổng số địa điểm</p>
+            <h2 class="text-3xl font-bold text-blue-600">
+                {{ totalPlaces }}
+            </h2>
+        </div>
+
+        <div class="bg-white shadow rounded-xl p-6">
+            <p class="text-gray-500">Tổng số đánh giá</p>
+            <h2 class="text-3xl font-bold text-green-600">
+                {{ totalReviews }}
+            </h2>
+        </div>
+
+        <div class="bg-white shadow rounded-xl p-6">
+            <p class="text-gray-500">Tổng số lượt xem</p>
+            <h2 class="text-3xl font-bold text-purple-600">
+                {{ totalViews }}
+            </h2>
+        </div>
+    </div>
+
+    <!-- Places > 4.5 -->
+    <div class="bg-white shadow rounded-xl p-6">
+        <h3 class="text-lg font-semibold mb-4">Địa điểm trên 4.5⭐</h3>
+
+        <div class="space-y-2">
+            @for (place of topRatedPlaces; track $index) {
+                <div class="flex justify-between border-b pb-2">
+                    <span>{{ place.name }}</span>
+                    <span class="font-semibold text-yellow-500">
+                        ⭐ {{ place.averageRating }}
+                    </span>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Most viewed places -->
+    <div class="bg-white shadow rounded-xl p-6">
+        <h3 class="text-lg font-semibold mb-4">Địa điểm có lượt xem nhiều nhất</h3>
+
+        <div class="space-y-2">
+            @for (place of mostViewedPlaces; track $index) {
+                <div class="flex justify-between border-b pb-2">
+                    <span>{{ place.name }}</span>
+                    <span class="text-blue-500 font-semibold"> {{ place.totalViews }} views </span>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Rating distribution -->
+    <div class="bg-white shadow rounded-xl p-6">
+        <h3 class="text-lg font-semibold mb-4">Phân bố đánh giá</h3>
+
+        @for (rating of ratingDistribution; track $index) {
+            <div class="mb-3">
+                <div class="flex justify-between text-sm">
+                    <span>{{ rating.star }}⭐</span>
+                    <span>{{ rating.percent }}%</span>
+                </div>
+
+                <div class="w-full bg-gray-200 h-3 rounded">
+                    <div class="bg-yellow-400 h-3 rounded" [style.width.%]="rating.percent"></div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Category statistics -->
+    <div class="bg-white shadow rounded-xl p-6">
+        <h3 class="text-lg font-semibold mb-4">Số lượng địa điểm theo danh mục</h3>
+
+        @for (item of categoryStats; track $index) {
+            <div class="flex justify-between border-b py-2">
+                <span>{{ item.category }}</span>
+                <span class="font-semibold">
+                    {{ item.count }}
+                </span>
+            </div>
+        }
+    </div>
+</div>

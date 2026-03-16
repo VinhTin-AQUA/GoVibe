@@ -43,6 +43,7 @@ export class Places {
             totalReviews: 120,
             status: 'open',
             updatedAt: new Date('2025-02-10'),
+            totalViews: 10,
         },
         {
             id: 'p2',
@@ -57,6 +58,7 @@ export class Places {
             totalReviews: 89,
             status: 'open',
             updatedAt: new Date('2025-02-12'),
+            totalViews: 10,
         },
         {
             id: 'p3',
@@ -71,6 +73,7 @@ export class Places {
             totalReviews: 54,
             status: 'open',
             updatedAt: new Date('2025-02-11'),
+            totalViews: 10,
         },
         {
             id: 'p4',
@@ -85,6 +88,7 @@ export class Places {
             totalReviews: 210,
             status: 'open',
             updatedAt: new Date('2025-02-08'),
+            totalViews: 10,
         },
         {
             id: 'p5',
@@ -99,6 +103,7 @@ export class Places {
             totalReviews: 76,
             status: 'open',
             updatedAt: new Date('2025-02-09'),
+            totalViews: 10,
         },
         {
             id: 'p6',
@@ -113,6 +118,7 @@ export class Places {
             totalReviews: 95,
             status: 'open',
             updatedAt: new Date('2025-02-07'),
+            totalViews: 10,
         },
         {
             id: 'p7',
@@ -127,6 +133,7 @@ export class Places {
             totalReviews: 140,
             status: 'open',
             updatedAt: new Date('2025-02-06'),
+            totalViews: 10,
         },
         {
             id: 'p8',
@@ -141,6 +148,7 @@ export class Places {
             totalReviews: 60,
             status: 'open',
             updatedAt: new Date('2025-02-05'),
+            totalViews: 10,
         },
         {
             id: 'p9',
@@ -155,6 +163,7 @@ export class Places {
             totalReviews: 180,
             status: 'open',
             updatedAt: new Date('2025-02-04'),
+            totalViews: 10,
         },
         {
             id: 'p10',
@@ -169,6 +178,7 @@ export class Places {
             totalReviews: 220,
             status: 'open',
             updatedAt: new Date('2025-02-03'),
+            totalViews: 10,
         },
     ];
 

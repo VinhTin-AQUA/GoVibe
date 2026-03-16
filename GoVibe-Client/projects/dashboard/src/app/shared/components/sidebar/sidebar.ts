@@ -14,6 +14,11 @@ export class Sidebar {
     isOpen = signal<boolean>(true);
     menuItems: MenuItem[] = [
         {
+            name: 'Overview',
+            icon: 'charBar',
+            url: '/overview',
+        },
+        {
             name: 'Categories',
             icon: 'objectsColumn',
             url: '/categories',
