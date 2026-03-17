@@ -12,14 +12,11 @@
     </div>
 
     <!-- Search -->
-    <div class="card p-4 rounded-xl shadow mb-6">
-        <input
-            type="text"
-            placeholder="Search category..."
-            [(ngModel)]="search"
-            class="search-input w-full px-4 py-2 rounded-lg outline-none"
-        />
-    </div>
+    <lib-text-input
+        placeholder="Search category... "
+        [(ngModel)]="search"
+        class="p-4 rounded-xl shadow mb-6"
+    ></lib-text-input>
 
     <!-- Table -->
     <div class="card rounded-xl shadow flex flex-col h-[calc(100vh-240px)]">

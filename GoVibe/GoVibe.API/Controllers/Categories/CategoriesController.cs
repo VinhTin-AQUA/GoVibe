@@ -24,6 +24,16 @@ namespace GoVibe.API.Controllers.Categories
                 Item = r
             });
         }
+        
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(string id)
+        {
+            var r = await categoryService.GetById(id);
+            return Ok(new ApiResponse<object>
+            {
+                Item = r,
+            });
+        }
 
         [HttpGet]
         public async Task<IActionResult> GetAll(int pageIndex = 1, int pageSize = 20)

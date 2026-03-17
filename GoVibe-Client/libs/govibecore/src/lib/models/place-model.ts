@@ -11,3 +11,7 @@ export interface Place {
     updatedAt: Date;
     totalViews: number
 }
+
+export interface PlaceDetails {
+    
+}

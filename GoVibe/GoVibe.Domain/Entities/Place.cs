@@ -6,11 +6,8 @@ namespace GoVibe.Domain.Entities
     {
         public string Name { get; set; } = "";
         public string Description { get; set; } = "";
-
-        public string Street { get; set; } = "";
-        public string Ward { get; set; } = "";
-        public string District { get; set; } = "";
-        public string City { get; set; } = "";
+        
+        public string Address { get; set; } = "";
         public string Country { get; set; } = "";
 
         public Guid CategoryId { get; set; }
@@ -19,8 +16,11 @@ namespace GoVibe.Domain.Entities
         public string Phone { get; set; } = "";
         public string Website { get; set; } = "";
         public string OpeningHours { get; set; } = "";
-        public double AverageRating { get; set; }
+        
+        public int TotalViews { get; set; }
+        public double TotalRating { get; set; }
         public int TotalReviews { get; set; }
+        
         public EPlaceStatus Status { get; set; } = EPlaceStatus.None;
         public ICollection<PlaceImage> Images { get; set; } = [];
         public ICollection<Review> Reviews { get; set; } = [];

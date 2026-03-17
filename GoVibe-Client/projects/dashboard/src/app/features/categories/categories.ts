@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CategoryModel } from 'govibe-core';
-import { Pagination, QuestionCancelDialog } from 'components';
+import { Pagination, QuestionCancelDialog, TextInput } from 'components';
 import { AddCategory } from './components/add-category/add-category';
 
 @Component({
     selector: 'app-categories',
-    imports: [FormsModule, CommonModule, Pagination, AddCategory, QuestionCancelDialog],
+    imports: [FormsModule, CommonModule, Pagination, AddCategory, QuestionCancelDialog, TextInput],
     templateUrl: './categories.html',
     styleUrl: './categories.css',
 })

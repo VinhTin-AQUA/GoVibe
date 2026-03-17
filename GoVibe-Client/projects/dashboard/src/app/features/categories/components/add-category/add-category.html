@@ -8,21 +8,16 @@
             <input
                 type="text"
                 placeholder="Category Name"
-                [(ngModel)]="form.name"
+                [formField]="addCategoryForm.name"
                 class="input-field w-full rounded-lg px-3 py-2"
             />
 
             <textarea
                 placeholder="Description"
-                [(ngModel)]="form.description"
+                [formField]="addCategoryForm.description"
                 class="input-field w-full rounded-lg px-3 py-2"
             >
             </textarea>
-
-            <label class="flex items-center gap-2">
-                <input type="checkbox" [(ngModel)]="form.active" />
-                Active
-            </label>
         </div>
 
         <div class="flex justify-end gap-2 mt-6">

@@ -36,6 +36,13 @@ namespace GoVibe.API.Services
 
             return mapper.Map<CategoryModel>(newCategory);
         }
+        
+        public async Task<CategoryModel> GetById(string id)
+        {
+            var category = await categoryQueryRepository.GetByIdAsync(Guid.Parse(id));
+
+            return mapper.Map<CategoryModel>(category);
+        }
 
         public async Task<Pagination<CategoryModel>> GetAllPagination(int pageIndex = 1, int pageSize = 20)
         {

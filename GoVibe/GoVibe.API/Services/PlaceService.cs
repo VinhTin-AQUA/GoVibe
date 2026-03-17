@@ -50,16 +50,13 @@ namespace GoVibe.API.Services
                     Id = Guid.NewGuid(),
                     Name = request.Name,
                     Description = request.Description,
-                    Street = request.Street,
-                    Ward = request.Ward,
-                    District = request.District,
-                    City = request.City,
                     Country = request.Country,
                     CategoryId = Guid.Parse(request.CategoryId),
                     Phone = request.Phone,
                     Website = request.Website,
                     OpeningHours = request.OpeningHours,
                     Status = request.Status,
+                    Address = request.Address,
                 };
                 await placeCommandRepository.AddAsync(newPlace);
 
@@ -123,10 +120,7 @@ namespace GoVibe.API.Services
 
                 place.Name = request.Name;
                 place.Description = request.Description;
-                place.Street = request.Street;
-                place.Ward = request.Ward;
-                place.District = request.District;
-                place.City = request.City;
+                place.Address = request.Address;
                 place.Country = request.Country;
                 place.CategoryId = Guid.Parse(request.CategoryId);
                 place.Phone = request.Phone;
