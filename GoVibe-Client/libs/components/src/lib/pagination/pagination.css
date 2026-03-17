@@ -1,0 +1,27 @@
+.pagination-container {
+    background: var(--background);
+    border-color: var(--border);
+}
+
+.pagination-btn {
+    color: var(--foreground);
+    border-color: var(--border);
+    background: transparent;
+}
+
+.pagination-btn:hover {
+    background: var(--selectionBackground);
+}
+
+/* Active page */
+.active-page {
+    background: var(--blue);
+    color: var(--cursorAccent);
+    border-color: var(--blue);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Inactive */
+.inactive-page:hover {
+    background: var(--selectionBackground);
+}

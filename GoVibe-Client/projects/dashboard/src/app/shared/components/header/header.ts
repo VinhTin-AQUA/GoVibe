@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
+import { ThemeService } from '../../../core/services/theme-service';
 
 @Component({
     selector: 'app-header',
@@ -11,15 +12,17 @@ export class Header {
     isDark = false;
     menuOpen = false;
 
+    constructor(private themeService: ThemeService) {}
+
     toggleTheme() {
         this.isDark = !this.isDark;
 
         const html = document.documentElement;
 
         if (this.isDark) {
-            html.classList.add('dark');
+            this.themeService.setTheme('dark');
         } else {
-            html.classList.remove('dark');
+            this.themeService.setTheme('light');
         }
     }
 
