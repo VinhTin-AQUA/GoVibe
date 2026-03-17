@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, computed, effect, HostListener } from '@angular/core';
 import { ThemeService } from '../../../core/services/theme-service';
 
 @Component({
@@ -9,20 +9,22 @@ import { ThemeService } from '../../../core/services/theme-service';
     styleUrl: './header.css',
 })
 export class Header {
-    isDark = false;
+    isDark = computed(() => this.themeService.themeValue() === 'dark');
     menuOpen = false;
 
-    constructor(private themeService: ThemeService) {}
+    constructor(private themeService: ThemeService) {
+        // effect(() => {
+        //     this.isDark = this.themeService.themeValue() === 'dark';
+        // });
+    }
+
+    ngOnInit() {}
 
     toggleTheme() {
-        this.isDark = !this.isDark;
-
-        const html = document.documentElement;
-
-        if (this.isDark) {
-            this.themeService.setTheme('dark');
-        } else {
+        if (this.isDark()) {
             this.themeService.setTheme('light');
+        } else {
+            this.themeService.setTheme('dark');
         }
     }
 

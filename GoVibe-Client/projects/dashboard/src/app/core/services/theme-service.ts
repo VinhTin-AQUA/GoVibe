@@ -9,7 +9,7 @@ import { AppTheme, AppThemeType } from '../models/theme';
 export class ThemeService {
     appThemes = signal<Record<string, AppTheme>>({});
     private readonly themeKey: string = 'appTheme';
-    private readonly themeValue = signal<AppThemeType>('light');
+    themeValue = signal<AppThemeType>('light');
 
     constructor(private http: HttpClient) {}
 
@@ -27,6 +27,7 @@ export class ThemeService {
     setTheme(theme: AppThemeType) {
         this.themeValue.set(theme);
         this.applyThemeToDOM(this.themeValue());
+        localStorage.setItem(this.themeKey, theme);
     }
 
     private applyThemeToDOM(type: AppThemeType) {
