@@ -1,23 +1,17 @@
 <div class="modal-overlay fixed inset-0 flex items-center justify-center">
     <div class="category-modal rounded-xl shadow-lg w-100 p-6">
         <h2 class="text-lg font-semibold mb-4">
-            {{ editing ? 'Edit Category' : 'Add Category' }}
+            {{ categoryId ? 'Edit Category' : 'Add Category' }}
         </h2>
 
         <div class="space-y-4">
-            <input
-                type="text"
-                placeholder="Category Name"
-                [formField]="addCategoryForm.name"
-                class="input-field w-full rounded-lg px-3 py-2"
-            />
+            <lib-text-input placeholder="Category Name" [formField]="addCategoryForm.name">
+            </lib-text-input>
 
-            <textarea
+            <lib-text-area
                 placeholder="Description"
                 [formField]="addCategoryForm.description"
-                class="input-field w-full rounded-lg px-3 py-2"
-            >
-            </textarea>
+            ></lib-text-area>
         </div>
 
         <div class="flex justify-end gap-2 mt-6">

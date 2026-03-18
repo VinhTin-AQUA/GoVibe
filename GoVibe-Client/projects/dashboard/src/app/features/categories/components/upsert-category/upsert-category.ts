@@ -1,18 +1,17 @@
 import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { UpdateCategoryModel } from '../../../../core/models/category.model';
 import { form, FormField } from '@angular/forms/signals';
 import { CategoryService } from '../../../../core/services/category-service';
+import { UpdateCategoryModel } from '../../../../core/models/category.model';
+import { TextInput, TextArea } from 'components';
 
 @Component({
-    selector: 'app-add-category',
-    imports: [FormField],
-    templateUrl: './add-category.html',
-    styleUrl: './add-category.css',
+    selector: 'app-upsert-category',
+    imports: [FormField, TextInput, TextArea],
+    templateUrl: './upsert-category.html',
+    styleUrl: './upsert-category.css',
 })
-export class AddCategory {
+export class UpsertCategory {
     @Output() closeModel = new EventEmitter<boolean>();
-    @Input() editing: boolean = false;
     @Input() categoryId: string | null = null;
 
     categoryModel = signal<UpdateCategoryModel>({
@@ -39,6 +38,18 @@ export class AddCategory {
     }
 
     saveCategory() {
+        if (this.categoryId) {
+            this.categoryService.updateCategory(this.categoryModel()).subscribe({
+                next: (res) => {},
+                error: (err) => {},
+            });
+        } else {
+            this.categoryService.createCategory(this.categoryModel()).subscribe({
+                next: (res) => {},
+                error: (err) => {},
+            });
+        }
+
         this.closeModel.emit(false);
     }
 

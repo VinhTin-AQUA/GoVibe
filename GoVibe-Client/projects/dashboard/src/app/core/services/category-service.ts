@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment.development';
 import { CategoryModel } from 'govibe-core';
 import { AddCategoryModel, UpdateCategoryModel } from '../models/category.model';
 import { ApiResponse } from '../common/api-response';
+import { PaginationModel } from '../common/pagination.model';
 
 @Injectable({
     providedIn: 'root',
@@ -13,8 +14,10 @@ export class CategoryService {
 
     constructor(private http: HttpClient) {}
 
-    getCategories() {
-        return this.http.get<ApiResponse<CategoryModel[]>>(this.baseUrl);
+    getCategories(pageIndex: number, pageSize: number) {
+        return this.http.get<ApiResponse<PaginationModel<CategoryModel>>>(
+            `${this.baseUrl}?pageIndex=${pageIndex}&pageSize=${pageSize}`,
+        );
     }
 
     getById(id: string) {

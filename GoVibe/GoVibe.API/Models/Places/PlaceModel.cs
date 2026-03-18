@@ -13,6 +13,7 @@ namespace GoVibe.API.Models.Places
         public double AverageRating { get; set; }
         public int TotalRating { get; set; }
         public int TotalReviews { get; set; }
+        public string Thumbnail { get; set; } = "";
         
         public EPlaceStatus Status { get; set; } = EPlaceStatus.None;
         public DateTime UpdatedAt { get; set; }

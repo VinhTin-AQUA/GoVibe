@@ -82,7 +82,10 @@
 
     <!-- Modal -->
     @if (showUpsertModal()) {
-        <app-add-category (closeModel)="closeModal($event)" [editing]="editing"></app-add-category>
+        <app-upsert-category
+            (closeModel)="closeModal($event)"
+            [categoryId]="categoryIdUpdate"
+        ></app-upsert-category>
     }
 
     @if (showDeleteModal()) {

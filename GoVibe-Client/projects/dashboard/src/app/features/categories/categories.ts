@@ -3,51 +3,55 @@ import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CategoryModel } from 'govibe-core';
 import { Pagination, QuestionCancelDialog, TextInput } from 'components';
-import { AddCategory } from './components/add-category/add-category';
+import { UpsertCategory } from './components/upsert-category/upsert-category';
+import { CategoryService } from '../../core/services/category-service';
 
 @Component({
     selector: 'app-categories',
-    imports: [FormsModule, CommonModule, Pagination, AddCategory, QuestionCancelDialog, TextInput],
+    imports: [
+        FormsModule,
+        CommonModule,
+        Pagination,
+        UpsertCategory,
+        QuestionCancelDialog,
+        TextInput,
+    ],
     templateUrl: './categories.html',
     styleUrl: './categories.css',
 })
 export class Categories {
     search = '';
-    editing = false;
+    categoryIdUpdate: string | null = null;
     showUpsertModal = signal<boolean>(false);
     showDeleteModal = signal<boolean>(false);
     categoryToDelete: CategoryModel | null = null;
 
-    categories: CategoryModel[] = [
-        {
-            id: crypto.randomUUID().toString(),
-            name: 'Electronics',
-            description: 'Devices and gadgets',
-            updatedAt: new Date(),
-        },
-        {
-            id: crypto.randomUUID().toString(),
-            name: 'Clothing',
-            description: 'Fashion and apparel',
-
-            updatedAt: new Date(),
-        },
-    ];
+    categories = signal<CategoryModel[]>([]);
 
     pageIndex = 1;
     totalPages = 20;
+    pageSize = 20;
 
-    ngOnInit() {}
+    constructor(private categoryService: CategoryService) {}
+
+    ngOnInit() {
+        this.categoryService.getCategories(this.pageIndex, this.pageSize).subscribe({
+            next: (res) => {
+                this.categories.set(res.item.items);
+            },
+            error: (err) => {},
+        });
+    }
 
     // add or update
     openAddModal() {
         this.showUpsertModal.set(true);
-        this.editing = false;
+        this.categoryIdUpdate = null;
     }
 
     openEditModel(category: CategoryModel) {
         this.showUpsertModal.set(true);
-        this.editing = true;
+        this.categoryIdUpdate = category.id;
     }
 
     closeModal(event: boolean) {
@@ -62,7 +66,12 @@ export class Categories {
 
     deletePlace(result: boolean) {
         this.showDeleteModal.set(false);
-        if (!result) return;
+        if (!result && !this.categoryToDelete) return;
+
+        this.categoryService.deleteById(this.categoryToDelete!.id).subscribe({
+            next: (res) => {},
+            error: (err) => {},
+        });
     }
 
     // pagination
