@@ -44,19 +44,20 @@ namespace GoVibe.API.Services
             return mapper.Map<CategoryModel>(category);
         }
 
-        public async Task<Pagination<CategoryModel>> GetAllPagination(int pageIndex = 1, int pageSize = 20)
+        public async Task<Pagination<CategoryModel>> GetAllPagination(string searchString = "", int pageIndex = 1, int pageSize = 20)
         {
             pageIndex = Math.Max(pageIndex, 1);   // >= 1
             pageSize = Math.Min(pageSize, 50);    // <= 50
 
-            (List<Category> categories, int total) = await categoryQueryRepository.GetAllPagination(pageIndex, pageSize);
+            (List<Category> categories, int total) = await categoryQueryRepository.GetAllPagination(searchString, pageIndex, pageSize);
 
             return new Pagination<CategoryModel>
             {
                 Items = mapper.Map<List<CategoryModel>>(categories),
                 PageIndex = pageIndex,
                 PageSize = pageSize,
-                TotalCount = total
+                TotalCount = total,
+                TotalPage = total / pageSize + 1
             };
         }
 

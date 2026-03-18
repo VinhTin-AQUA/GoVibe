@@ -19,5 +19,6 @@
         }
 
         public int TotalCount { get; set; }
+        public int TotalPage { get; set; }
     }
 }

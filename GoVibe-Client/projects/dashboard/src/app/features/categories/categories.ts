@@ -20,7 +20,7 @@ import { CategoryService } from '../../core/services/category.service';
     styleUrl: './categories.css',
 })
 export class Categories {
-    search = '';
+    searchString = '';
     categoryIdUpdate: string | null = null;
     showUpsertModal = signal<boolean>(false);
     showDeleteModal = signal<boolean>(false);
@@ -39,7 +39,7 @@ export class Categories {
     }
 
     getCategories() {
-        this.categoryService.getCategories(this.pageIndex, this.pageSize).subscribe({
+        this.categoryService.getCategories(this.searchString, this.pageIndex, this.pageSize).subscribe({
             next: (res) => {
                 this.categories.set(res.item.items);
             },

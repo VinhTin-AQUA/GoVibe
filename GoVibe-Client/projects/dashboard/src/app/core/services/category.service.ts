@@ -14,9 +14,9 @@ export class CategoryService {
 
     constructor(private http: HttpClient) {}
 
-    getCategories(pageIndex: number, pageSize: number) {
+    getCategories(searchString: string, pageIndex: number, pageSize: number) {
         return this.http.get<ApiResponse<PaginationModel<CategoryModel>>>(
-            `${this.baseUrl}?pageIndex=${pageIndex}&pageSize=${pageSize}`,
+            `${this.baseUrl}?pageIndex=${pageIndex}&pageSize=${pageSize}&searchString=${searchString}`,
         );
     }
 

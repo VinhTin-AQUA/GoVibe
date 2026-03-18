@@ -12,14 +12,31 @@
     </div>
 
     <!-- Search -->
-    <lib-text-input
-        placeholder="Search category... "
-        [(ngModel)]="search"
-        class="p-4 rounded-xl shadow mb-6"
-    ></lib-text-input>
+    <!-- <div>
+        <lib-text-input
+            placeholder="Search category... "
+            [(ngModel)]="searchString"
+            class="p-4 rounded-xl shadow mb-6"
+        ></lib-text-input>
+    </div> -->
+
+    <div class="flex flex-col md:flex-row items-center gap-2">
+        <lib-text-input
+            placeholder="Search category..."
+            [(ngModel)]="searchString"
+            class="flex-1 p-4 rounded-xl shadow mb-0"
+        ></lib-text-input>
+
+        <button
+            (click)="getCategories()"
+            class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-xl shadow transition"
+        >
+            Search
+        </button>
+    </div>
 
     <!-- Table -->
-    <div class="card rounded-xl shadow flex flex-col h-[calc(100vh-240px)]">
+    <div class="card rounded-xl shadow flex flex-col h-[calc(100vh-245px)]">
         <div class="overflow-auto flex-1">
             <table class="w-full min-w-225 text-left">
                 <thead class="table-head text-sm sticky top-0">
