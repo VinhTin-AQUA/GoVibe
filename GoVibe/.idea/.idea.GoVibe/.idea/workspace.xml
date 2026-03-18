@@ -8,10 +8,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ddba8ae6-6af0-467c-823f-aef2c114acc4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/features/categories/categories.html" beforeDir="false" afterPath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/features/categories/categories.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/features/categories/categories.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../GoVibe-Client/projects/dashboard/src/app/features/categories/categories.ts" afterDir="false" />
-    </list>
+    <list default="true" id="ddba8ae6-6af0-467c-823f-aef2c114acc4" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -139,6 +136,7 @@
       <workItem from="1773547844597" duration="623000" />
       <workItem from="1773566048404" duration="600000" />
       <workItem from="1773761625154" duration="1868000" />
+      <workItem from="1773845006343" duration="1616000" />
     </task>
     <servers />
   </component>

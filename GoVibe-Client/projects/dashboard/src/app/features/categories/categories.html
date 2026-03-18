@@ -33,7 +33,7 @@
                 </thead>
 
                 <tbody class="table-body">
-                    @for (c of categories; track $index) {
+                    @for (c of categories(); track $index) {
                         <tr class="table-row">
                             <td class="p-4">
                                 {{ $index + 1 }}
@@ -85,6 +85,7 @@
         <app-upsert-category
             (closeModel)="closeModal($event)"
             [categoryId]="categoryIdUpdate"
+            (reload)="getCategories()"
         ></app-upsert-category>
     }
 

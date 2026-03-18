@@ -10,7 +10,7 @@ export interface Place {
     status: number;
     updatedAt: Date;
     totalViews: number;
-    thumbnail: number;
+    thumbnail: string;
 }
 
 export interface PlaceImage {

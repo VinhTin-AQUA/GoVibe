@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
-import { form, FormField } from '@angular/forms/signals';
+import { form, FormField, required } from '@angular/forms/signals';
 import { CategoryService } from '../../../../core/services/category-service';
 import { UpdateCategoryModel } from '../../../../core/models/category.model';
 import { TextInput, TextArea } from 'components';
@@ -11,15 +11,19 @@ import { TextInput, TextArea } from 'components';
     styleUrl: './upsert-category.css',
 })
 export class UpsertCategory {
-    @Output() closeModel = new EventEmitter<boolean>();
     @Input() categoryId: string | null = null;
+
+    @Output() closeModel = new EventEmitter<boolean>();
+    @Output() reload = new EventEmitter<void>();
 
     categoryModel = signal<UpdateCategoryModel>({
         id: '',
         description: '',
         name: '',
     });
-    addCategoryForm = form(this.categoryModel);
+    addCategoryForm = form(this.categoryModel, (opt) => {
+        required(opt.name,{message: 'Name must be required'})
+    });
 
     constructor(private categoryService: CategoryService) {}
 
@@ -38,19 +42,26 @@ export class UpsertCategory {
     }
 
     saveCategory() {
-        if (this.categoryId) {
-            this.categoryService.updateCategory(this.categoryModel()).subscribe({
-                next: (res) => {},
-                error: (err) => {},
-            });
-        } else {
-            this.categoryService.createCategory(this.categoryModel()).subscribe({
-                next: (res) => {},
-                error: (err) => {},
-            });
+
+        if(this.addCategoryForm().valid() === false) {
+            return
         }
 
-        this.closeModel.emit(false);
+        const request$ = this.categoryId
+            ? this.categoryService.updateCategory(this.categoryModel())
+            : this.categoryService.createCategory(this.categoryModel());
+
+        request$.subscribe({
+            next: (res) => {
+                // Chỉ gọi khi API thành công
+                this.closeModel.emit(false);
+                this.reload.emit();
+            },
+            error: (err) => {
+                console.error(err);
+                // Có thể show thông báo lỗi
+            },
+        });
     }
 
     closeModal() {

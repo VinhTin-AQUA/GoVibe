@@ -19,7 +19,7 @@
 		padding: 10px 14px;
 		font-size: 14px;
 		border-radius: 10px;
-		border: 1px solid var(--brightBlack);
+		border: 1px solid var(--brightWhite);
 		background: var(--background);
 		color: var(--foreground);
 		transition: all 0.2s ease;

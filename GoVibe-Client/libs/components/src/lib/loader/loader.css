@@ -1,0 +1,37 @@
+/* --foreground */
+
+.loader {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: block;
+    margin: 15px auto;
+    position: relative;
+    background: var(--foreground);
+    box-shadow:
+        -24px 0 var(--foreground),
+        24px 0 var(--foreground);
+    box-sizing: border-box;
+    animation: shadowPulse 2s linear infinite;
+}
+
+@keyframes shadowPulse {
+    33% {
+        background: var(--foreground);
+        box-shadow:
+            -24px 0 var(--red),
+            24px 0 var(--foreground);
+    }
+    66% {
+        background: var(--red);
+        box-shadow:
+            -24px 0 var(--foreground),
+            24px 0 var(--foreground);
+    }
+    100% {
+        background: var(--foreground);
+        box-shadow:
+            -24px 0 var(--foreground),
+            24px 0 var(--red);
+    }
+}

@@ -8,7 +8,7 @@
   },
   "include": [
     "src/**/*.ts"
-, "../../libs/govibecore/src/lib/models/category-model.ts", "../../libs/govibecore/src/lib/models/option-model.ts", "../../libs/govibecore/src/lib/models/place-model.ts"  ],
+, "../../libs/govibecore/src/lib/models/category-model.ts", "../../libs/govibecore/src/lib/models/option-model.ts", "../../libs/govibecore/src/lib/models/place-model.ts", "src/app/shared/interceptors/loading.interceptor.-ts"  ],
   "exclude": [
     "src/**/*.spec.ts"
   ]

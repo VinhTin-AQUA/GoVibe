@@ -41,8 +41,9 @@ export class Overview {
                 averageRating: 4.8,
                 totalReviews: 120,
                 totalViews: 1500,
-                status: 'active',
+                status: 1,
                 updatedAt: new Date(),
+                thumbnail: '',
             },
 
             {
@@ -52,8 +53,9 @@ export class Overview {
                 averageRating: 4.6,
                 totalReviews: 80,
                 totalViews: 2100,
-                status: 'active',
+                status: 1,
                 updatedAt: new Date(),
+                thumbnail: '',
             },
         ];
     }
@@ -67,7 +69,9 @@ export class Overview {
 
         this.topRatedPlaces = this.places.filter((p) => p.averageRating >= 4.5);
 
-        this.mostViewedPlaces = [...this.places].sort((a, b) => b.totalViews - a.totalViews).slice(0, 5);
+        this.mostViewedPlaces = [...this.places]
+            .sort((a, b) => b.totalViews - a.totalViews)
+            .slice(0, 5);
 
         const map = new Map<string, number>();
 

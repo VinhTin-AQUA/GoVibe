@@ -35,6 +35,10 @@ export class Categories {
     constructor(private categoryService: CategoryService) {}
 
     ngOnInit() {
+        this.getCategories();
+    }
+
+    getCategories() {
         this.categoryService.getCategories(this.pageIndex, this.pageSize).subscribe({
             next: (res) => {
                 this.categories.set(res.item.items);
@@ -71,6 +75,7 @@ export class Categories {
         this.categoryService.deleteById(this.categoryToDelete.id).subscribe({
             next: (res) => {
                 this.categoryToDelete = null;
+                this.getCategories();
             },
             error: (err) => {},
         });

@@ -33,7 +33,7 @@
 
     <!-- Errors -->
     @if (formField && formField()!.touched() && formField()!.invalid()) {
-        <div class="text-(--color-error)">
+        <div class="text-red-500">
             @for (error of formField()!.errors(); track error) {
                 <p>{{ error.message }}</p>
             }

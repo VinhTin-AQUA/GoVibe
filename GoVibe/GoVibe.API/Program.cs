@@ -15,6 +15,17 @@ builder.Services.AddServices();
 builder.Services.AddAutoMapperProfiles();
 builder.Services.AddInfrastructure(builder.Configuration);
 
+// enable cors
+builder.Services.AddCors(c =>
+{
+    c.AddPolicy("AllowOrigin", option => option
+        .WithOrigins("http://localhost:4200")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials());
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,6 +36,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowOrigin");
 
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
