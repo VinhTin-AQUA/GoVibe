@@ -22,6 +22,8 @@ namespace GoVibe.API.Models.Reviews
 
     public class ReviewImageModel
     {
-        
+        public string Id { get; set; } = "";
+        public Guid ReviewId { get; set; }
+        public string ImageUrl { get; set; } = "";
     }
 }

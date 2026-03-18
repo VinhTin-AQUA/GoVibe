@@ -45,7 +45,6 @@ namespace GoVibe.API.Models.Places
         public CategoryModel? Category { get; set; }
         public ICollection<PlaceImageModel> Images { get; set; } = [];
         public ICollection<ReviewModel> Reviews { get; set; } = [];
-        public ICollection<AmenityModel> Amenities { get; set; } = [];
     }
 
     public class AddPlaceRequest

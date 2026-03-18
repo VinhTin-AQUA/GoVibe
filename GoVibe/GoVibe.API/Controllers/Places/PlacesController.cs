@@ -68,7 +68,7 @@ namespace GoVibe.API.Controllers.Places
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteMany(DeleteManyPlacesRequest request)
+        public async Task<IActionResult> DeleteMany([FromBody] DeleteManyPlacesRequest request)
         {
             await placeService.DeleteMany(request);
             return Ok(new ApiResponse<object>());

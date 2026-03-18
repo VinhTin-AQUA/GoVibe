@@ -10,7 +10,7 @@ import { PaginationModel } from '../common/pagination.model';
     providedIn: 'root',
 })
 export class CategoryService {
-    private baseUrl = environment.API_URL;
+    private baseUrl = `${environment.API_URL}/Categories`;
 
     constructor(private http: HttpClient) {}
 

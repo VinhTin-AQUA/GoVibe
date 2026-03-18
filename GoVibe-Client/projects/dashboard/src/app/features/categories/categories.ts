@@ -66,10 +66,12 @@ export class Categories {
 
     deletePlace(result: boolean) {
         this.showDeleteModal.set(false);
-        if (!result && !this.categoryToDelete) return;
+        if (!result || !this.categoryToDelete) return;
 
-        this.categoryService.deleteById(this.categoryToDelete!.id).subscribe({
-            next: (res) => {},
+        this.categoryService.deleteById(this.categoryToDelete.id).subscribe({
+            next: (res) => {
+                this.categoryToDelete = null;
+            },
             error: (err) => {},
         });
     }

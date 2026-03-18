@@ -66,7 +66,7 @@ namespace GoVibe.API.Controllers.Categories
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteMany(DeleteManyCategoriesRequest request)
+        public async Task<IActionResult> DeleteMany([FromBody] DeleteManyCategoriesRequest request)
         {
             await categoryService.DeleteMany(request);
             return Ok(new ApiResponse<object>());

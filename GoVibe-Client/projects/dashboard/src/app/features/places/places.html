@@ -6,7 +6,7 @@
             <p class="page-subtitle text-sm">Manage places</p>
         </div>
 
-        <button (click)="openUpsertModal()" class="btn-primary px-4 py-2 rounded-lg shadow">
+        <button (click)="openUpsertModal(null)" class="btn-primary px-4 py-2 rounded-lg shadow">
             + Add Place
         </button>
     </div>
@@ -39,7 +39,7 @@
                 </thead>
 
                 <tbody>
-                    @for (p of places; track $index) {
+                    @for (p of places(); track $index) {
                         <tr class="table-row">
                             <td class="p-4">{{ $index + 1 }}</td>
 
@@ -78,7 +78,7 @@
                                 </button>
 
                                 <button
-                                    (click)="openEditUpsertModal(p)"
+                                    (click)="openUpsertModal(p)"
                                     class="btn-warning px-3 py-1 text-sm rounded"
                                 >
                                     Edit
@@ -108,7 +108,10 @@
     <!-- Modal -->
     @if (showUpsertModal()) {
         <div class="modal-overlay fixed inset-0 flex items-center justify-center z-50">
-            <app-upsert-place (closePopup)="closeUpsertModal()"></app-upsert-place>
+            <app-upsert-place
+                [placeIdUpdate]="placeIdUpdate"
+                (closePopup)="closeUpsertModal()"
+            ></app-upsert-place>
         </div>
     }
 

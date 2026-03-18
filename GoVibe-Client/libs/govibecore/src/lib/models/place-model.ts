@@ -1,4 +1,4 @@
-import { CategoryModel } from "./category-model";
+import { CategoryModel } from './category-model';
 
 export interface Place {
     id: string;
@@ -7,11 +7,50 @@ export interface Place {
 
     averageRating: number;
     totalReviews: number;
-    status: string;
+    status: number;
     updatedAt: Date;
-    totalViews: number
+    totalViews: number;
+    thumbnail: number;
+}
+
+export interface PlaceImage {
+    id: string;
+    placeId: string;
+    imageUrl: string;
+    updatedAt: Date;
 }
 
 export interface PlaceDetails {
-    
+    id: string;
+    name: string;
+    description: string;
+    address: string;
+    country: string;
+    categoryId: string; // Guid → string (UUID)
+    phone: string;
+    website: string;
+    openingHours: string;
+    totalViews: number;
+    totalRating: number; // decimal → number
+    totalReviews: number;
+    status: number;
+    updatedAt: Date;
+    category: CategoryModel;
+    images: PlaceImage[];
+    reviews: Review[];
+}
+
+export interface ReviewImage {
+    id: string;
+    reviewId: string;
+    imageUrl: string;
+}
+
+export interface Review {
+    id: string;
+    placeId: string;
+    rating: number;
+    comment: string;
+    updatedAt: Date;
+    images: ReviewImage[];
 }

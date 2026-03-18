@@ -4,6 +4,7 @@ import { TextInput, SelectBox, TextEditor } from 'components';
 import { PlaceFormModel } from '../../models/add-place-model';
 import { OptionModel } from 'govibe-core';
 import { FormsModule } from '@angular/forms';
+import { PlaceService } from '../../../../core/services/place.service';
 
 @Component({
     selector: 'app-upsert-place',
@@ -12,37 +13,11 @@ import { FormsModule } from '@angular/forms';
     styleUrl: './upsert-place.css',
 })
 export class UpsertPlace {
-    content: string = '';
+    @Input() placeIdUpdate: string | null = null;
 
     @Output() closePopup = new EventEmitter<void>();
 
-    handleClosePopup() {
-        this.closePopup.emit();
-    }
-
-    categories = signal<OptionModel[]>([
-        {
-            label: 'A',
-            value: crypto.randomUUID().toString(),
-        },
-        {
-            label: 'B',
-            value: crypto.randomUUID().toString(),
-        },
-        {
-            label: 'C',
-            value: crypto.randomUUID().toString(),
-        },
-        {
-            label: 'D',
-            value: crypto.randomUUID().toString(),
-        },
-        {
-            label: 'E',
-            value: crypto.randomUUID().toString(),
-        },
-    ]);
-
+    categories = signal<OptionModel[]>([]);
     model = signal<PlaceFormModel>({
         name: '',
         phone: '',
@@ -60,6 +35,31 @@ export class UpsertPlace {
         required(x.name);
     });
 
+    constructor(private placeService: PlaceService) {}
+
+    ngOnInit() {
+        if (this.placeIdUpdate) {
+            this.placeService.getById(this.placeIdUpdate).subscribe({
+                next: (res) => {
+                    this.placeForm.name().controlValue.set(res.item.name);
+                    this.placeForm.phone().controlValue.set(res.item.phone);
+                    this.placeForm.address().controlValue.set(res.item.address);
+                    this.placeForm.status().controlValue.set(res.item.status);
+                    this.placeForm.country().controlValue.set(res.item.country);
+                    this.placeForm.openingHours().controlValue.set(res.item.openingHours);
+                    this.placeForm.categoryId().controlValue.set(res.item.categoryId);
+                    this.placeForm.website().controlValue.set(res.item.website);
+                    this.placeForm.description().controlValue.set(res.item.description);
+                },
+                error: (err) => {},
+            });
+        }
+    }
+
+    handleClosePopup() {
+        this.closePopup.emit();
+    }
+
     onImageChange(event: Event) {
         const input = event.target as HTMLInputElement;
 
@@ -70,7 +70,38 @@ export class UpsertPlace {
     }
 
     save() {
-        console.log('Form Value:', this.placeForm().value());
-        // console.log(this.content);
+        const formData = new FormData();
+        const value = this.placeForm().value();
+
+        formData.append('name', value.name || '');
+        formData.append('phone', value.phone || '');
+        formData.append('address', value.address || '');
+        formData.append('status', String(value.status ?? 1));
+        formData.append('country', value.country || '');
+        formData.append('openingHours', value.openingHours || '');
+        formData.append('categoryId', value.categoryId || '');
+        formData.append('website', value.website || '');
+        formData.append('description', value.description || '');
+
+        if (value.images && value.images.length) {
+            value.images.forEach((file: File) => {
+                formData.append('images', file);
+            });
+        }
+        
+        if (this.placeIdUpdate) {
+            formData.append('id', this.placeIdUpdate);
+            this.placeService.update(formData).subscribe({
+                next: (res) => {},
+                error: (err) => {},
+            });
+        } else {
+            this.placeService.create(formData).subscribe({
+                next: (res) => {},
+                error: (err) => {},
+            });
+        }
+
+        this.closePopup.emit();
     }
 }
