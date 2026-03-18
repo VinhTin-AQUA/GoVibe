@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CategoryModel } from 'govibe-core';
 import { Pagination, QuestionCancelDialog, TextInput } from 'components';
 import { UpsertCategory } from './components/upsert-category/upsert-category';
-import { CategoryService } from '../../core/services/category-service';
+import { CategoryService } from '../../core/services/category.service';
 
 @Component({
     selector: 'app-categories',
