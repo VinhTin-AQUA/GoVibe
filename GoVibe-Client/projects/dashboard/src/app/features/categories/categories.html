@@ -20,23 +20,20 @@
         ></lib-text-input>
     </div> -->
 
-    <div class="flex flex-col md:flex-row items-center gap-1">
+    <div class="flex flex-col md:flex-row items-center gap-1 mb-4">
         <lib-text-input
             placeholder="Search category..."
             [(ngModel)]="searchString"
-            class="flex-1 p-4 rounded-xl shadow"
+            class="flex-1 rounded-xl shadow"
         ></lib-text-input>
 
-        <lib-button
-            (click)="getCategories()"
-            class="bg-blue-500 hover:bg-blue-600 rounded-xl"
-        >
+        <lib-button (click)="getCategories()" status="primary" class="rounded-xl">
             Search
         </lib-button>
     </div>
 
     <!-- Table -->
-    <div class="card rounded-xl shadow flex flex-col h-[calc(100vh-245px)]">
+    <div class="card rounded-xl shadow flex flex-col h-[calc(100vh-210px)]">
         <div class="overflow-auto flex-1">
             <table class="w-full min-w-225 text-left">
                 <thead class="table-head text-sm sticky top-0">
@@ -71,6 +68,7 @@
                             <td class="p-4 flex justify-center gap-2">
                                 <lib-button
                                     (click)="openEditModel(c)"
+                                    status="warning"
                                     class="btn-warning rounded"
                                 >
                                     Edit
@@ -78,6 +76,7 @@
 
                                 <lib-button
                                     (click)="openDeleteCategory(c)"
+                                    status="danger"
                                     class="btn-danger rounded"
                                 >
                                     Delete

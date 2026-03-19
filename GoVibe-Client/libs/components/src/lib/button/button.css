@@ -15,8 +15,8 @@
         cursor: pointer;
         transition: all 0.2s ease;
 
-        background-color: var(--color-primary);
-        color: var(--color-primary-inverse);
+        background-color: var(--blue);
+        color: var(--cursorAccent);
 
         &:disabled {
             opacity: 0.6;
@@ -24,48 +24,49 @@
         }
     }
 
+    /* ================= VARIANTS ================= */
     .ui-btn--primary {
-        background-color: var(--color-primary);
-        color: var(--color-primary-inverse);
+        background-color: var(--blue);
+        color: var(--cursorAccent);
 
         &:hover {
-            background-color: var(--color-primary-strong);
+            background-color: var(--brightBlue);
         }
     }
 
     .ui-btn--success {
-        background-color: var(--color-success);
-        color: var(--color-success-inverse);
+        background-color: var(--green);
+        color: var(--cursorAccent);
 
         &:hover {
-            background-color: var(--color-success-strong);
+            background-color: var(--brightGreen);
         }
     }
 
     .ui-btn--danger {
-        background-color: var(--color-error);
-        color: var(--color-error-inverse);
+        background-color: var(--red);
+        color: var(--cursorAccent);
 
         &:hover {
-            background-color: var(--color-error-strong);
+            background-color: var(--brightRed);
         }
     }
 
     .ui-btn--warning {
-        background-color: var(--color-warning);
-        color: var(--color-warning-inverse);
+        background-color: var(--yellow);
+        color: var(--cursorAccent);
 
         &:hover {
-            background-color: var(--color-warning-strong);
+            background-color: var(--brightYellow);
         }
     }
 
     .ui-btn--neutral {
-        background-color: var(--color-neutral);
-        color: var(--color-neutral-inverse);
+        background-color: var(--background);
+        color: var(--foreground);
 
         &:hover {
-            background-color: var(--color-neutral-strong);
+            background-color: var(--brightBlack);
         }
     }
 }

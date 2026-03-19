@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { UpsertPlace } from './components/upsert-place/upsert-place';
 import { PlaceReview } from './components/place-review/place-review';
 import { PlaceService } from '../../core/services/place.service';
-import { Pagination, QuestionCancelDialog, Button } from 'components';
+import { Pagination, QuestionCancelDialog, Button, TextInput } from 'components';
 import { Place } from 'govibe-core';
 
 @Component({
@@ -16,13 +16,14 @@ import { Place } from 'govibe-core';
         Pagination,
         QuestionCancelDialog,
         PlaceReview,
-        Button
+        Button,
+        TextInput,
     ],
     templateUrl: './places.html',
     styleUrl: './places.css',
 })
 export class Places {
-    search = '';
+    searchString = '';
     showUpsertModal = signal<boolean>(false);
     showDeleteModal = signal<boolean>(false);
     showReviewModal = signal<boolean>(false);
@@ -38,7 +39,11 @@ export class Places {
     constructor(private placeService: PlaceService) {}
 
     ngOnInit() {
-        this.placeService.getAll(this.pageIndex, this.pageSize).subscribe({
+        this.getPlaces();
+    }
+
+    getPlaces() {
+        this.placeService.getAll(this.searchString, this.pageIndex, this.pageSize).subscribe({
             next: (res) => {
                 this.places.set(res.item.items);
             },
@@ -58,6 +63,9 @@ export class Places {
 
     closeUpsertModal() {
         this.showUpsertModal.set(false);
+        this.getPlaces();
+        this.placeToDelete = null;
+        this.placeIdUpdate = null;
     }
 
     // delete
@@ -73,6 +81,7 @@ export class Places {
         this.placeService.delete(this.placeToDelete.id).subscribe({
             next: (res) => {
                 this.placeToDelete = null;
+                this.getPlaces();
             },
             error: (err) => {},
         });

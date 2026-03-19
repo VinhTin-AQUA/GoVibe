@@ -80,5 +80,15 @@ namespace GoVibe.API.Controllers.Categories
             await _categoryService.DeleteMany(request);
             return Ok(new ApiResponse<object>());
         }
+
+        [HttpGet("options")]
+        public async Task<IActionResult> GetOption()
+        {
+            var options = await _categoryService.GetOptions();
+            return Ok(new ApiResponse<object>()
+            {
+                Item = options
+            });
+        }
     }
 }

@@ -17,35 +17,6 @@
     color: var(--white);
 }
 
-/* buttons */
-
-.btn-primary {
-    background: var(--blue);
-    color: var(--cursorAccent);
-}
-
-.btn-primary:hover {
-    background: var(--brightBlue);
-}
-
-.btn-warning {
-    background: var(--yellow);
-    color: var(--cursorAccent);
-}
-
-.btn-warning:hover {
-    background: var(--brightYellow);
-}
-
-.btn-danger {
-    background: var(--red);
-    color: var(--cursorAccent);
-}
-
-.btn-danger:hover {
-    background: var(--brightRed);
-}
-
 /* input */
 
 .search-input {

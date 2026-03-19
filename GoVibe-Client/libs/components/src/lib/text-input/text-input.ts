@@ -26,6 +26,7 @@ export class TextInput {
     @Input() label = '';
     @Input() value: any = '';
     @Input() placeholder = '';
+    @Input() class = '';
     @Input() disabled = false;
     @Input() readonly = false;
     @Input() id = crypto.randomUUID().toString();

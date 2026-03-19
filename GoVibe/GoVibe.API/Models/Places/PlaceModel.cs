@@ -73,8 +73,8 @@ namespace GoVibe.API.Models.Places
         public string Address { get; set; } = "";
         public string Country { get; set; } = "";
         public string CategoryId { get; set; } = "";
-        public string Phone { get; set; } = "";
-        public string Website { get; set; } = "";
+        public string? Phone { get; set; }
+        public string? Website { get; set; }
         public string OpeningHours { get; set; } = "";
         public EPlaceStatus Status { get; set; } = EPlaceStatus.None;
         public List<IFormFile> Images { get; set; } = []; // new Image

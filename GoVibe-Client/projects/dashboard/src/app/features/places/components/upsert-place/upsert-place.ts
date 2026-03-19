@@ -5,6 +5,7 @@ import { PlaceFormModel } from '../../models/add-place-model';
 import { PlaceService } from '../../../../core/services/place.service';
 import { TextInput, SelectBox, TextEditor, Button } from 'components';
 import { OptionModel } from 'govibe-core';
+import { CategoryService } from '../../../../core/services/category.service';
 
 @Component({
     selector: 'app-upsert-place',
@@ -32,10 +33,18 @@ export class UpsertPlace {
     });
 
     placeForm = form(this.model, (x) => {
-        required(x.name);
+        required(x.name, { message: 'Name is required' });
+        required(x.address, { message: 'Address is required' });
+        required(x.country, { message: 'Country is required' });
+        required(x.openingHours, { message: 'OpeningHours is required' });
+        required(x.description, { message: 'Description is required' });
+        required(x.categoryId, { message: 'CategoryId is required' });
     });
 
-    constructor(private placeService: PlaceService) {}
+    constructor(
+        private placeService: PlaceService,
+        private categoryService: CategoryService,
+    ) {}
 
     ngOnInit() {
         if (this.placeIdUpdate) {
@@ -54,6 +63,14 @@ export class UpsertPlace {
                 error: (err) => {},
             });
         }
+
+        this.categoryService.getOptions().subscribe({
+            next: (res) => {
+                this.categories.set(res.item);
+                this.placeForm.categoryId().controlValue.set(res.item[0].value);
+            },
+            error: (err) => {},
+        });
     }
 
     handleClosePopup() {
@@ -70,6 +87,10 @@ export class UpsertPlace {
     }
 
     save() {
+        if (!this.placeForm().valid()) {
+            return;
+        }
+
         const formData = new FormData();
         const value = this.placeForm().value();
 
@@ -88,20 +109,22 @@ export class UpsertPlace {
                 formData.append('images', file);
             });
         }
-        
+
         if (this.placeIdUpdate) {
             formData.append('id', this.placeIdUpdate);
             this.placeService.update(formData).subscribe({
-                next: (res) => {},
+                next: (res) => {
+                    this.closePopup.emit();
+                },
                 error: (err) => {},
             });
         } else {
             this.placeService.create(formData).subscribe({
-                next: (res) => {},
+                next: (res) => {
+                    this.closePopup.emit();
+                },
                 error: (err) => {},
             });
         }
-
-        this.closePopup.emit();
     }
 }

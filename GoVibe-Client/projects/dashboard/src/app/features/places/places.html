@@ -11,17 +11,19 @@
         </lib-button>
     </div>
 
-    <!-- Search -->
-    <div class="card p-4 rounded-xl shadow mb-6">
-        <input
-            type="text"
+    <div class="flex flex-col md:flex-row items-center gap-1 mb-4">
+        <lib-text-input
+            class="flex-1"
             placeholder="Search place..."
-            [(ngModel)]="search"
-            class="search-input w-full px-4 py-2 rounded-lg outline-none"
-        />
+            [(ngModel)]="searchString"
+        ></lib-text-input>
+
+        <lib-button (click)="getPlaces()" status="primary" class="rounded-xl">
+            Search
+        </lib-button>
     </div>
 
-    <div class="card rounded-xl shadow flex flex-col h-[calc(100vh-240px)]">
+    <div class="card rounded-xl shadow flex flex-col h-[calc(100vh-210px)]">
         <!-- TABLE -->
         <div class="overflow-auto flex-1">
             <table class="w-full min-w-225 text-left">
@@ -73,6 +75,7 @@
                                 <lib-button
                                     (click)="openShowReviewModal(true)"
                                     class="btn-warning rounded"
+                                    status="primary"
                                 >
                                     Reviews
                                 </lib-button>
@@ -80,6 +83,7 @@
                                 <lib-button
                                     (click)="openUpsertModal(p)"
                                     class="btn-warning rounded"
+                                    status="warning"
                                 >
                                     Edit
                                 </lib-button>
@@ -87,6 +91,7 @@
                                 <lib-button
                                     (click)="openShowDeleteModal(true, p)"
                                     class="btn-danger rounded"
+                                    status="danger"
                                 >
                                     Delete
                                 </lib-button>

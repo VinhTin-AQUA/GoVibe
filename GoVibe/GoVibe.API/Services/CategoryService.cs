@@ -9,39 +9,39 @@ namespace GoVibe.API.Services
 {
     public class CategoryService
     {
-        private readonly ICategoryCommandRepository categoryCommandRepository;
-        private readonly ICategoryQueryRepository categoryQueryRepository;
-        private readonly IMapper mapper;
+        private readonly ICategoryCommandRepository _categoryCommandRepository;
+        private readonly ICategoryQueryRepository _categoryQueryRepository;
+        private readonly IMapper _mapper;
 
         public CategoryService(ICategoryCommandRepository categoryCommandRepository,
             ICategoryQueryRepository categoryQueryRepository,
             IMapper mapper)
         {
-            this.categoryCommandRepository = categoryCommandRepository;
-            this.categoryQueryRepository = categoryQueryRepository;
-            this.mapper = mapper;
+            _categoryCommandRepository = categoryCommandRepository;
+            _categoryQueryRepository = categoryQueryRepository;
+            _mapper = mapper;
         }
 
         public async Task<CategoryModel> Add(AddCategoryRequest request)
         {
-            var nameExists = await categoryQueryRepository.ExistsAsync((x) => x.Name.ToLower() == request.Name.ToLower());
+            var nameExists = await _categoryQueryRepository.ExistsAsync((x) => x.Name.ToLower() == request.Name.ToLower());
             if (nameExists)
             {
                 throw new ArgumentException("Category Name already exists");
             }
 
             Category newCategory = new() { Name = request.Name, Description = request.Description };
-            await categoryCommandRepository.AddAsync(newCategory);
-            var r = await categoryCommandRepository.SaveChangesAsync();
+            await _categoryCommandRepository.AddAsync(newCategory);
+            var r = await _categoryCommandRepository.SaveChangesAsync();
 
-            return mapper.Map<CategoryModel>(newCategory);
+            return _mapper.Map<CategoryModel>(newCategory);
         }
         
         public async Task<CategoryModel> GetById(string id)
         {
-            var category = await categoryQueryRepository.GetByIdAsync(Guid.Parse(id));
+            var category = await _categoryQueryRepository.GetByIdAsync(Guid.Parse(id));
 
-            return mapper.Map<CategoryModel>(category);
+            return _mapper.Map<CategoryModel>(category);
         }
 
         public async Task<Pagination<CategoryModel>> GetAllPagination(string searchString = "", int pageIndex = 1, int pageSize = 20)
@@ -49,11 +49,11 @@ namespace GoVibe.API.Services
             pageIndex = Math.Max(pageIndex, 1);   // >= 1
             pageSize = Math.Min(pageSize, 50);    // <= 50
 
-            (List<Category> categories, int total) = await categoryQueryRepository.GetAllPagination(searchString, pageIndex, pageSize);
+            (List<Category> categories, int total) = await _categoryQueryRepository.GetAllPagination(searchString, pageIndex, pageSize);
 
             return new Pagination<CategoryModel>
             {
-                Items = mapper.Map<List<CategoryModel>>(categories),
+                Items = _mapper.Map<List<CategoryModel>>(categories),
                 PageIndex = pageIndex,
                 PageSize = pageSize,
                 TotalCount = total,
@@ -63,7 +63,7 @@ namespace GoVibe.API.Services
 
         public async Task<CategoryModel> Update(UpdateCategoryRequest request)
         {
-            var category = await categoryQueryRepository.GetByIdAsync(Guid.Parse(request.Id));
+            var category = await _categoryQueryRepository.GetByIdAsync(Guid.Parse(request.Id));
             if (category == null)
             {
                 throw new NotFoundException("Category not found");
@@ -72,29 +72,35 @@ namespace GoVibe.API.Services
             category.Name = request.Name;
             category.Description = request.Description;
 
-            await categoryCommandRepository.UpdateAsync(category);
-            var r = await categoryCommandRepository.SaveChangesAsync();
+            await _categoryCommandRepository.UpdateAsync(category);
+            var r = await _categoryCommandRepository.SaveChangesAsync();
 
-            return mapper.Map<CategoryModel>(category);
+            return _mapper.Map<CategoryModel>(category);
         }
 
         public async Task<CategoryModel> Delete(string id)
         {
-            var category = await categoryQueryRepository.GetByIdAsync(Guid.Parse(id));
+            var category = await _categoryQueryRepository.GetByIdAsync(Guid.Parse(id));
             if (category == null)
             {
                 throw new NotFoundException("Category not found");
             }
 
-            await categoryCommandRepository.DeleteAsync(category);
-            var r = await categoryCommandRepository.SaveChangesAsync();
-            return mapper.Map<CategoryModel>(category);
+            await _categoryCommandRepository.DeleteAsync(category);
+            var r = await _categoryCommandRepository.SaveChangesAsync();
+            return _mapper.Map<CategoryModel>(category);
         }
 
         public async Task DeleteMany(DeleteManyCategoriesRequest request)
         {
-            await categoryCommandRepository.DeleteRangeAsync(request.Ids.Select(x => Guid.Parse(x)));
-            var r = await categoryCommandRepository.SaveChangesAsync();
+            await _categoryCommandRepository.DeleteRangeAsync(request.Ids.Select(x => Guid.Parse(x)));
+            var r = await _categoryCommandRepository.SaveChangesAsync();
+        }
+
+        public async Task<List<Options<string, string>>> GetOptions()
+        {
+            var list = await _categoryQueryRepository.GetAllAsync();
+            return _mapper.Map<List<Options<string, string>>>(list);
         }
     }
 }

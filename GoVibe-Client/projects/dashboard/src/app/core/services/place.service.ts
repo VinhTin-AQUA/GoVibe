@@ -19,8 +19,11 @@ export class PlaceService {
     }
 
     // Get all (pagination)
-    getAll(pageIndex: number = 0, pageSize: number = 20) {
-        let params = new HttpParams().set('pageIndex', pageIndex).set('pageSize', pageSize);
+    getAll(searchString: string, pageIndex: number = 0, pageSize: number = 20) {
+        let params = new HttpParams()
+            .set('searchString', searchString)
+            .set('pageIndex', pageIndex)
+            .set('pageSize', pageSize);
 
         return this.http.get<ApiResponse<PaginationModel<Place>>>(this.baseUrl, { params });
     }
