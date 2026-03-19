@@ -27,8 +27,10 @@ namespace GoVibe.API.Middlewares
             }
             catch (Exception ex)
             {
+                _logger.LogInformation("===========================");
                 _logger.LogError(ex, "An unhandled exception occurred. RequestId: {RequestId}, Path: {Path}",
                     context.TraceIdentifier, context.Request.Path);
+                _logger.LogInformation("===========================");
                 await HandleExceptionAsync(context, ex);
             }
         }
@@ -63,6 +65,7 @@ namespace GoVibe.API.Middlewares
                 }
             };
         }
+
         private static (int statusCode, string title, string detail) MapException(Exception exception)
         {
             return exception switch

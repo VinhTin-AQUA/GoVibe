@@ -11,35 +11,32 @@ namespace GoVibe.API.Services
 {
     public class PlaceService
     {
-        private readonly IPlaceQueryRepository placeQueryRepository;
-        private readonly IPlaceCommandRepository placeCommandRepository;
-        private readonly IPlaceImageCommandRepository placeImageCommandRepository;
-        private readonly IPlaceImageQueryRepository placeImageQueryRepository;
-        private readonly IUnitOfWork unitOfWork;
-        private readonly IMapper mapper;
+        private readonly IPlaceQueryRepository _placeQueryRepository;
+        private readonly IPlaceCommandRepository _placeCommandRepository;
+        private readonly IPlaceImageCommandRepository _placeImageCommandRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
         public PlaceService(
             IPlaceQueryRepository placeQueryRepository,
             IPlaceCommandRepository placeCommandRepository,
             IPlaceImageCommandRepository  placeImageCommandRepository,
-            IPlaceImageQueryRepository placeImageQueryRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper)
         {
-            this.placeQueryRepository = placeQueryRepository;
-            this.placeCommandRepository = placeCommandRepository;
-            this.placeImageCommandRepository = placeImageCommandRepository;
-            this.placeImageQueryRepository = placeImageQueryRepository;
-            this.unitOfWork = unitOfWork;
-            this.mapper = mapper;
+            _placeQueryRepository = placeQueryRepository;
+            _placeCommandRepository = placeCommandRepository;
+            _placeImageCommandRepository = placeImageCommandRepository;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public async Task<PlaceModel> Add(AddPlaceRequest request)
         {
             try
             {
-                await unitOfWork.BeginTransactionAsync();
-                var nameExists = await placeQueryRepository.ExistsAsync((x) => x.Name.ToLower() == request.Name.ToLower());
+                await _unitOfWork.BeginTransactionAsync();
+                var nameExists = await _placeQueryRepository.ExistsAsync((x) => x.Name.ToLower() == request.Name.ToLower());
                 if (nameExists)
                 {
                     throw new ArgumentException("Place Name already exists");
@@ -58,7 +55,7 @@ namespace GoVibe.API.Services
                     Status = request.Status,
                     Address = request.Address,
                 };
-                await placeCommandRepository.AddAsync(newPlace);
+                await _placeCommandRepository.AddAsync(newPlace);
 
                 List<PlaceImage> placeImages = [];
                 foreach (var image in request.Images)
@@ -71,48 +68,58 @@ namespace GoVibe.API.Services
                     };
                     placeImages.Add(placeImage);
                 }
-                await placeImageCommandRepository.AddRangeAsync(placeImages);
-                await unitOfWork.CommitAsync();
-                return mapper.Map<PlaceModel>(newPlace);
+                await _placeImageCommandRepository.AddRangeAsync(placeImages);
+                await _unitOfWork.CommitAsync();
+                return _mapper.Map<PlaceModel>(newPlace);
             }
             catch
             {
-                await unitOfWork.RollbackAsync();
-                throw;
+                try
+                {
+                    await _unitOfWork.RollbackAsync();
+                }
+                catch
+                {
+                    // ignore rollback exception
+                }
+
+                throw; // giữ nguyên exception gốc
             }
         }
 
-        public async Task<Pagination<PlaceModel>> GetAllPagination(int pageIndex = 0, int pageSize = 20)
+        public async Task<Pagination<PlaceModel>> GetAllPagination(string searchString = "", int pageIndex = 0, int pageSize = 20)
         {
             pageIndex = Math.Max(pageIndex, 1);   // >= 1
             pageSize = Math.Min(pageSize, 50);    // <= 50
-            (List<Place> places, int total) = await placeQueryRepository.GetAllPagination(pageIndex, pageSize);
+
+            (List<Place> places, int total) = await _placeQueryRepository.GetAllPagination(searchString, pageIndex, pageSize);
 
             return new Pagination<PlaceModel>
             {
-                Items = mapper.Map<List<PlaceModel>>(places),
+                Items = _mapper.Map<List<PlaceModel>>(places),
                 PageIndex = pageIndex,
                 PageSize = pageSize,
-                TotalCount = total
+                TotalCount = total,
+                TotalPage = total / pageSize + 1
             };
         }
 
         public async Task<PlaceDetailsModel> Get(string id)
         {
-            var place = await placeQueryRepository.GetByIdAsync(Guid.Parse(id), false, [x => x.Category, x => x.Images, x => x.Reviews]);
+            var place = await _placeQueryRepository.GetByIdAsync(Guid.Parse(id), false, [x => x.Category, x => x.Images, x => x.Reviews]);
             if (place == null)
             {
                 throw new NotFoundException("Place not found");
             }
-            return mapper.Map<PlaceDetailsModel>(place);
+            return _mapper.Map<PlaceDetailsModel>(place);
         }
 
         public async Task<PlaceModel> Update(UpdatePlaceRequest request)
         {
             try
             {
-                await unitOfWork.BeginTransactionAsync();
-                var place = await placeQueryRepository.GetByIdAsync(Guid.Parse(request.Id), false, [(x) => x.Category]);
+                await _unitOfWork.BeginTransactionAsync();
+                var place = await _placeQueryRepository.GetByIdAsync(Guid.Parse(request.Id), false, [(x) => x.Category]);
                 if (place == null)
                 {
                     throw new NotFoundException("Amenty not found");
@@ -127,7 +134,7 @@ namespace GoVibe.API.Services
                 place.Website = request.Website;
                 place.OpeningHours = request.OpeningHours;
                 place.Status = request.Status;
-                await placeCommandRepository.UpdateAsync(place);
+                await _placeCommandRepository.UpdateAsync(place);
 
                 List<PlaceImage> placeImages = [];
                 foreach (var image in request.Images)
@@ -140,41 +147,41 @@ namespace GoVibe.API.Services
                     };
                     placeImages.Add(placeImage);
                 }
-                await placeImageCommandRepository.AddRangeAsync(placeImages);
+                await _placeImageCommandRepository.AddRangeAsync(placeImages);
 
                 foreach (var deleteImage in request.DeleteImages)
                 {
                     // remove deleteImage in storage
                 }
-                await placeImageCommandRepository.DeleteRangeAsync(request.DeleteImages.Select(x => Guid.Parse(x)));
+                await _placeImageCommandRepository.DeleteRangeAsync(request.DeleteImages.Select(x => Guid.Parse(x)));
                 
-                await unitOfWork.CommitAsync();
-                return mapper.Map<PlaceModel>(place);
+                await _unitOfWork.CommitAsync();
+                return _mapper.Map<PlaceModel>(place);
             }
             catch
             {
-                await unitOfWork.RollbackAsync();
+                await _unitOfWork.RollbackAsync();
                 throw;
             }
         }
 
         public async Task<PlaceModel> Delete(string id)
         {
-            var amenity = await placeQueryRepository.GetByIdAsync(Guid.Parse(id));
+            var amenity = await _placeQueryRepository.GetByIdAsync(Guid.Parse(id));
             if (amenity == null)
             {
                 throw new NotFoundException("Amenity not found");
             }
 
-            await placeCommandRepository.DeleteAsync(amenity);
-            var r = await placeCommandRepository.SaveChangesAsync();
-            return mapper.Map<PlaceModel>(amenity);
+            await _placeCommandRepository.DeleteAsync(amenity);
+            var r = await _placeCommandRepository.SaveChangesAsync();
+            return _mapper.Map<PlaceModel>(amenity);
         }
 
         public async Task DeleteMany(DeleteManyPlacesRequest request)
         {
-            await placeCommandRepository.DeleteRangeAsync(request.Ids.Select(x => Guid.Parse(x)));
-            var r = await placeCommandRepository.SaveChangesAsync();
+            await _placeCommandRepository.DeleteRangeAsync(request.Ids.Select(x => Guid.Parse(x)));
+            var r = await _placeCommandRepository.SaveChangesAsync();
         }
     }
 }

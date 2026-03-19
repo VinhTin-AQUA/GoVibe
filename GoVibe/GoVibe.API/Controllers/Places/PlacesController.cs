@@ -1,7 +1,9 @@
-﻿using GoVibe.API.Controllers.Common;
+﻿using FluentValidation;
+using GoVibe.API.Controllers.Common;
 using GoVibe.API.Models;
 using GoVibe.API.Models.Places;
 using GoVibe.API.Services;
+using GoVibe.API.Validators.Places;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoVibe.API.Controllers.Places
@@ -10,27 +12,32 @@ namespace GoVibe.API.Controllers.Places
     [ApiController]
     public class PlacesController : ControllerBaseApi
     {
-        private readonly PlaceService placeService;
+        private readonly PlaceService _placeService;
+        private readonly AddPlaceRequestValidator _addPlaceRequestValidator;
+        private readonly UpdatePlaceRequestValidator _updatePlaceRequestValidator;
 
         public PlacesController(PlaceService placeService)
         {
-            this.placeService = placeService;
+            _placeService = placeService;
+            _addPlaceRequestValidator = new AddPlaceRequestValidator();
+            _updatePlaceRequestValidator = new UpdatePlaceRequestValidator();
         }
 
         [HttpPost]
         public async Task<IActionResult> Add([FromForm] AddPlaceRequest request)
         {
-            var r = await placeService.Add(request);
+            await _addPlaceRequestValidator.ValidateAndThrowAsync(request);
+            var model = await _placeService.Add(request);
             return Ok(new ApiResponse<object>
             {
-                Item = r
+                Item = model
             });
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll(int pageIndex = 0, int pageSize = 20)
+        public async Task<IActionResult> GetAll(string searchString = "", int pageIndex = 0, int pageSize = 20)
         {
-            var r = await placeService.GetAllPagination(pageIndex, pageSize);
+            var r = await _placeService.GetAllPagination(searchString, pageIndex, pageSize);
             return Ok(new ApiResponse<object>
             {
                 Item = r,
@@ -40,7 +47,7 @@ namespace GoVibe.API.Controllers.Places
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)
         {
-            var r = await placeService.Get(id);
+            var r = await _placeService.Get(id);
             return Ok(new ApiResponse<object>
             {
                 Item = r,
@@ -50,7 +57,8 @@ namespace GoVibe.API.Controllers.Places
         [HttpPut]
         public async Task<IActionResult> Update([FromForm] UpdatePlaceRequest request)
         {
-            var place = await placeService.Update(request);
+            await _updatePlaceRequestValidator.ValidateAndThrowAsync(request);
+            var place = await _placeService.Update(request);
             return Ok(new ApiResponse<object>
             {
                 Item = place,
@@ -60,7 +68,7 @@ namespace GoVibe.API.Controllers.Places
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
-            var place = await placeService.Delete(id);
+            var place = await _placeService.Delete(id);
             return Ok(new ApiResponse<object>
             {
                 Item = place,
@@ -70,7 +78,7 @@ namespace GoVibe.API.Controllers.Places
         [HttpDelete]
         public async Task<IActionResult> DeleteMany([FromBody] DeleteManyPlacesRequest request)
         {
-            await placeService.DeleteMany(request);
+            await _placeService.DeleteMany(request);
             return Ok(new ApiResponse<object>());
         }
     }

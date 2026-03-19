@@ -1,5 +1,4 @@
-﻿using GoVibe.API.Models.Amenities;
-using GoVibe.API.Models.Categories;
+﻿using GoVibe.API.Models.Categories;
 using GoVibe.API.Models.Reviews;
 using GoVibe.Domain.Enums;
 
