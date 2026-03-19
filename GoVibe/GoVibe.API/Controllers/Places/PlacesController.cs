@@ -8,8 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GoVibe.API.Controllers.Places
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class PlacesController : ControllerBaseApi
     {
         private readonly PlaceService _placeService;
