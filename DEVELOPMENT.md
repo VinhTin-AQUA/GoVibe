@@ -46,7 +46,7 @@ src/
 │   │   ├── Search.Application/
 │   │   ├── Search.Domain/
 │   │   └── Search.Infrastructure/
-
+│
 ├── ApiGateway/
 │   └── Gateway.API/
 │
