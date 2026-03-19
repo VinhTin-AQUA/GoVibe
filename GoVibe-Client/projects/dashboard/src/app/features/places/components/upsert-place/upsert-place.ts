@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import { form, FormField, required } from '@angular/forms/signals';
-import { TextInput, SelectBox, TextEditor } from 'components';
-import { PlaceFormModel } from '../../models/add-place-model';
-import { OptionModel } from 'govibe-core';
 import { FormsModule } from '@angular/forms';
+import { PlaceFormModel } from '../../models/add-place-model';
 import { PlaceService } from '../../../../core/services/place.service';
+import { TextInput, SelectBox, TextEditor, Button } from 'components';
+import { OptionModel } from 'govibe-core';
 
 @Component({
     selector: 'app-upsert-place',
-    imports: [FormField, TextInput, SelectBox, TextEditor, FormsModule],
+    imports: [FormField, TextInput, SelectBox, TextEditor, FormsModule, Button],
     templateUrl: './upsert-place.html',
     styleUrl: './upsert-place.css',
 })

@@ -4,9 +4,10 @@
     [class.w-14]="!isOpen()"
 >
     <!-- Logo / Toggle -->
-    <button
+    <lib-button
         (click)="toggleSidebar()"
-        class="sidebar-toggle flex items-center gap-3 w-full p-2 rounded-lg"
+        class="sidebar-toggle flex items-center justify-center gap-0 w-full rounded-lg"
+        [class.gap-0]="!isOpen()"
     >
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -24,13 +25,13 @@
         </svg>
 
         <span
-            class="whitespace-nowrap overflow-hidden transition-all duration-200"
+            class="inline-block whitespace-nowrap overflow-hidden transition-all duration-200"
             [class.opacity-0]="!isOpen()"
             [class.w-0]="!isOpen()"
         >
             GoVibe
         </span>
-    </button>
+    </lib-button>
 
     <hr class="sidebar-divider" />
 

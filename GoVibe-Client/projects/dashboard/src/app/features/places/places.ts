@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UpsertPlace } from './components/upsert-place/upsert-place';
-import { Place } from 'govibe-core';
-import { Pagination, QuestionCancelDialog } from 'components';
 import { PlaceReview } from './components/place-review/place-review';
 import { PlaceService } from '../../core/services/place.service';
+import { Pagination, QuestionCancelDialog, Button } from 'components';
+import { Place } from 'govibe-core';
 
 @Component({
     selector: 'app-places',
@@ -16,6 +16,7 @@ import { PlaceService } from '../../core/services/place.service';
         Pagination,
         QuestionCancelDialog,
         PlaceReview,
+        Button
     ],
     templateUrl: './places.html',
     styleUrl: './places.css',

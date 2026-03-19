@@ -6,9 +6,9 @@
             <p class="page-subtitle text-sm">Manage product categories</p>
         </div>
 
-        <button (click)="openAddModal()" class="btn-primary px-4 py-2 rounded-lg shadow">
+        <lib-button (click)="openAddModal()" class="btn-primary rounded-lg">
             + Add Category
-        </button>
+        </lib-button>
     </div>
 
     <!-- Search -->
@@ -20,19 +20,19 @@
         ></lib-text-input>
     </div> -->
 
-    <div class="flex flex-col md:flex-row items-center gap-2">
+    <div class="flex flex-col md:flex-row items-center gap-1">
         <lib-text-input
             placeholder="Search category..."
             [(ngModel)]="searchString"
-            class="flex-1 p-4 rounded-xl shadow mb-0"
+            class="flex-1 p-4 rounded-xl shadow"
         ></lib-text-input>
 
-        <button
+        <lib-button
             (click)="getCategories()"
-            class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-xl shadow transition"
+            class="bg-blue-500 hover:bg-blue-600 rounded-xl"
         >
             Search
-        </button>
+        </lib-button>
     </div>
 
     <!-- Table -->
@@ -69,19 +69,19 @@
                             </td>
 
                             <td class="p-4 flex justify-center gap-2">
-                                <button
+                                <lib-button
                                     (click)="openEditModel(c)"
-                                    class="btn-warning px-3 py-1 text-sm rounded"
+                                    class="btn-warning rounded"
                                 >
                                     Edit
-                                </button>
+                                </lib-button>
 
-                                <button
+                                <lib-button
                                     (click)="openDeleteCategory(c)"
-                                    class="btn-danger px-3 py-1 text-sm rounded"
+                                    class="btn-danger rounded"
                                 >
                                     Delete
-                                </button>
+                                </lib-button>
                             </td>
                         </tr>
                     }

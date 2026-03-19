@@ -6,9 +6,9 @@
             <p class="page-subtitle text-sm">Manage places</p>
         </div>
 
-        <button (click)="openUpsertModal(null)" class="btn-primary px-4 py-2 rounded-lg shadow">
+        <lib-button (click)="openUpsertModal(null)" class="btn-primary rounded-lg">
             + Add Place
-        </button>
+        </lib-button>
     </div>
 
     <!-- Search -->
@@ -70,26 +70,26 @@
                             </td>
 
                             <td class="p-4 flex justify-center gap-2">
-                                <button
+                                <lib-button
                                     (click)="openShowReviewModal(true)"
-                                    class="btn-warning px-3 py-1 text-sm rounded"
+                                    class="btn-warning rounded"
                                 >
                                     Reviews
-                                </button>
+                                </lib-button>
 
-                                <button
+                                <lib-button
                                     (click)="openUpsertModal(p)"
-                                    class="btn-warning px-3 py-1 text-sm rounded"
+                                    class="btn-warning rounded"
                                 >
                                     Edit
-                                </button>
+                                </lib-button>
 
-                                <button
+                                <lib-button
                                     (click)="openShowDeleteModal(true, p)"
-                                    class="btn-danger px-3 py-1 text-sm rounded"
+                                    class="btn-danger rounded"
                                 >
                                     Delete
-                                </button>
+                                </lib-button>
                             </td>
                         </tr>
                     }

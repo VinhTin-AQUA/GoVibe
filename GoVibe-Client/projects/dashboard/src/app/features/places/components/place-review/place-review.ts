@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output, signal } from '@angular/core';
+import { Button } from 'components';
 
 interface Comment {
     user: string;
@@ -9,12 +10,11 @@ interface Comment {
 
 @Component({
     selector: 'app-place-review',
-    imports: [],
+    imports: [Button],
     templateUrl: './place-review.html',
     styleUrl: './place-review.css',
 })
 export class PlaceReview {
-
     @Output() close = new EventEmitter<boolean>();
 
     comments = signal<Comment[]>([]);
@@ -72,7 +72,7 @@ export class PlaceReview {
     onScroll(event: any) {
         const element = event.target;
 
-        const atBottom =     element.scrollHeight - element.scrollTop - element.clientHeight < 500
+        const atBottom = element.scrollHeight - element.scrollTop - element.clientHeight < 500;
 
         if (atBottom && !this.loading) {
             this.loading = true;

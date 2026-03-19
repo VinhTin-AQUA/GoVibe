@@ -2,7 +2,7 @@
     class="app-header flex items-center justify-end h-12 px-4 border-b transition-colors duration-300"
 >
     <div class="flex items-center gap-4">
-        <button
+        <lib-button
             (click)="toggleTheme()"
             class="theme-toggle relative w-14 h-7 rounded-full flex items-center px-1 transition duration-300"
         >
@@ -20,10 +20,10 @@
 
             <!-- Knob -->
             <span
-                class="theme-toggle-knob absolute top-0.5 left-0.5 w-6 h-6 rounded-full shadow transform transition duration-300"
-                [class.translate-x-7]="isDark()"
+                class="theme-toggle-knob absolute top-0.5 left-0 w-6 h-6 rounded-full shadow transform transition duration-300"
+                [class.translate-x-6]="isDark()"
             ></span>
-        </button>
+        </lib-button>
 
         <!-- Avatar -->
         <div class="relative avatar-menu">
@@ -38,16 +38,16 @@
                 <div
                     class="dropdown-menu absolute right-0 mt-3 w-44 origin-top-right rounded-lg shadow-lg transform transition-all duration-200 animate-dropdown"
                 >
-                    <button class="dropdown-item w-full text-left px-4 py-2">Profile</button>
+                    <lib-button class="dropdown-item w-full">Profile</lib-button>
 
-                    <button class="dropdown-item w-full text-left px-4 py-2">Settings</button>
+                    <lib-button class="dropdown-item w-full">Settings</lib-button>
 
-                    <button
+                    <lib-button
                         (click)="logout()"
-                        class="dropdown-item dropdown-danger w-full text-left px-4 py-2"
+                        class="dropdown-item dropdown-danger w-full"
                     >
                         Logout
-                    </button>
+                    </lib-button>
                 </div>
             }
         </div>
