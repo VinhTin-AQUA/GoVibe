@@ -11,14 +11,57 @@ namespace GoVibe.API.Controllers.Places
     public class PlacesController : ControllerBaseApi
     {
         private readonly PlaceService _placeService;
+        private readonly GarageService _garageService;
         private readonly AddPlaceRequestValidator _addPlaceRequestValidator;
         private readonly UpdatePlaceRequestValidator _updatePlaceRequestValidator;
 
-        public PlacesController(PlaceService placeService)
+        public PlacesController(PlaceService placeService, GarageService garageService)
         {
             _placeService = placeService;
+            _garageService = garageService;
             _addPlaceRequestValidator = new AddPlaceRequestValidator();
             _updatePlaceRequestValidator = new UpdatePlaceRequestValidator();
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> Upload([FromForm] UploadRequest request)
+        {
+            if (request.File == null)
+            {
+                return BadRequest();
+            }
+            var model = await _garageService.Upload(request.File);
+            return Ok(new ApiResponse<object>
+            {
+                Item = model
+            });
+        }
+        
+        [HttpGet("{key}")]
+        public async Task<IActionResult> Download(string key)
+        {
+            var stream = await _garageService.Download(key);
+            return File(stream, "application/octet-stream", key);
+        }
+        
+        [HttpDelete("{key}")]
+        public async Task<IActionResult> DeleteFile(string key)
+        {
+            var r = await _garageService.DeleteAsync(key);
+            return Ok(new ApiResponse<object>
+            {
+                Item = r
+            });
+        }
+
+        [HttpGet()]
+        public async Task<IActionResult> GettAllFiles()
+        {
+            var r = await _garageService.GetAllAsync();
+            return Ok(new ApiResponse<object>
+            {
+                Item = r
+            });
         }
 
         [HttpPost]

@@ -7,4 +7,9 @@ namespace GoVibe.API.Models.Places
         public string ImageUrl { get; set; } = "";
         public DateTime UpdatedAt { get; set; }
     }
+    
+    public class UploadRequest
+    {
+        public IFormFile? File { get; set; }
+    }
 }

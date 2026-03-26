@@ -11,7 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddServices();
+builder.Services.AddServices(builder.Configuration);
 builder.Services.AddAutoMapperProfiles();
 builder.Services.AddInfrastructure(builder.Configuration);
 

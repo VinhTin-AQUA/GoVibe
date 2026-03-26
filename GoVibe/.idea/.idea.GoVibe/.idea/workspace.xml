@@ -26,6 +26,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e5bf585880f93fec45b3541cb934525791e2212ac01b2063a929e63af60676f/ClientConfig.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -234,6 +237,8 @@
       <workItem from="1773761625154" duration="1868000" />
       <workItem from="1773845006343" duration="3442000" />
       <workItem from="1773932582354" duration="3871000" />
+      <workItem from="1774450574780" duration="1680000" />
+      <workItem from="1774539505786" duration="4847000" />
     </task>
     <servers />
   </component>
