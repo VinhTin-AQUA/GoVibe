@@ -1,4 +1,5 @@
-﻿using Amazon.S3;
+﻿using Amazon;
+using Amazon.S3;
 using GoVibe.API.Configurations;
 using GoVibe.API.Services;
 
@@ -22,13 +23,12 @@ namespace GoVibe.API.Extensions
 
                 var s3Config = new AmazonS3Config
                 {
-                    ServiceURL = config["Garage:ServiceURL"],
+                    ServiceURL = config["Garage:ServiceURL"], // http://localhost:3900
                     ForcePathStyle = true,
                     UseHttp = true,
-
-                    // 🔥 QUAN TRỌNG NHẤT
                     DisableHostPrefixInjection = true,
-                    AuthenticationRegion = "garage",
+
+                    AuthenticationRegion = "ap-southeast-1" // 
                 };
 
                 return new AmazonS3Client(

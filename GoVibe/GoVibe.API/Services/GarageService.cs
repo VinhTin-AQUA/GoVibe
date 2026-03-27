@@ -19,16 +19,20 @@ namespace GoVibe.API.Services
         {
             var bucket = BucketNames.Images;
 
-            using var stream = file.OpenReadStream();
+            using var memoryStream = new MemoryStream();
+            await file.CopyToAsync(memoryStream);
+            memoryStream.Position = 0;
 
             var request = new PutObjectRequest
             {
                 BucketName = bucket,
                 Key = file.FileName,
-                InputStream = stream,
-                ContentType = file.ContentType
+                InputStream = memoryStream,
+                ContentType = file.ContentType,
+                AutoCloseStream = false
             };
-
+          
+            request.UseChunkEncoding = false;
             var r = await _s3Client.PutObjectAsync(request);
             return r.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }

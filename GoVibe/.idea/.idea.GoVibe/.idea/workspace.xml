@@ -27,6 +27,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8056cd3f452fefb9834f05cdb275b762dd41f27b7766cd71174e78592dc495b/Monitor.CoreCLR.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e5bf585880f93fec45b3541cb934525791e2212ac01b2063a929e63af60676f/ClientConfig.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
@@ -239,6 +240,7 @@
       <workItem from="1773932582354" duration="3871000" />
       <workItem from="1774450574780" duration="1680000" />
       <workItem from="1774539505786" duration="4847000" />
+      <workItem from="1774623508719" duration="3620000" />
     </task>
     <servers />
   </component>
