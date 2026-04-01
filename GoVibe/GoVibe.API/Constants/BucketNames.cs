@@ -1,7 +1,9 @@
 namespace GoVibe.API.Constants
 {
-    public class BucketNames
+    public class BucketPrefixKeyNames
     {
-        public const string Images = "go-vibe";
+        public const string PlaceImages = "place-images";
+        public const string PlaceThumbnail = "place-thumbnail";
+        
     }
 }

@@ -1,31 +1,35 @@
 using Amazon.S3;
 using Amazon.S3.Model;
+using GoVibe.API.Configurations;
 using GoVibe.API.Constants;
 using GoVibe.API.Models.Garages;
+using Microsoft.Extensions.Options;
 
 namespace GoVibe.API.Services
 {
     public class GarageService
     {
         private readonly IAmazonS3 _s3Client;
+        private readonly IOptions<GarageConfig> _garageConfig;
+        private readonly string _bucketName;
 
-        public GarageService(IAmazonS3 s3Client)
+        public GarageService(IAmazonS3 s3Client, IOptions<GarageConfig> garageConfig)
         {
             _s3Client = s3Client;
+            _garageConfig = garageConfig;
+            _bucketName = _garageConfig.Value.BucketName;
         }
         
         // UPLOAD
         public async Task<bool> Upload(IFormFile file)
         {
-            var bucket = BucketNames.Images;
-
             using var memoryStream = new MemoryStream();
             await file.CopyToAsync(memoryStream);
             memoryStream.Position = 0;
 
             var request = new PutObjectRequest
             {
-                BucketName = bucket,
+                BucketName = _bucketName,
                 Key = file.FileName,
                 InputStream = memoryStream,
                 ContentType = file.ContentType,
@@ -40,14 +44,14 @@ namespace GoVibe.API.Services
         // DOWNLOAD
         public async Task<Stream> Download(string key)
         {
-            var bucket = BucketNames.Images;
+            var bucket = _bucketName;
             var response = await _s3Client.GetObjectAsync(bucket, key);
             return response.ResponseStream;
         }
         
         public async Task<List<(string FileName, Stream Stream)>> DownloadManyAsync(List<string> keys)
         {
-            var bucket = BucketNames.Images;
+            var bucket = _bucketName;
             var result = new List<(string, Stream)>();
 
             foreach (var key in keys)
@@ -61,7 +65,7 @@ namespace GoVibe.API.Services
         // DELETE
         public async Task<bool> DeleteAsync(string key)
         {
-            var bucket = BucketNames.Images;
+            var bucket = _bucketName;
             var r = await _s3Client.DeleteObjectAsync(bucket, key);
             return r.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
@@ -72,7 +76,7 @@ namespace GoVibe.API.Services
             var result = new List<S3ObjectModel>();
             var request = new ListObjectsV2Request
             {
-                BucketName = BucketNames.Images
+                BucketName = _bucketName
             };
 
             ListObjectsV2Response response;
@@ -94,7 +98,7 @@ namespace GoVibe.API.Services
         
         public async Task<S3ObjectDetailDto> GetDetailAsync(string key)
         {
-            var bucket = BucketNames.Images;
+            var bucket = _bucketName;
             var response = await _s3Client.GetObjectMetadataAsync(bucket, key);
 
             return new S3ObjectDetailDto
@@ -108,7 +112,7 @@ namespace GoVibe.API.Services
 
         public async Task DeleteManyAsync(List<string> keys)
         {
-            var bucket = BucketNames.Images;
+            var bucket = _bucketName;
             if (!keys.Any())
                 return;
 
