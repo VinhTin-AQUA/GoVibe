@@ -246,24 +246,55 @@ info: GoVibe.API.Middlewares.GlobalExceptionHandlingMiddleware[0]
 
 admin
 - thêm các method upload, xóa, get file
-- biểu đồ thống kê theo địa điểm, địa điểm được đi nhiều nhất
+- biểu đồ thống kê theo địa điểm, địa điểm được đi nhiều nhất, số lượt truy cập và tổng lượt truy cập
+- xem danh sách hỗ trợ và đánh giá sản phẩm
+- xem danh sách hỗ trợ thêm địa điểm
+- quản lý người dùng đăng nhập
+
 
 client
+- theme
+
 - đăng nhập google
     - thêm các sở thích (tham khảo các sở thích của facebook)
     - hay đi 1 mình hay nhiều mình
-- theme
-- Tìm kiếm theo điểm đến, đánh giá
-- Lọc Theo nhóm đi cùng: "Đi một mình", "Hẹn hò", "Nhóm bạn đông", "Gia đình có trẻ nhỏ".
-- Lọc Theo tâm trạng/hoạt động: "Cần yên tĩnh để nói chuyện", "Chỗ sống ảo", "Đốt calo", "Giải trí khuya".
-- Lọc Theo ngân sách linh hoạt: Thanh trượt chọn khoảng giá (VD: 50k - 300k).
-- Lọc Lọc theo thời gian thực: "Đang mở cửa", "Còn bàn trống", "Đang có ưu đãi hôm nay".
+
+- tìm kiếm
+    - Tìm kiếm theo điểm đến, đánh giá
+    - Lọc Theo nhóm đi cùng: "Đi một mình", "Hẹn hò", "Nhóm bạn đông", "Gia đình có trẻ nhỏ".
+    - Lọc Theo tâm trạng/hoạt động: "Cần yên tĩnh để nói chuyện", "Chỗ sống ảo", "Đốt calo", "Giải trí khuya".
+    - Lọc Theo ngân sách linh hoạt: Thanh trượt chọn khoảng giá (VD: 50k - 300k).
+    - Lọc Lọc theo thời gian thực: "Đang mở cửa", "Còn bàn trống", "Đang có ưu đãi hôm nay".
+
 - Hiển thị bản đồ vị trí
 - lưu điểm đến yêu thích
-- đánh giá
-- tìm kiếm sự kiện (wiki)
-- gợi ý lịch trình hôm nay theo sự kiện (wiki, theo các sự kiện có trên thế giới hoặc Việt Nam)
+- đánh giá địa điểm
+- lưu lịch trình
 - hỗ trợ và trợ giúp thêm các địa điểm mới
-- lên lịch trình theo sở thích 
+- đánh giá phầm mềm
+
+ai
+- hiển thị sự kiện (wiki) vui, đề xuất 1 điểm đến
+- gợi ý lịch trình hôm nay theo sự kiện (wiki, theo các sự kiện có trên thế giới hoặc Việt Nam)
+- tự động lên lịch trình theo sở thích 
 - Lộ trình di chuyển tối ưu: Tự động sắp xếp thứ tự các địa điểm người dùng muốn đi để ít tốn thời gian di chuyển nhất.
-- lịch sử từng đi
+
+step
+
+- thiết kế lại database
+- sinh dữ liệu ngẫu nhiên
+- biểu đồ thống kê
+- api gợi ý địa điểm cho trang home theo từng danh mục
+
+- api tìm kiếm
+    - tìm kiếm thuần database
+    - sử dụng elastíc search
+    - tìm kiếm theo bộ lọc
+
+- đăng nhập google
+- lưu điêm đến yêu thích
+- đánh giá
+- lưu lịch trình
+- hỗ trợ và trợ giúp thêm các địa điểm mới
+- cào dữ liệu
+- hỗ trợ và đánh giá sản phẩm

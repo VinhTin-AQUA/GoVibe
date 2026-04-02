@@ -14,10 +14,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ddba8ae6-6af0-467c-823f-aef2c114acc4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GoVibe/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoVibe/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoVibe.API/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibe.API/appsettings.Development.json" afterDir="false" />
-    </list>
+    <list default="true" id="ddba8ae6-6af0-467c-823f-aef2c114acc4" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -249,6 +246,7 @@
       <workItem from="1774886337033" duration="149000" />
       <workItem from="1774886898292" duration="90000" />
       <workItem from="1774972772383" duration="601000" />
+      <workItem from="1775143119509" duration="659000" />
     </task>
     <servers />
   </component>
