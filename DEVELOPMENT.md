@@ -58,6 +58,25 @@ src/
     └── elk/
 ```
 
+- controller
+
+```txt
+Controllers/
+ ├── Products/
+ │    ├── AdminProductsController.cs
+ │    ├── UserProductsController.cs
+ │    └── PublicProductsController.cs
+ │
+ ├── Users/
+ │    ├── AdminUsersController.cs
+ │    ├── UserUsersController.cs
+ │    └── PublicUsersController.cs
+ │
+ └── Orders/
+      ├── AdminOrdersController.cs
+      ├── UserOrdersController.cs
+```
+
 ### EventBus
 
 - Wrapper cho RabbitMQ
@@ -219,3 +238,32 @@ fail: GoVibe.API.Middlewares.GlobalExceptionHandlingMiddleware[0]
 info: GoVibe.API.Middlewares.GlobalExceptionHandlingMiddleware[0]
       ===========================
 ```
+
+## resource
+
+- https://vietnamtourism.gov.vn/post/66450
+
+
+admin
+- thêm các method upload, xóa, get file
+- biểu đồ thống kê theo địa điểm, địa điểm được đi nhiều nhất
+
+client
+- đăng nhập google
+    - thêm các sở thích (tham khảo các sở thích của facebook)
+    - hay đi 1 mình hay nhiều mình
+- theme
+- Tìm kiếm theo điểm đến, đánh giá
+- Lọc Theo nhóm đi cùng: "Đi một mình", "Hẹn hò", "Nhóm bạn đông", "Gia đình có trẻ nhỏ".
+- Lọc Theo tâm trạng/hoạt động: "Cần yên tĩnh để nói chuyện", "Chỗ sống ảo", "Đốt calo", "Giải trí khuya".
+- Lọc Theo ngân sách linh hoạt: Thanh trượt chọn khoảng giá (VD: 50k - 300k).
+- Lọc Lọc theo thời gian thực: "Đang mở cửa", "Còn bàn trống", "Đang có ưu đãi hôm nay".
+- Hiển thị bản đồ vị trí
+- lưu điểm đến yêu thích
+- đánh giá
+- tìm kiếm sự kiện (wiki)
+- gợi ý lịch trình hôm nay theo sự kiện (wiki, theo các sự kiện có trên thế giới hoặc Việt Nam)
+- hỗ trợ và trợ giúp thêm các địa điểm mới
+- lên lịch trình theo sở thích 
+- Lộ trình di chuyển tối ưu: Tự động sắp xếp thứ tự các địa điểm người dùng muốn đi để ít tốn thời gian di chuyển nhất.
+- lịch sử từng đi
