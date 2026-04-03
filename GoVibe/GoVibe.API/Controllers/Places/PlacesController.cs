@@ -24,47 +24,6 @@ namespace GoVibe.API.Controllers.Places
         }
         
         [HttpPost]
-        public async Task<IActionResult> Upload([FromForm] UploadRequest request)
-        {
-            if (request.File == null)
-            {
-                return BadRequest();
-            }
-            var model = await _garageService.Upload(request.File);
-            return Ok(new ApiResponse<object>
-            {
-                Item = model
-            });
-        }
-        
-        [HttpGet("{key}")]
-        public async Task<IActionResult> Download(string key)
-        {
-            var stream = await _garageService.Download(key);
-            return File(stream, "application/octet-stream", key);
-        }
-        
-        [HttpDelete("{key}")]
-        public async Task<IActionResult> DeleteFile(string key)
-        {
-            var r = await _garageService.DeleteAsync(key);
-            return Ok(new ApiResponse<object>
-            {
-                Item = r
-            });
-        }
-
-        [HttpGet()]
-        public async Task<IActionResult> GettAllFiles()
-        {
-            var r = await _garageService.GetAllAsync();
-            return Ok(new ApiResponse<object>
-            {
-                Item = r
-            });
-        }
-
-        [HttpPost]
         public async Task<IActionResult> Add([FromForm] AddPlaceRequest request)
         {
             await _addPlaceRequestValidator.ValidateAndThrowAsync(request);

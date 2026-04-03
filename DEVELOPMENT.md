@@ -176,121 +176,78 @@ BackgroundJobs/
 └── Shared/
 ```
 
-## Exception
-
-```txt
-info: GoVibe.API.Middlewares.GlobalExceptionHandlingMiddleware[0]
-      ===========================
-fail: GoVibe.API.Middlewares.GlobalExceptionHandlingMiddleware[0]
-      An unhandled exception occurred. RequestId: 0HNK5HQK5L8HF:00000001, Path: /api/Places
-      Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
-       ---> Npgsql.PostgresException (0x80004005): 23503: insert or update on table "Place" violates foreign key constraint "FK_Place_Categories_CategoryId"
-
-      DETAIL: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
-         at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
-         at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
-         at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
-         at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
-         at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
-         at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
-         at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
-         at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
-         at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
-         at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
-        Exception data:
-          Severity: ERROR
-          SqlState: 23503
-          MessageText: insert or update on table "Place" violates foreign key constraint "FK_Place_Categories_CategoryId"
-          Detail: Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
-          SchemaName: public
-          TableName: Place
-          ConstraintName: FK_Place_Categories_CategoryId
-          File: ri_triggers.c
-          Line: 2610
-          Routine: ri_ReportViolation
-         --- End of inner exception stack trace ---
-         at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
-         at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
-         at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
-         at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
-         at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
-         at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
-         at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
-         at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
-         at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
-         at GoVibe.Infrastructure.Data.AppDbContext.SaveChangesAsync(CancellationToken cancellationToken) in C:\Users\tinhv\Desktop\f\GoVibe\GoVibe\GoVibe.Infrastructure\Data\AppDbContext.cs:line 36
-         at GoVibe.Infrastructure.UnitOfWork.UnitOfWork.CommitAsync() in C:\Users\tinhv\Desktop\f\GoVibe\GoVibe\GoVibe.Infrastructure\UnitOfWork\UnitOfWork.cs:line 40
-         at GoVibe.Infrastructure.UnitOfWork.UnitOfWork.CommitAsync() in C:\Users\tinhv\Desktop\f\GoVibe\GoVibe\GoVibe.Infrastructure\UnitOfWork\UnitOfWork.cs:line 46
-         at GoVibe.API.Services.PlaceService.Add(AddPlaceRequest request) in C:\Users\tinhv\Desktop\f\GoVibe\GoVibe\GoVibe.API\Services\PlaceService.cs:line 72
-         at GoVibe.API.Services.PlaceService.Add(AddPlaceRequest request) in C:\Users\tinhv\Desktop\f\GoVibe\GoVibe\GoVibe.API\Services\PlaceService.cs:line 86
-         at GoVibe.API.Controllers.Places.PlacesController.Add(AddPlaceRequest request) in C:\Users\tinhv\Desktop\f\GoVibe\GoVibe\GoVibe.API\Controllers\Places\PlacesController.cs:line 30
-         at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
-         at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
-         at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
-         at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
-         at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
-         at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
-         at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
-         at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
-         at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
-         at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
-         at GoVibe.API.Middlewares.GlobalExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\tinhv\Desktop\f\GoVibe\GoVibe\GoVibe.API\Middlewares\GlobalExceptionHandlingMiddleware.cs:line 26
-info: GoVibe.API.Middlewares.GlobalExceptionHandlingMiddleware[0]
-      ===========================
-```
-
 ## resource
 
 - https://vietnamtourism.gov.vn/post/66450
 
+## Features
 
-admin
-- thêm các method upload, xóa, get file
-- biểu đồ thống kê theo địa điểm, địa điểm được đi nhiều nhất, số lượt truy cập và tổng lượt truy cập
-- xem danh sách hỗ trợ và đánh giá sản phẩm
-- xem danh sách hỗ trợ thêm địa điểm
-- quản lý người dùng đăng nhập
+### Admin:
 
+- CURD phân loại, CURD địa điểm ✅
+- Xem review từng địa điểm ✅
+- Biểu đồ thống kê:
+    - Địa điểm được đi nhiều nhất (dựa vào user_activity_log hoặc itinerary_items)
+    - Số lượt truy cập theo địa điểm (dựa vào user_activity_log với action='view')
+    - Tổng lượt truy cập toàn hệ thống
+- Xem danh sách hỗ trợ & đánh giá sản phẩm từ user (bảng app_feedback)
+- Xem danh sách hỗ trợ thêm địa điểm (bảng support_requests)
+- lý người dùng đăng nhập (CRUD users, block/unblock)
+- thông báo
 
-client
+### Client:
+
+- Đăng nhập Google + thêm sở thích, hay đi 1 mình/nhiều người (lưu vào users.preferences)
+- Tìm kiếm:
+    - Theo tên, đánh giá
+    - Lọc theo nhóm đi cùng (cần mapping với tags hoặc custom field) -> Thêm bảng place_suitability (place_id, group_type)
+    - Lọc theo tâm trạng/hoạt động -> tags
+    - Lọc theo ngân sách (price_min, price_max)
+    - Lọc thời gian thực: "Đang mở cửa" (so sánh giờ hiện tại với opening_hours), "Còn bàn trống" (phức tạp, có thể bỏ qua MVP), "Đang có ưu đãi" (join promotions)
+- Hiển thị bản đồ (Leaflet/Google Maps + PostGIS)
+- Lưu điểm đến yêu thích (favorites)
+- Đánh giá địa điểm (reviews)
+- Lưu lịch trình (itineraries + items)
+- Hỗ trợ thêm địa điểm mới (support_requests)
+- Đánh giá phần mềm (app_feedback)
+
+### AI:
+
+- Hiển thị sự kiện (wiki) & đề xuất 1 điểm đến -> Dùng bảng events + gợi ý place ngẫu nhiên theo sở thích user
+- Gợi ý lịch trình hôm nay theo sự kiện (gợi ý event gần nhất + place liên quan)
+- Tự động lên lịch trình theo sở thích (dùng preferences + gợi ý place phù hợp)
+- Lộ trình di chuyển tối ưu: API riêng nhận danh sách place_id, tính toán thứ tự tối ưu dùng Google Distance Matrix hoặc OSRM
+
+### Vấn đề
+
+- giữa các service có mối quan hệ, ví dụ user thêm sản phẩm vào giỏ hàng => tạo service cardService
+
+- với search engine, mỗi product sẽ có các ảnh, vậy ảnh lưu ở đâu để elastic search trả về kết quả có kèm ảnh trong mỗi product
+    - với ảnh public
+        - tạo image proxy, khi backend gửi url về client thì mã hóa aes key, key này gửi về proxy giải mã để lấy key trả ảnh về client
+
+    - với ảnh private
+        - chỉ lưu key, backend gen presignedurrl
+
+    
+
+### step
+
 - theme
-
-- đăng nhập google
-    - thêm các sở thích (tham khảo các sở thích của facebook)
-    - hay đi 1 mình hay nhiều mình
-
-- tìm kiếm
-    - Tìm kiếm theo điểm đến, đánh giá
-    - Lọc Theo nhóm đi cùng: "Đi một mình", "Hẹn hò", "Nhóm bạn đông", "Gia đình có trẻ nhỏ".
-    - Lọc Theo tâm trạng/hoạt động: "Cần yên tĩnh để nói chuyện", "Chỗ sống ảo", "Đốt calo", "Giải trí khuya".
-    - Lọc Theo ngân sách linh hoạt: Thanh trượt chọn khoảng giá (VD: 50k - 300k).
-    - Lọc Lọc theo thời gian thực: "Đang mở cửa", "Còn bàn trống", "Đang có ưu đãi hôm nay".
-
-- Hiển thị bản đồ vị trí
-- lưu điểm đến yêu thích
-- đánh giá địa điểm
-- lưu lịch trình
-- hỗ trợ và trợ giúp thêm các địa điểm mới
-- đánh giá phầm mềm
-
-ai
-- hiển thị sự kiện (wiki) vui, đề xuất 1 điểm đến
-- gợi ý lịch trình hôm nay theo sự kiện (wiki, theo các sự kiện có trên thế giới hoặc Việt Nam)
-- tự động lên lịch trình theo sở thích 
-- Lộ trình di chuyển tối ưu: Tự động sắp xếp thứ tự các địa điểm người dùng muốn đi để ít tốn thời gian di chuyển nhất.
-
-step
+- giao diện home
+- giao diện search
+- login
+- profile
 
 - thiết kế lại database
+- thêm các method upload, xóa, get file
 - sinh dữ liệu ngẫu nhiên
 - biểu đồ thống kê
 - api gợi ý địa điểm cho trang home theo từng danh mục
-
 - api tìm kiếm
     - tìm kiếm thuần database
     - sử dụng elastíc search
     - tìm kiếm theo bộ lọc
-
 - đăng nhập google
 - lưu điêm đến yêu thích
 - đánh giá
@@ -298,3 +255,221 @@ step
 - hỗ trợ và trợ giúp thêm các địa điểm mới
 - cào dữ liệu
 - hỗ trợ và đánh giá sản phẩm
+
+## Thiết kế
+
+1. Các vai trò:
+
+- Admin - quản lý nền tảng
+- Client (Người dùng) - người dùng cuối
+- AI - tính năng thông minh (có thể là service riêng hoặc tích hợp)
+
+2. Luồng chức năng chính:
+
+- Tìm kiếm + lọc địa điểm (phức tạp, cần full-text search, geo search)
+- Bản đồ
+- Yêu thích, đánh giá, lịch trình
+- Hỗ trợ thêm địa điểm mới (crowdsourcing)
+- Gợi ý AI (sự kiện, lịch trình, tối ưu lộ trình)
+
+3. Thiết Kế Cơ Sở Dữ Liệu (PostgreSQL + PostGIS)
+
+- Bảng users
+
+```sql
+CREATE TABLE users (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    email VARCHAR(255) UNIQUE NOT NULL,
+    full_name VARCHAR(255),
+    avatar_url TEXT,
+    google_id VARCHAR(255) UNIQUE,
+    role VARCHAR(20) DEFAULT 'user', -- 'admin', 'user'
+    preferences JSONB, -- lưu sở thích (dạng {interests: ['coffee', 'music'], travel_style: 'alone'})
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP
+);
+```
+
+- Bảng categories (phân loại địa điểm)
+
+```sql
+CREATE TABLE categories (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) UNIQUE NOT NULL,
+    icon VARCHAR(50),
+    parent_id INT REFERENCES categories(id),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+```
+
+- Bảng places (địa điểm)
+
+```sql
+CREATE TABLE places (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    address TEXT,
+    location GEOMETRY(Point, 4326), -- PostGIS point (long, lat)
+    phone VARCHAR(20),
+    website TEXT,
+    avg_rating DECIMAL(2,1) DEFAULT 0,
+    total_reviews INT DEFAULT 0,
+    price_min INT,
+    price_max INT,
+    opening_hours JSONB, -- ví dụ: {"monday": "09:00-21:00", "tuesday": "09:00-21:00", ...}
+    tags TEXT[], -- array of tags
+    status VARCHAR(20) DEFAULT 'pending', -- 'pending', 'approved', 'rejected'
+    created_by INT REFERENCES users(id), -- ai đề xuất (nếu là user)
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP
+);
+CREATE INDEX idx_places_location ON places USING GIST (location);
+CREATE INDEX idx_places_tags ON places USING GIN (tags);
+```
+
+- Bảng place_categories (n-n)
+
+```sql
+CREATE TABLE place_categories (
+    place_id INT REFERENCES places(id) ON DELETE CASCADE,
+    category_id INT REFERENCES categories(id) ON DELETE CASCADE,
+    PRIMARY KEY (place_id, category_id)
+);
+```
+
+- Bảng reviews (đánh giá)
+
+```sql
+CREATE TABLE reviews (
+    id SERIAL PRIMARY KEY,
+    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    place_id INT REFERENCES places(id) ON DELETE CASCADE,
+    rating INT CHECK (rating >= 1 AND rating <= 5),
+    comment TEXT,
+    images TEXT[],
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP
+);
+CREATE INDEX idx_reviews_place ON reviews(place_id);
+```
+
+- Bảng favorites (yêu thích)
+
+```sql
+CREATE TABLE favorites (
+    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    place_id INT REFERENCES places(id) ON DELETE CASCADE,
+    created_at TIMESTAMP DEFAULT NOW(),
+    PRIMARY KEY (user_id, place_id)
+);
+```
+
+- Bảng itineraries (lịch trình)
+
+```sql
+CREATE TABLE itineraries (
+    id SERIAL PRIMARY KEY,
+    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    name VARCHAR(255) NOT NULL,
+    start_date DATE,
+    end_date DATE,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+```
+
+- Bảng itinerary_items (chi tiết lịch trình)
+
+```sql
+CREATE TABLE itinerary_items (
+    id SERIAL PRIMARY KEY,
+    itinerary_id INT REFERENCES itineraries(id) ON DELETE CASCADE,
+    place_id INT REFERENCES places(id),
+    visit_order INT, -- thứ tự tham quan
+    date DATE,
+    start_time TIME,
+    end_time TIME,
+    notes TEXT
+);
+```
+
+- Bảng support_requests (hỗ trợ thêm địa điểm từ user)
+
+```sql
+CREATE TABLE support_requests (
+    id SERIAL PRIMARY KEY,
+    user_id UUID REFERENCES users(id),
+    place_name VARCHAR(255),
+    address TEXT,
+    reason TEXT,
+    status VARCHAR(20) DEFAULT 'pending', -- 'pending', 'resolved', 'rejected'
+    admin_note TEXT,
+    created_at TIMESTAMP DEFAULT NOW(),
+    resolved_at TIMESTAMP
+);
+```
+
+- Bảng app_feedback (đánh giá phần mềm)
+
+```sql
+CREATE TABLE app_feedback (
+    id SERIAL PRIMARY KEY,
+    user_id UUID REFERENCES users(id),
+    rating INT CHECK (rating >= 1 AND rating <= 5),
+    comment TEXT,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+```
+
+- Bảng user_activity_log (theo dõi lượt truy cập địa điểm)
+
+```sql
+CREATE TABLE user_activity_log (
+    id SERIAL PRIMARY KEY,
+    user_id UUID REFERENCES users(id),
+    place_id INT REFERENCES places(id),
+    action VARCHAR(50), -- 'view', 'search', 'save'
+    created_at TIMESTAMP DEFAULT NOW()
+);
+```
+
+## API
+
+- Auth
+    - POST /auth/google - login google
+    - GET /auth/profile - lấy thông tin user
+    - PUT /auth/preferences - cập nhật sở thích
+
+- laces
+    - GET /places - danh sách địa điểm (có phân trang, filter)
+    - GET /places/search - search với Elasticsearch
+    - GET /places/nearby - lấy địa điểm gần vị trí
+    - GET /places/:id - chi tiết
+    - POST /places - user đề xuất địa điểm mới (chỉ tạo pending)
+    - PUT /places/:id - admin approve/edit
+    - DELETE /places/:id - admin delete
+
+- Favorites
+    - GET /favorites - danh sách yêu thích
+    - POST /favorites/:placeId - thêm
+    - DELETE /favorites/:placeId - xóa
+
+- Reviews
+    - /places/:placeId/reviews
+    - POST /places/:placeId/reviews
+    - PUT /reviews/:id
+    - DELETE /reviews/:id
+
+- Itineraries
+    - CRUD /itineraries
+    - GET /itineraries/:id/optimize - tối ưu lộ trình
+
+- Admin
+    - GET /admin/dashboard/stats - thống kê
+    - GET /admin/support-requests
+    - GET /admin/feedbacks
+    - PUT /admin/users/:id/role
+- AI Suggestions
+    - GET /ai/suggest-today - gợi ý lịch trình hôm nay
+    - GET /ai/events - lấy sự kiện wiki
+    - POST /ai/optimize-route - tối ưu lộ trình
