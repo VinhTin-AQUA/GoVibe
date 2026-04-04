@@ -1,0 +1,6 @@
+@GoVibeFavorite.API_HostAddress = http://localhost:5272
+
+GET {{GoVibeFavorite.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
