@@ -7,4 +7,11 @@ namespace GoVibe.API.Configurations
         public string SecretKey { get; set; } = "";
         public string BucketName { get; set; } = "";
     }
+    
+    public class BucketPrefixKeyNames
+    {
+        public const string PlaceImages = "place-images";
+        public const string PlaceThumbnail = "place-thumbnail";
+        
+    }
 }

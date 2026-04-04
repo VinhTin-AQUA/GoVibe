@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GoVibe.API.Controllers.Common
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ControllerBaseApi : ControllerBase
     {

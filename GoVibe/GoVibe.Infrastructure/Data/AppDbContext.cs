@@ -10,6 +10,8 @@ namespace GoVibe.Infrastructure.Data
         }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Place> Places { get; set; }
+        public DbSet<PlaceCategory> PlaceCategories { get; set; }
         public DbSet<PlaceImage> PlaceImages { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<ReviewImage> ReviewImages { get; set; }

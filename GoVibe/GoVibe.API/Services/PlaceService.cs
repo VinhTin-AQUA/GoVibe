@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GoVibe.API.Configurations;
 using GoVibe.API.Exceptions;
 using GoVibe.API.Models;
 using GoVibe.API.Models.Places;
@@ -15,8 +16,10 @@ namespace GoVibe.API.Services
         private readonly IPlaceQueryRepository _placeQueryRepository;
         private readonly IPlaceCommandRepository _placeCommandRepository;
         private readonly IPlaceImageCommandRepository _placeImageCommandRepository;
+        private readonly IPlaceImageQueryRepository _placeImageQueryRepository;
         private readonly IPlaceCategoryQueryRepository _placeCategoryQueryRepository;
         private readonly IPlaceCategoryCommandRepository _placeCategoryCommandRepository;
+        private readonly GarageService _garageService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
@@ -24,16 +27,20 @@ namespace GoVibe.API.Services
             IPlaceQueryRepository placeQueryRepository,
             IPlaceCommandRepository placeCommandRepository,
             IPlaceImageCommandRepository  placeImageCommandRepository,
+            IPlaceImageQueryRepository  placeImageQueryRepository,
             IPlaceCategoryQueryRepository placeCategoryQueryRepository,
             IPlaceCategoryCommandRepository placeCategoryCommandRepository,
+            GarageService garageService,
             IUnitOfWork unitOfWork,
             IMapper mapper)
         {
             _placeQueryRepository = placeQueryRepository;
             _placeCommandRepository = placeCommandRepository;
             _placeImageCommandRepository = placeImageCommandRepository;
+            _placeImageQueryRepository = placeImageQueryRepository;
             _placeCategoryQueryRepository = placeCategoryQueryRepository;
             _placeCategoryCommandRepository = placeCategoryCommandRepository;
+            _garageService = garageService;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
@@ -57,12 +64,11 @@ namespace GoVibe.API.Services
                     Address = request.Address,
                     Tags = request.Tags,
                 };
-                await _placeCommandRepository.AddAsync(newPlace);
 
                 List<PlaceImage> placeImages = [];
                 foreach (var image in request.Images)
                 {
-                    string url = ""; //
+                    string url = await _garageService.Upload(BucketPrefixKeyNames.PlaceImages, image);
                     PlaceImage placeImage = new()
                     {
                         PlaceId = newPlace.Id,
@@ -70,9 +76,11 @@ namespace GoVibe.API.Services
                     };
                     placeImages.Add(placeImage);
                 }
+
+                newPlace.Thumbnail = placeImages[0].ImageUrl;
+                await _placeCommandRepository.AddAsync(newPlace);
                 await _placeImageCommandRepository.AddRangeAsync(placeImages);
-
-
+                
                 List<PlaceCategory> placeCategories = [];
                 foreach (var categoryId in request.CategoryIds)
                 {
@@ -84,7 +92,6 @@ namespace GoVibe.API.Services
                     placeCategories.Add(placeCategory);
                 }
                 await _placeCategoryCommandRepository.AddRangeAsync(placeCategories);
-
                 await _unitOfWork.CommitAsync();
                 return _mapper.Map<PlaceModel>(newPlace);
             }
@@ -170,10 +177,8 @@ namespace GoVibe.API.Services
                 }
                 await _placeImageCommandRepository.AddRangeAsync(placeImages);
 
-                foreach (var deleteImage in request.DeleteImages)
-                {
-                    // remove deleteImage in storage
-                }
+                // remove deleteImage in storage
+                await _garageService.DeleteManyAsync(request.DeleteImages);              
                 await _placeImageCommandRepository.DeleteRangeAsync(request.DeleteImages.Select(x => Guid.Parse(x)));
 
                 // existing category
@@ -211,15 +216,18 @@ namespace GoVibe.API.Services
 
         public async Task<PlaceModel> Delete(string id)
         {
-            var amenity = await _placeQueryRepository.GetByIdAsync(Guid.Parse(id));
-            if (amenity == null)
+            var place = await _placeQueryRepository.GetByIdAsync(Guid.Parse(id));
+            if (place == null)
             {
-                throw new NotFoundException("Amenity not found");
+                throw new NotFoundException("Place not found");
             }
 
-            await _placeCommandRepository.DeleteAsync(amenity);
+            var images = await _placeImageQueryRepository.GetListByPlaceId(place.Id);
+            await _garageService.DeleteManyAsync(images.Select(x => x.ImageUrl).ToList());
+            
+            await _placeCommandRepository.DeleteAsync(place);
             var r = await _placeCommandRepository.SaveChangesAsync();
-            return _mapper.Map<PlaceModel>(amenity);
+            return _mapper.Map<PlaceModel>(place);
         }
 
         public async Task DeleteMany(DeleteManyPlacesRequest request)

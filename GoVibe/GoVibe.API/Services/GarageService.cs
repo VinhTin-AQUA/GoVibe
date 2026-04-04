@@ -1,7 +1,6 @@
 using Amazon.S3;
 using Amazon.S3.Model;
 using GoVibe.API.Configurations;
-using GoVibe.API.Constants;
 using GoVibe.API.Models.Garages;
 using Microsoft.Extensions.Options;
 
@@ -21,16 +20,17 @@ namespace GoVibe.API.Services
         }
         
         // UPLOAD
-        public async Task<bool> Upload(IFormFile file)
+        public async Task<string> Upload(string prefix, IFormFile file)
         {
             using var memoryStream = new MemoryStream();
             await file.CopyToAsync(memoryStream);
             memoryStream.Position = 0;
+            string key = $"{prefix}/{file.FileName}";
 
             var request = new PutObjectRequest
             {
                 BucketName = _bucketName,
-                Key = file.FileName,
+                Key = key,
                 InputStream = memoryStream,
                 ContentType = file.ContentType,
                 AutoCloseStream = false
@@ -38,7 +38,8 @@ namespace GoVibe.API.Services
           
             request.UseChunkEncoding = false;
             var r = await _s3Client.PutObjectAsync(request);
-            return r.HttpStatusCode == System.Net.HttpStatusCode.OK;
+            string result =  r.HttpStatusCode == System.Net.HttpStatusCode.OK ? key : "";
+            return result;
         }
         
         // DOWNLOAD

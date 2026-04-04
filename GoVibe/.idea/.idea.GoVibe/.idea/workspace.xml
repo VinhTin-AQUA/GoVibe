@@ -7,6 +7,12 @@
     <projectFile profileName="https">GoVibe/GoVibe.csproj</projectFile>
     <projectFile profileName="http">GoVibeAuth.API/GoVibeAuth.API.csproj</projectFile>
     <projectFile profileName="https">GoVibeAuth.API/GoVibeAuth.API.csproj</projectFile>
+    <projectFile profileName="http">GoVibeFavorite.API/GoVibeFavorite.API.csproj</projectFile>
+    <projectFile profileName="https">GoVibeFavorite.API/GoVibeFavorite.API.csproj</projectFile>
+    <projectFile profileName="http">GoVibeItinerary.API/GoVibeItinerary.API.csproj</projectFile>
+    <projectFile profileName="https">GoVibeItinerary.API/GoVibeItinerary.API.csproj</projectFile>
+    <projectFile profileName="http">GoVibeMetadata.API/GoVibeMetadata.API.csproj</projectFile>
+    <projectFile profileName="https">GoVibeMetadata.API/GoVibeMetadata.API.csproj</projectFile>
     <projectFile profileName="http">GoVibeSearch.API/GoVibeSearch.API.csproj</projectFile>
     <projectFile profileName="https">GoVibeSearch.API/GoVibeSearch.API.csproj</projectFile>
   </component>
@@ -14,7 +20,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ddba8ae6-6af0-467c-823f-aef2c114acc4" name="Changes" comment="" />
+    <list default="true" id="ddba8ae6-6af0-467c-823f-aef2c114acc4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GoVibe/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoVibe/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoVibe.API/Configurations/GarageConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibe.API/Configurations/GarageConfig.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoVibe.API/Constants/BucketNames.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoVibe.API/Controllers/Common/ControllerBaseApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibe.API/Controllers/Common/ControllerBaseApi.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoVibe.API/GoVibe.API.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibe.API/GoVibe.API.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoVibe.API/Profiles/PlaceProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibe.API/Profiles/PlaceProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoVibe.API/Services/GarageService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibe.API/Services/GarageService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoVibe.API/Services/PlaceService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibe.API/Services/PlaceService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoVibe.API/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibe.API/appsettings.Development.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoVibe.Infrastructure/Repositories/PlaceImages/PlaceImageQueryRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibe.Infrastructure/Repositories/PlaceImages/PlaceImageQueryRepository.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -115,6 +132,96 @@
     </configuration>
     <configuration name="GoVibeAuth.API: https" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/GoVibeAuth.API/GoVibeAuth.API.csproj" />
+      <option name="LAUNCH_PROFILE_TFM" value="net8.0" />
+      <option name="LAUNCH_PROFILE_NAME" value="https" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
+      <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
+      <option name="SEND_DEBUG_REQUEST" value="1" />
+      <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
+    <configuration name="GoVibeFavorite.API: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
+      <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/GoVibeFavorite.API/GoVibeFavorite.API.csproj" />
+      <option name="LAUNCH_PROFILE_TFM" value="net8.0" />
+      <option name="LAUNCH_PROFILE_NAME" value="http" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
+      <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
+      <option name="SEND_DEBUG_REQUEST" value="1" />
+      <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
+    <configuration name="GoVibeFavorite.API: https" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
+      <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/GoVibeFavorite.API/GoVibeFavorite.API.csproj" />
+      <option name="LAUNCH_PROFILE_TFM" value="net8.0" />
+      <option name="LAUNCH_PROFILE_NAME" value="https" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
+      <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
+      <option name="SEND_DEBUG_REQUEST" value="1" />
+      <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
+    <configuration name="GoVibeItinerary.API: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
+      <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/GoVibeItinerary.API/GoVibeItinerary.API.csproj" />
+      <option name="LAUNCH_PROFILE_TFM" value="net8.0" />
+      <option name="LAUNCH_PROFILE_NAME" value="http" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
+      <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
+      <option name="SEND_DEBUG_REQUEST" value="1" />
+      <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
+    <configuration name="GoVibeItinerary.API: https" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
+      <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/GoVibeItinerary.API/GoVibeItinerary.API.csproj" />
+      <option name="LAUNCH_PROFILE_TFM" value="net8.0" />
+      <option name="LAUNCH_PROFILE_NAME" value="https" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
+      <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
+      <option name="SEND_DEBUG_REQUEST" value="1" />
+      <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
+    <configuration name="GoVibeMetadata.API: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
+      <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/GoVibeMetadata.API/GoVibeMetadata.API.csproj" />
+      <option name="LAUNCH_PROFILE_TFM" value="net8.0" />
+      <option name="LAUNCH_PROFILE_NAME" value="http" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
+      <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
+      <option name="SEND_DEBUG_REQUEST" value="1" />
+      <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
+    <configuration name="GoVibeMetadata.API: https" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
+      <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/GoVibeMetadata.API/GoVibeMetadata.API.csproj" />
       <option name="LAUNCH_PROFILE_TFM" value="net8.0" />
       <option name="LAUNCH_PROFILE_NAME" value="https" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
@@ -247,6 +354,8 @@
       <workItem from="1774886898292" duration="90000" />
       <workItem from="1774972772383" duration="601000" />
       <workItem from="1775143119509" duration="659000" />
+      <workItem from="1775318360885" duration="4139000" />
+      <workItem from="1775322519835" duration="71000" />
     </task>
     <servers />
   </component>
