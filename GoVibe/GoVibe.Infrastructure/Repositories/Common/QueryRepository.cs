@@ -8,17 +8,17 @@ namespace GoVibe.Infrastructure.Repositories.Common
 {
     public interface IQueryRepository<T> where T : Entity
     {
-        Task<T?> GetByIdAsync(Guid id, bool tracking = false, params Expression<Func<T, object?>>[] includes);
+        Task<T?> GetByIdAsync(Guid id, bool tracking = false, params Func<IQueryable<T>, IQueryable<T>>[] includes);
 
-        Task<List<T>> GetByIdsAsync(IEnumerable<Guid> ids, bool tracking = false, params Expression<Func<T, object?>>[] includes);
+        Task<List<T>> GetByIdsAsync(IEnumerable<Guid> ids, bool tracking = false, params Func<IQueryable<T>, IQueryable<T>>[] includes);
 
-        Task<List<T>> GetAllAsync(bool tracking = false, params Expression<Func<T, object?>>[] includes);
+        Task<List<T>> GetAllAsync(bool tracking = false, params Func<IQueryable<T>, IQueryable<T>>[] includes);
 
-        Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object?>>[] includes);
+        Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate, params Func<IQueryable<T>, IQueryable<T>>[] includes);
 
-        Task<int> CountAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object?>>[] includes);
+        Task<int> CountAsync(Expression<Func<T, bool>> predicate, params Func<IQueryable<T>, IQueryable<T>>[] includes);
 
-        Task<List<T>> GetPagedAsync(int page, int pageSize, params Expression<Func<T, object?>>[] includes);
+        Task<List<T>> GetPagedAsync(int page, int pageSize, params Func<IQueryable<T>, IQueryable<T>>[] includes);
 
         Task ExecuteRawSqlAsync(string sql, params object[] parameters);
     }
@@ -32,7 +32,7 @@ namespace GoVibe.Infrastructure.Repositories.Common
             _contextFactory = contextFactory;
         }
 
-        public async Task<T?> GetByIdAsync(Guid id, bool tracking = false, params Expression<Func<T, object?>>[] includes)
+        public async Task<T?> GetByIdAsync(Guid id, bool tracking = false, params Func<IQueryable<T>, IQueryable<T>>[] includes)
         {
             await using var context = await _contextFactory.CreateDbContextAsync();
             var query = BuildQuery(context, includes);
@@ -43,7 +43,7 @@ namespace GoVibe.Infrastructure.Repositories.Common
             return await query.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<List<T>> GetByIdsAsync(IEnumerable<Guid> ids, bool tracking = false, params Expression<Func<T, object?>>[] includes)
+        public async Task<List<T>> GetByIdsAsync(IEnumerable<Guid> ids, bool tracking = false, params Func<IQueryable<T>, IQueryable<T>>[] includes)
         {
             await using var context = await _contextFactory.CreateDbContextAsync();
             var query = BuildQuery(context, includes);
@@ -54,7 +54,7 @@ namespace GoVibe.Infrastructure.Repositories.Common
             return await query.AsNoTracking().Where(x => ids.Contains(x.Id)).ToListAsync();
         }
 
-        public async Task<List<T>> GetAllAsync(bool tracking = false, params Expression<Func<T, object?>>[] includes)
+        public async Task<List<T>> GetAllAsync(bool tracking = false, params Func<IQueryable<T>, IQueryable<T>>[] includes)
         {
             await using var context = await _contextFactory.CreateDbContextAsync();
             var query = BuildQuery(context, includes);
@@ -65,21 +65,21 @@ namespace GoVibe.Infrastructure.Repositories.Common
             return await query.AsNoTracking().ToListAsync();
         }
 
-        public async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object?>>[] includes)
+        public async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate, params Func<IQueryable<T>, IQueryable<T>>[] includes)
         {
             await using var context = await _contextFactory.CreateDbContextAsync();
             var query = BuildQuery(context, includes);
             return await query.AnyAsync(predicate);
         }
 
-        public async Task<int> CountAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object?>>[] includes)
+        public async Task<int> CountAsync(Expression<Func<T, bool>> predicate, params Func<IQueryable<T>, IQueryable<T>>[] includes)
         {
             await using var context = await _contextFactory.CreateDbContextAsync();
             var query = BuildQuery(context, includes);
             return await query.CountAsync(predicate);
         }
 
-        public async Task<List<T>> GetPagedAsync(int page, int pageSize, params Expression<Func<T, object?>>[] includes)
+        public async Task<List<T>> GetPagedAsync(int page, int pageSize, params Func<IQueryable<T>, IQueryable<T>>[] includes)
         {
             await using var context = await _contextFactory.CreateDbContextAsync();
             var query = BuildQuery(context, includes);
@@ -114,12 +114,12 @@ namespace GoVibe.Infrastructure.Repositories.Common
         }
 
         // var orders = BuildQuery(context, x => x.Customer.Address, x => x.OrderItems.Select(i => i.Product));
-        public IQueryable<T> BuildQuery(AppDbContext context, params Expression<Func<T, object?>>[] includes)
+        public IQueryable<T> BuildQuery(AppDbContext context, params Func<IQueryable<T>, IQueryable<T>>[] includes)
         {
             IQueryable<T> query = context.Set<T>();
             foreach (var include in includes)
             {
-                query = query.Include(include);
+                query = include(query);
             }
             return query;
         }

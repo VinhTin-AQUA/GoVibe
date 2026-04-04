@@ -25,7 +25,9 @@ namespace GoVibe.Infrastructure.Repositories.Places
                 predicate = p => p.Name.ToLower().Contains(searchString.ToLower());
             }
             
-            builder.Include(x => x.Category);
+            builder.Include(x => x.PlaceCategories)
+                .ThenInclude<PlaceCategory, Category?>(x => x.Category);
+
             builder.AsNoTracking()
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize);

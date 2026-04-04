@@ -29,7 +29,7 @@ namespace GoVibe.API.Validators.Places
                 .NotNull().WithMessage(requiredMessage)
                 .NotEmpty().WithMessage(requiredMessage);
 
-            RuleFor(x => x.CategoryId)
+            RuleFor(x => x.CategoryIds)
                 .NotNull().WithMessage(requiredMessage)
                 .NotEmpty().WithMessage(requiredMessage);
 
@@ -65,7 +65,7 @@ namespace GoVibe.API.Validators.Places
                 .NotNull().WithMessage(requiredMessage)
                 .NotEmpty().WithMessage(requiredMessage);
 
-            RuleFor(x => x.CategoryId)
+            RuleFor(x => x.CategoryIds)
                 .NotNull().WithMessage(requiredMessage)
                 .NotEmpty().WithMessage(requiredMessage);
 

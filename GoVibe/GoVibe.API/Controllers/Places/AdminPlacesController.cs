@@ -8,21 +8,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GoVibe.API.Controllers.Places
 {
-    public class PlacesController : ControllerBaseApi
+    public class AdminPlacesController : ControllerBaseApi
     {
         private readonly PlaceService _placeService;
-        private readonly GarageService _garageService;
         private readonly AddPlaceRequestValidator _addPlaceRequestValidator;
         private readonly UpdatePlaceRequestValidator _updatePlaceRequestValidator;
 
-        public PlacesController(PlaceService placeService, GarageService garageService)
+        public AdminPlacesController(PlaceService placeService)
         {
             _placeService = placeService;
-            _garageService = garageService;
             _addPlaceRequestValidator = new AddPlaceRequestValidator();
             _updatePlaceRequestValidator = new UpdatePlaceRequestValidator();
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Add([FromForm] AddPlaceRequest request)
         {

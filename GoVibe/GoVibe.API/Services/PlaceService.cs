@@ -6,6 +6,7 @@ using GoVibe.Domain.Entities;
 using GoVibe.Infrastructure.Repositories.Places;
 using GoVibe.Infrastructure.Repositories.PlaceImages;
 using GoVibe.Infrastructure.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
 
 namespace GoVibe.API.Services
 {
@@ -14,6 +15,8 @@ namespace GoVibe.API.Services
         private readonly IPlaceQueryRepository _placeQueryRepository;
         private readonly IPlaceCommandRepository _placeCommandRepository;
         private readonly IPlaceImageCommandRepository _placeImageCommandRepository;
+        private readonly IPlaceCategoryQueryRepository _placeCategoryQueryRepository;
+        private readonly IPlaceCategoryCommandRepository _placeCategoryCommandRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
@@ -21,12 +24,16 @@ namespace GoVibe.API.Services
             IPlaceQueryRepository placeQueryRepository,
             IPlaceCommandRepository placeCommandRepository,
             IPlaceImageCommandRepository  placeImageCommandRepository,
+            IPlaceCategoryQueryRepository placeCategoryQueryRepository,
+            IPlaceCategoryCommandRepository placeCategoryCommandRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper)
         {
             _placeQueryRepository = placeQueryRepository;
             _placeCommandRepository = placeCommandRepository;
             _placeImageCommandRepository = placeImageCommandRepository;
+            _placeCategoryQueryRepository = placeCategoryQueryRepository;
+            _placeCategoryCommandRepository = placeCategoryCommandRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
@@ -36,11 +43,6 @@ namespace GoVibe.API.Services
             try
             {
                 await _unitOfWork.BeginTransactionAsync();
-                var nameExists = await _placeQueryRepository.ExistsAsync((x) => x.Name.ToLower() == request.Name.ToLower());
-                if (nameExists)
-                {
-                    throw new ArgumentException("Place Name already exists");
-                }
 
                 Place newPlace = new()
                 {
@@ -48,12 +50,12 @@ namespace GoVibe.API.Services
                     Name = request.Name,
                     Description = request.Description,
                     Country = request.Country,
-                    CategoryId = Guid.Parse(request.CategoryId),
                     Phone = request.Phone,
                     Website = request.Website,
                     OpeningHours = request.OpeningHours,
                     Status = request.Status,
                     Address = request.Address,
+                    Tags = request.Tags,
                 };
                 await _placeCommandRepository.AddAsync(newPlace);
 
@@ -69,6 +71,20 @@ namespace GoVibe.API.Services
                     placeImages.Add(placeImage);
                 }
                 await _placeImageCommandRepository.AddRangeAsync(placeImages);
+
+
+                List<PlaceCategory> placeCategories = [];
+                foreach (var categoryId in request.CategoryIds)
+                {
+                    var placeCategory = new PlaceCategory
+                    {
+                        CategoryId = categoryId,
+                        PlaceId = newPlace.Id
+                    };
+                    placeCategories.Add(placeCategory);
+                }
+                await _placeCategoryCommandRepository.AddRangeAsync(placeCategories);
+
                 await _unitOfWork.CommitAsync();
                 return _mapper.Map<PlaceModel>(newPlace);
             }
@@ -93,7 +109,6 @@ namespace GoVibe.API.Services
             pageSize = Math.Min(pageSize, 50);    // <= 50
 
             (List<Place> places, int total) = await _placeQueryRepository.GetAllPagination(searchString, pageIndex, pageSize);
-
             return new Pagination<PlaceModel>
             {
                 Items = _mapper.Map<List<PlaceModel>>(places),
@@ -106,7 +121,12 @@ namespace GoVibe.API.Services
 
         public async Task<PlaceDetailsModel> Get(string id)
         {
-            var place = await _placeQueryRepository.GetByIdAsync(Guid.Parse(id), false, [x => x.Category, x => x.Images, x => x.Reviews]);
+            var place = await _placeQueryRepository.GetByIdAsync(Guid.Parse(id), false, [
+                    x => x.Include(p => p.PlaceCategories).ThenInclude(pc => pc.Category),  
+                    q => q.Include(x => x.Images), 
+                    q => q.Include(x => x.Reviews)
+                ]);
+
             if (place == null)
             {
                 throw new NotFoundException("Place not found");
@@ -119,7 +139,8 @@ namespace GoVibe.API.Services
             try
             {
                 await _unitOfWork.BeginTransactionAsync();
-                var place = await _placeQueryRepository.GetByIdAsync(Guid.Parse(request.Id), false, [(x) => x.Category]);
+                var place = await _placeQueryRepository.GetByIdAsync(Guid.Parse(request.Id), false, x => x.Include(x => x.PlaceCategories));
+
                 if (place == null)
                 {
                     throw new NotFoundException("Amenty not found");
@@ -129,11 +150,11 @@ namespace GoVibe.API.Services
                 place.Description = request.Description;
                 place.Address = request.Address;
                 place.Country = request.Country;
-                place.CategoryId = Guid.Parse(request.CategoryId);
                 place.Phone = request.Phone;
                 place.Website = request.Website;
                 place.OpeningHours = request.OpeningHours;
                 place.Status = request.Status;
+                place.Tags = request.Tags;
                 await _placeCommandRepository.UpdateAsync(place);
 
                 List<PlaceImage> placeImages = [];
@@ -154,7 +175,30 @@ namespace GoVibe.API.Services
                     // remove deleteImage in storage
                 }
                 await _placeImageCommandRepository.DeleteRangeAsync(request.DeleteImages.Select(x => Guid.Parse(x)));
-                
+
+                // existing category
+                var existingCategoryIds = place.PlaceCategories
+                    .Select(x => x.CategoryId)
+                    .ToList();
+
+                // remove old
+                var toRemove = place.PlaceCategories
+                    .Where(x => !request.CategoryIds.Contains(x.CategoryId))
+                    .ToList();
+
+                // new category
+                var toAdd = request.CategoryIds
+                    .Where(id => !existingCategoryIds.Contains(id))
+                    .Select(categoryId => new PlaceCategory
+                    {
+                        PlaceId = place.Id,
+                        CategoryId = categoryId
+                    })
+                    .ToList();
+
+                await _placeCategoryCommandRepository.DeleteRangeAsync(toRemove);
+                await _placeCategoryCommandRepository.AddRangeAsync(toAdd);
+
                 await _unitOfWork.CommitAsync();
                 return _mapper.Map<PlaceModel>(place);
             }

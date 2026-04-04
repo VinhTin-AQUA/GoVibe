@@ -42,6 +42,9 @@ namespace GoVibe.Infrastructure.Extensions
             
             services.AddScoped<IReviewImageCommandRepository, ReviewImageCommandRepository>();
             services.AddScoped<IReviewImageQueryRepository, ReviewImageQueryRepository>();
+
+            services.AddScoped<IPlaceCategoryQueryRepository, PlaceCategoryQueryRepository>();
+            services.AddScoped<IPlaceCategoryCommandRepository, PlaceCategoryCommandRepository>();
             return services;
         }
     }

@@ -5,17 +5,16 @@ using GoVibe.API.Models.Categories;
 using GoVibe.API.Services;
 using GoVibe.API.Validators.Categories;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 
 namespace GoVibe.API.Controllers.Categories
 {
-    public class CategoriesController : ControllerBaseApi
+    public class AdminCategoriesController : ControllerBaseApi
     {
         private readonly CategoryService _categoryService;
         private readonly AddCategoryRequestValidator _addCategoryRequestValidator;
         private readonly UpdateCategoryRequestValidator _updateCategoryRequestValidator;
 
-        public CategoriesController(CategoryService categoryService)
+        public AdminCategoriesController(CategoryService categoryService)
         {
             _categoryService = categoryService;
             _addCategoryRequestValidator = new AddCategoryRequestValidator();

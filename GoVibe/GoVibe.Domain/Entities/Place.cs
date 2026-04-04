@@ -6,7 +6,6 @@ namespace GoVibe.Domain.Entities
     {
         public string Name { get; set; } = "";
         public string Description { get; set; } = "";
-        
         public string Address { get; set; } = "";
         public string Country { get; set; } = "";
 
@@ -18,12 +17,12 @@ namespace GoVibe.Domain.Entities
         public double TotalRating { get; set; }
         public int TotalReviews { get; set; }
         public string Thumbnail { get; set; } = "";
-        public int TotalVisitCount { get; set; }
 
         public List<string> Tags { get; set; } = [];
 
         public EPlaceStatus Status { get; set; } = EPlaceStatus.None;
         public ICollection<PlaceImage> Images { get; set; } = [];
         public ICollection<Review> Reviews { get; set; } = [];
+        public ICollection<PlaceCategory> PlaceCategories { get; set; } = [];
     }
 }
