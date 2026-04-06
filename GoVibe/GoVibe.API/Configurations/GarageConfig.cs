@@ -12,6 +12,7 @@ namespace GoVibe.API.Configurations
     {
         public const string PlaceImages = "place-images";
         public const string PlaceThumbnail = "place-thumbnail";
+        public const string ReviewImages = "review-images";
         
     }
 }

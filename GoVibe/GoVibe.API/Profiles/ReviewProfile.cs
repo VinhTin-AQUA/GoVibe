@@ -9,6 +9,8 @@ namespace GoVibe.API.Profiles
         public ReviewProfile()
         {
             CreateMap<Review, ReviewModel>();
+            CreateMap<ReviewImage, ReviewImageModel>();
+            
         }
     }
 }

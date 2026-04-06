@@ -19,6 +19,15 @@ namespace GoVibe.API.Models.Reviews
 
         public List<IFormFile> Images { get; set; } = [];
     }
+    
+    public class UpdateReviewModel
+    {
+        public string Id { get; set; } = "";
+        public int Rating { get; set; }
+        public string Comment { get; set; } = "";
+        public List<string> DeleteImageIds { get; set; } = [];
+        public List<IFormFile> Images { get; set; } = [];
+    }
 
     public class ReviewImageModel
     {

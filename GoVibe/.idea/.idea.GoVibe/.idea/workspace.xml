@@ -20,18 +20,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ddba8ae6-6af0-467c-823f-aef2c114acc4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GoVibe/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoVibe/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoVibe.API/Configurations/GarageConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibe.API/Configurations/GarageConfig.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoVibe.API/Constants/BucketNames.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoVibe.API/Controllers/Common/ControllerBaseApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibe.API/Controllers/Common/ControllerBaseApi.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoVibe.API/GoVibe.API.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibe.API/GoVibe.API.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoVibe.API/Profiles/PlaceProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibe.API/Profiles/PlaceProfile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoVibe.API/Services/GarageService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibe.API/Services/GarageService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoVibe.API/Services/PlaceService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibe.API/Services/PlaceService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoVibe.API/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibe.API/appsettings.Development.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoVibe.Infrastructure/Repositories/PlaceImages/PlaceImageQueryRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibe.Infrastructure/Repositories/PlaceImages/PlaceImageQueryRepository.cs" afterDir="false" />
-    </list>
+    <list default="true" id="ddba8ae6-6af0-467c-823f-aef2c114acc4" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -356,6 +345,7 @@
       <workItem from="1775143119509" duration="659000" />
       <workItem from="1775318360885" duration="4139000" />
       <workItem from="1775322519835" duration="71000" />
+      <workItem from="1775487715021" duration="4258000" />
     </task>
     <servers />
   </component>
