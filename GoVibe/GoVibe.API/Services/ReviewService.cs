@@ -173,12 +173,5 @@ namespace GoVibe.API.Services
             await _reviewCommandRepository.SaveChangesAsync();  
             return _mapper.Map<ReviewModel>(review);
         }
-
-        public async Task RemoveAllData()
-        {
-            var allReviews = await _reviewQueryRepository.GetAllAsync();
-            await _reviewCommandRepository.DeleteRangeAsync(allReviews);
-            await _reviewCommandRepository.SaveChangesAsync();
-        }
     }
 }

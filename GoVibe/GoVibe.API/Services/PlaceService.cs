@@ -2,12 +2,15 @@
 using GoVibe.API.Configurations;
 using GoVibe.API.Exceptions;
 using GoVibe.API.Models;
-using GoVibe.Domain.Entities;
-using GoVibe.Infrastructure.Repositories.Places;
-using GoVibe.Infrastructure.Repositories.PlaceImages;
-using GoVibe.Infrastructure.UnitOfWork;
-using Microsoft.EntityFrameworkCore;
+using GoVibe.API.Models.Categories;
 using GoVibe.API.Models.Places;
+using GoVibe.Domain.Entities;
+using GoVibe.Domain.Enums;
+using GoVibe.Infrastructure.Repositories.PlaceImages;
+using GoVibe.Infrastructure.Repositories.Places;
+using GoVibe.Infrastructure.UnitOfWork;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GoVibe.API.Services
 {
@@ -110,7 +113,7 @@ namespace GoVibe.API.Services
             }
         }
 
-        public async Task<Pagination<PlaceModel>> GetAllPagination(string searchString = "", int pageIndex = 0, int pageSize = 20)
+        public async Task<Pagination<PlaceModel>> GetAllPagination(string searchString = "", int pageIndex = 1, int pageSize = 20)
         {
             pageIndex = Math.Max(pageIndex, 1);   // >= 1
             pageSize = Math.Min(pageSize, 50);    // <= 50
@@ -235,11 +238,179 @@ namespace GoVibe.API.Services
             await _placeCommandRepository.DeleteRangeAsync(request.Ids.Select(x => Guid.Parse(x)));
             var r = await _placeCommandRepository.SaveChangesAsync();
         }
-        public async Task RemoveAllData()
+
+        public async Task<(
+            List<PlaceModel> topRated, 
+            List<PlaceModel> mostViewed,
+            List<PlaceModel> recent,
+            List<PlaceModel> explore
+        )> GetHome()
         {
-            var allPaces = await _placeQueryRepository.GetAllAsync();
-            await _placeCommandRepository.DeleteRangeAsync(allPaces);
-            await _placeCommandRepository.SaveChangesAsync();
+            var query = await _placeQueryRepository.GetAllAsync(false);
+
+            var topRated = query
+                .Where(p => p.TotalReviews > 0)
+                .OrderByDescending(p => p.TotalRating / p.TotalReviews)
+                .ThenByDescending(p => p.TotalReviews)
+                .Take(5)
+                .ToList();
+
+            var mostViewed = query
+                .OrderByDescending(p => p.TotalViews)
+                .Take(5)
+                .ToList();
+
+            var recent = query
+                .OrderByDescending(p => p.UpdatedAt)
+                .Take(5)
+                .ToList();
+
+            var explore = query
+                .Where(p => p.TotalReviews > 0 &&
+                            (p.TotalRating / p.TotalReviews) >= 3)
+                .OrderBy(p => Guid.NewGuid())
+                .Take(5)
+                .ToList();
+
+            return (
+                _mapper.Map<List<PlaceModel>>(topRated),
+                _mapper.Map<List<PlaceModel>>(mostViewed),
+                _mapper.Map<List<PlaceModel>>(recent),
+                _mapper.Map<List<PlaceModel>>(explore)
+            );
+        }
+
+        public async Task<Pagination<PlaceModel>> Search([FromBody] PlaceSearchRequest request)
+        {
+            var queries = new List<Func<IQueryable<Place>, IQueryable<Place>>>();
+
+            // 1. Default filter
+            //queries.Add(q => q.Where(p => p.Status == EPlaceStatus.Active));
+
+            // 2. Keyword
+            if (!string.IsNullOrWhiteSpace(request.Keyword))
+            {
+                var keyword = request.Keyword.ToLower();
+                queries.Add(q => q.Where(p =>
+                    p.Name.ToLower().Contains(keyword) ||
+                    p.Address.ToLower().Contains(keyword)));
+            }
+
+            // 3. Address
+            if (!string.IsNullOrWhiteSpace(request.Address))
+            {
+                var address = request.Address.ToLower();
+                queries.Add(q => q.Where(p => p.Address.ToLower().Contains(address)));
+            }
+
+            // 4. Country
+            if (!string.IsNullOrWhiteSpace(request.Country))
+            {
+                queries.Add(q => q.Where(p => p.Country == request.Country));
+            }
+
+            // 5. Category
+            if (request.CategoryIds != null && request.CategoryIds.Any())
+            {
+                queries.Add(q => q.Where(p =>
+                    p.PlaceCategories.Any(pc =>
+                        request.CategoryIds.Contains(pc.CategoryId))));
+            }
+
+            // 6. Rating
+            if (request.MinRating.HasValue)
+            {
+                queries.Add(q => q.Where(p =>
+                    p.TotalReviews > 0 &&
+                    (p.TotalRating / p.TotalReviews) >= request.MinRating.Value));
+            }
+
+            if (request.MaxRating.HasValue)
+            {
+                queries.Add(q => q.Where(p =>
+                    p.TotalReviews > 0 &&
+                    (p.TotalRating / p.TotalReviews) <= request.MaxRating.Value));
+            }
+
+            // 7. Views
+            if (request.MinViews.HasValue)
+            {
+                queries.Add(q => q.Where(p => p.TotalViews >= request.MinViews));
+            }
+
+            if (request.MaxViews.HasValue)
+            {
+                queries.Add(q => q.Where(p => p.TotalViews <= request.MaxViews));
+            }
+
+            // 8. Tags
+            if (request.Tags != null && request.Tags.Any())
+            {
+                queries.Add(q => q.Where(p =>
+                    p.Tags.Any(tag => request.Tags.Contains(tag))));
+            }
+
+            // 9. Sorting
+            queries.Add(request.SortBy?.ToLower() switch
+            {
+                "rating" => request.SortDesc
+                    ? (Func<IQueryable<Place>, IQueryable<Place>>)(q =>
+                        q.OrderByDescending(p => p.TotalReviews == 0
+                            ? 0
+                            : p.TotalRating / p.TotalReviews))
+                    : q => q.OrderBy(p => p.TotalReviews == 0
+                            ? 0
+                            : p.TotalRating / p.TotalReviews),
+
+                "views" => request.SortDesc
+                    ? q => q.OrderByDescending(p => p.TotalViews)
+                    : q => q.OrderBy(p => p.TotalViews),
+
+                "newest" => request.SortDesc
+                    ? q => q.OrderByDescending(p => p.CreatedAt)
+                    : q => q.OrderBy(p => p.CreatedAt),
+
+                _ => q => q.OrderByDescending(p => p.UpdatedAt)
+            });
+
+            // 10. Query DB
+            var places = await _placeQueryRepository.GetPagedAsync(
+                request.PageIndex,
+                request.PageSize,
+                queries.ToArray());
+            var total = await _placeQueryRepository.CountAsync(x => true, queries.ToArray());
+
+            // 11. Map sang DTO
+            var result = places.Select(p => new PlaceModel
+            {
+                Id = p.Id.ToString(),
+                Name = p.Name,
+                TotalViews = p.TotalViews,
+                TotalReviews = p.TotalReviews,
+                TotalRating = (int)p.TotalRating,
+                AverageRating = p.TotalReviews == 0
+                    ? 0
+                    : p.TotalRating / p.TotalReviews,
+                Thumbnail = p.Thumbnail,
+                Status = p.Status,
+                UpdatedAt = p.UpdatedAt,
+                Category = p.PlaceCategories
+                    .Select(pc => new CategoryModel
+                    {
+                        Id = pc.Category!.Id.ToString(),
+                        Name = pc.Category.Name
+                    })
+                    .FirstOrDefault()
+            }).ToList();
+
+            return new Pagination<PlaceModel>
+            {
+                Items = _mapper.Map<List<PlaceModel>>(places),
+                PageIndex = request.PageIndex,
+                PageSize = request.PageSize,
+                TotalCount = total,
+                TotalPage = total / request.PageSize + 1
+            };
         }
     }
 }

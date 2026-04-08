@@ -8,6 +8,7 @@ namespace GoVibe.API.Models.Places
     {
         public string Id { get; set; } = "";
         public string Name { get; set; } = "";
+        public string Address { get; set; } = "";
 
         public double AverageRating { get; set; }
         public int TotalRating { get; set; }
@@ -84,5 +85,30 @@ namespace GoVibe.API.Models.Places
     public class DeleteManyPlacesRequest
     {
         public List<string> Ids { get; set; } = [];
+    }
+
+    public class PlaceSearchRequest
+    {
+        public string? Keyword { get; set; }          // name + address
+        public string? Address { get; set; }
+        public string? Country { get; set; }
+
+        public List<Guid>? CategoryIds { get; set; }
+
+        public double? MinRating { get; set; }        // >= 1,2,3,4
+        public double? MaxRating { get; set; }
+
+        public int? MinViews { get; set; }
+        public int? MaxViews { get; set; }
+
+        public EPlaceStatus? Status { get; set; }
+
+        public List<string>? Tags { get; set; }
+
+        public string? SortBy { get; set; }           // rating, views, newest
+        public bool SortDesc { get; set; } = true;
+
+        public int PageIndex { get; set; } = 1;
+        public int PageSize { get; set; } = 10;
     }
 }

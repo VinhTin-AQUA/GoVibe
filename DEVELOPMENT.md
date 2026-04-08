@@ -241,14 +241,10 @@ BackgroundJobs/
 - profile
 - biểu đồ thống kê
 
-- api gợi ý địa điểm cho trang home theo từng danh mục
 - api tìm kiếm
-    - tìm kiếm thuần database
     - sử dụng elastíc search
-    - tìm kiếm theo bộ lọc
 - đăng nhập google
 - lưu điêm đến yêu thích
-- đánh giá
 - lưu lịch trình
 - hỗ trợ và trợ giúp thêm các địa điểm mới
 - cào dữ liệu
