@@ -2,12 +2,12 @@
 using GoVibe.API.Configurations;
 using GoVibe.API.Exceptions;
 using GoVibe.API.Models;
-using GoVibe.API.Models.Places;
 using GoVibe.Domain.Entities;
 using GoVibe.Infrastructure.Repositories.Places;
 using GoVibe.Infrastructure.Repositories.PlaceImages;
 using GoVibe.Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
+using GoVibe.API.Models.Places;
 
 namespace GoVibe.API.Services
 {
@@ -77,7 +77,7 @@ namespace GoVibe.API.Services
                     placeImages.Add(placeImage);
                 }
 
-                newPlace.Thumbnail = placeImages[0].ImageUrl;
+                newPlace.Thumbnail = placeImages.Count> 0 ? placeImages[0].ImageUrl : "https://upload.wikimedia.org/wikipedia/commons/3/3f/JPEG_example_flower.jpg";
                 await _placeCommandRepository.AddAsync(newPlace);
                 await _placeImageCommandRepository.AddRangeAsync(placeImages);
                 
@@ -95,7 +95,7 @@ namespace GoVibe.API.Services
                 await _unitOfWork.CommitAsync();
                 return _mapper.Map<PlaceModel>(newPlace);
             }
-            catch
+            catch(Exception ex)
             {
                 try
                 {
@@ -234,6 +234,12 @@ namespace GoVibe.API.Services
         {
             await _placeCommandRepository.DeleteRangeAsync(request.Ids.Select(x => Guid.Parse(x)));
             var r = await _placeCommandRepository.SaveChangesAsync();
+        }
+        public async Task RemoveAllData()
+        {
+            var allPaces = await _placeQueryRepository.GetAllAsync();
+            await _placeCommandRepository.DeleteRangeAsync(allPaces);
+            await _placeCommandRepository.SaveChangesAsync();
         }
     }
 }

@@ -12,31 +12,32 @@ namespace GoVibe.API.Extensions
             services.AddScoped<CategoryService>();
             services.AddScoped<PlaceService>();
             services.AddScoped<ReviewService>();
-
+            services.AddScoped<StatisticService>();
+            
             services.AddSingleton<GarageService>();
             
             services.Configure<GarageConfig>(configuration.GetSection("Garage"));
             
-            services.AddSingleton<IAmazonS3>(sp =>
-            {
-                var config = sp.GetRequiredService<IConfiguration>();
+            //services.AddSingleton<IAmazonS3>(sp =>
+            //{
+            //    var config = sp.GetRequiredService<IConfiguration>();
 
-                var s3Config = new AmazonS3Config
-                {
-                    ServiceURL = config["Garage:ServiceURL"], // http://localhost:3900
-                    ForcePathStyle = true,
-                    UseHttp = true,
-                    DisableHostPrefixInjection = true,
+            //    var s3Config = new AmazonS3Config
+            //    {
+            //        ServiceURL = config["Garage:ServiceURL"], // http://localhost:3900
+            //        ForcePathStyle = true,
+            //        UseHttp = true,
+            //        DisableHostPrefixInjection = true,
 
-                    AuthenticationRegion = "ap-southeast-1" // 
-                };
+            //        AuthenticationRegion = "ap-southeast-1" // 
+            //    };
 
-                return new AmazonS3Client(
-                    config["Garage:AccessKey"],
-                    config["Garage:SecretKey"],
-                    s3Config
-                );
-            });
+            //    return new AmazonS3Client(
+            //        config["Garage:AccessKey"],
+            //        config["Garage:SecretKey"],
+            //        s3Config
+            //    );
+            //});
             
             return services;
         }

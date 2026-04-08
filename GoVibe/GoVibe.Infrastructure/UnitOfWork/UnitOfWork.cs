@@ -1,4 +1,4 @@
-using GoVibe.Infrastructure.Data;
+﻿using GoVibe.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace GoVibe.Infrastructure.UnitOfWork
@@ -45,13 +45,26 @@ namespace GoVibe.Infrastructure.UnitOfWork
                 await RollbackAsync();
                 throw;
             }
+            finally
+            {
+                await _transaction.DisposeAsync(); 
+                _transaction = null;              
+            }
         }
 
         public async Task RollbackAsync()
         {
-            //if (_transaction == null) throw new InvalidOperationException("The transaction has not been started.");
             if (_transaction == null) return;
-            await _transaction.RollbackAsync();
+
+            try
+            {
+                await _transaction.RollbackAsync();
+            }
+            finally
+            {
+                await _transaction.DisposeAsync(); 
+                _transaction = null;       
+            }
         }
 
         private void ReleaseUnmanagedResources()

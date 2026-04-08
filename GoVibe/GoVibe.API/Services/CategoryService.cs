@@ -102,5 +102,12 @@ namespace GoVibe.API.Services
             var list = await _categoryQueryRepository.GetAllAsync();
             return _mapper.Map<List<Options<string, string>>>(list);
         }
+
+        public async Task RemoveAllData()
+        {
+            var allCates = await _categoryQueryRepository.GetAllAsync();
+            await _categoryCommandRepository.DeleteRangeAsync(allCates);
+            await _categoryCommandRepository.SaveChangesAsync();
+        }
     }
 }

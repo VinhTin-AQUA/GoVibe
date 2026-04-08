@@ -25,4 +25,11 @@
     {
         public List<string> Ids { get; set; } = [];
     }
+
+    public class CategoryStats
+    {
+        public string Id { get; set; } = "";
+        public string CategoryName { get; set; } = "";
+        public int PlaceCount { get; set; }
+    }
 }

@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using GoVibe.API.Controllers.Common;
 using GoVibe.API.Models;
-using GoVibe.API.Models.Places;
 using GoVibe.API.Services;
 using GoVibe.API.Validators.Places;
 using Microsoft.AspNetCore.Mvc;

@@ -11,6 +11,8 @@ namespace GoVibe.API.Models.Places
 
         public double AverageRating { get; set; }
         public int TotalRating { get; set; }
+        
+        public int TotalViews { get; set; }
         public int TotalReviews { get; set; }
         public string Thumbnail { get; set; } = "";
         
