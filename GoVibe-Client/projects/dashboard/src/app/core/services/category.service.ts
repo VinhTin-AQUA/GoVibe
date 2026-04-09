@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
-import { CategoryModel, OptionModel } from 'govibe-core';
+import { CategoryModel, OptionModel } from '@govibecore';
 import { AddCategoryModel, UpdateCategoryModel } from '../models/category.model';
 import { ApiResponse } from '../common/api-response';
 import { PaginationModel } from '../common/pagination.model';

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ApiResponse } from '../common/api-response';
-import { Place, PlaceDetails } from 'govibe-core';
+import { Place, PlaceDetails } from '@govibecore';
 import { PaginationModel } from '../common/pagination.model';
 
 @Injectable({

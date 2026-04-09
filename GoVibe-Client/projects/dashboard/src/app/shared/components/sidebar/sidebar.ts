@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { Icons, IconNames } from 'icons';
+import { Icons } from '@icons';
 import { MenuItem } from './models/menu-item';
 import { RouterLink, RouterLinkActive, } from '@angular/router';
-import { Button } from 'components'
+import { Button } from '@components'
 
 @Component({
     selector: 'app-sidebar',

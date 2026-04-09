@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import { form, FormField, required } from '@angular/forms/signals';
 import { CategoryService } from '../../../../core/services/category.service';
 import { UpdateCategoryModel } from '../../../../core/models/category.model';
-import { TextInput, TextArea, Button } from 'components';
+import { TextInput, TextArea, Button } from '@components';
 
 @Component({
     selector: 'app-upsert-category',

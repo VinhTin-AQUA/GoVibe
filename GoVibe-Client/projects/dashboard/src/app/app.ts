@@ -4,7 +4,7 @@ import { Sidebar } from './shared/components/sidebar/sidebar';
 import { ThemeService } from './core/services/theme.service';
 import { Header } from './shared/components/header/header';
 import { LoadingService } from './core/services/loading.service';
-import { Loader } from 'components';
+import { Loader } from '@components';
 import { Toast } from "./shared/components/toast/toast";
 
 @Component({

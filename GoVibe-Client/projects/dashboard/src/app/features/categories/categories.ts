@@ -3,8 +3,8 @@ import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UpsertCategory } from './components/upsert-category/upsert-category';
 import { CategoryService } from '../../core/services/category.service';
-import { CategoryModel } from 'govibe-core';
-import { Pagination, QuestionCancelDialog, TextInput, Button } from 'components';
+import { CategoryModel } from '@govibecore';
+import { Pagination, QuestionCancelDialog, TextInput, Button } from '@components';
 
 @Component({
     selector: 'app-categories',

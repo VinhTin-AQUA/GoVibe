@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, effect, HostListener } from '@angular/core';
 import { ThemeService } from '../../../core/services/theme.service';
-import {Button} from 'components'
+import {Button} from '@components'
 
 @Component({
     selector: 'app-header',

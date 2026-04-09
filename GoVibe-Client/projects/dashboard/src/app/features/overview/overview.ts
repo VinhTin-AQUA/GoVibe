@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Place } from 'govibe-core';
+import { Place } from '@govibecore';
 
 @Component({
     selector: 'app-overview',

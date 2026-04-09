@@ -4,17 +4,27 @@
     "compileOnSave": false,
     "compilerOptions": {
         "strict": true,
+
+        "moduleResolution": "bundler",
+
         "paths": {
-          "components": [
-            "./dist/components"
-          ],
-          "govibe-core": [
-            "./dist/govibe-core"
-          ],
-          "icons": [
-            "./dist/icons"
-          ]
+            "@components": ["./libs/components/src/public-api.ts"],
+            "@icons": ["./libs/icons/src/public-api.ts"],
+            "@govibecore": ["./libs/govibecore/src/public-api.ts"]
+
         },
+
+        // "paths": {
+        //   "components": [
+        //     "./dist/components"
+        //   ],
+        //   "govibe-core": [
+        //     "./dist/govibe-core"
+        //   ],
+        //   "icons": [
+        //     "./dist/icons"
+        //   ]
+        // },
         "noImplicitOverride": true,
         "noPropertyAccessFromIndexSignature": true,
         "noImplicitReturns": true,
@@ -34,35 +44,35 @@
     },
     "files": [],
     "references": [
-      {
-        "path": "./projects/dashboard/tsconfig.app.json"
-      },
-      {
-        "path": "./projects/dashboard/tsconfig.spec.json"
-      },
-      {
-        "path": "./projects/portal/tsconfig.app.json"
-      },
-      {
-        "path": "./projects/portal/tsconfig.spec.json"
-      },
-      {
-        "path": "./libs/icons/tsconfig.lib.json"
-      },
-      {
-        "path": "./libs/icons/tsconfig.spec.json"
-      },
-      {
-        "path": "./libs/components/tsconfig.lib.json"
-      },
-      {
-        "path": "./libs/components/tsconfig.spec.json"
-      },
-      {
-        "path": "./libs/govibecore/tsconfig.lib.json"
-      },
-      {
-        "path": "./libs/govibecore/tsconfig.spec.json"
-      }
+        {
+            "path": "./projects/dashboard/tsconfig.app.json"
+        },
+        {
+            "path": "./projects/dashboard/tsconfig.spec.json"
+        },
+        {
+            "path": "./projects/portal/tsconfig.app.json"
+        },
+        {
+            "path": "./projects/portal/tsconfig.spec.json"
+        },
+        {
+            "path": "./libs/icons/tsconfig.lib.json"
+        },
+        {
+            "path": "./libs/icons/tsconfig.spec.json"
+        },
+        {
+            "path": "./libs/components/tsconfig.lib.json"
+        },
+        {
+            "path": "./libs/components/tsconfig.spec.json"
+        },
+        {
+            "path": "./libs/govibecore/tsconfig.lib.json"
+        },
+        {
+            "path": "./libs/govibecore/tsconfig.spec.json"
+        }
     ]
 }

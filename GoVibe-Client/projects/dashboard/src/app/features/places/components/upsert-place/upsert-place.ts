@@ -3,8 +3,8 @@ import { form, FormField, required } from '@angular/forms/signals';
 import { FormsModule } from '@angular/forms';
 import { PlaceFormModel } from '../../models/add-place-model';
 import { PlaceService } from '../../../../core/services/place.service';
-import { TextInput, SelectBox, TextEditor, Button } from 'components';
-import { OptionModel } from 'govibe-core';
+import { TextInput, SelectBox, TextEditor, Button } from '@components';
+import { OptionModel } from '@govibecore';
 import { CategoryService } from '../../../../core/services/category.service';
 
 @Component({

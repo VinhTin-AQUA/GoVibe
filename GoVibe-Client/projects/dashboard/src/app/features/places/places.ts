@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { UpsertPlace } from './components/upsert-place/upsert-place';
 import { PlaceReview } from './components/place-review/place-review';
 import { PlaceService } from '../../core/services/place.service';
-import { Pagination, QuestionCancelDialog, Button, TextInput } from 'components';
-import { Place } from 'govibe-core';
+import { Pagination, QuestionCancelDialog, Button, TextInput } from '@components';
+import { Place } from '@govibecore';
 
 @Component({
     selector: 'app-places',

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output, signal } from '@angular/core';
-import { Button } from 'components';
+import { Button } from '@components';
 
 interface Comment {
     user: string;
