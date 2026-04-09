@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, effect, HostListener } from '@angular/core';
 import { ThemeService } from '../../../core/services/theme.service';
 import {Button} from '@components'
+import { Icons } from "@icons";
 
 @Component({
     selector: 'app-header',
-    imports: [CommonModule, Button],
+    imports: [CommonModule, Button, Icons],
     templateUrl: './header.html',
     styleUrl: './header.css',
 })

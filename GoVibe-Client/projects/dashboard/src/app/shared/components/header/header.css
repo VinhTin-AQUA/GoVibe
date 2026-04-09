@@ -26,10 +26,6 @@
     background: var(--brightWhite);
 }
 
-.theme-toggle-knob {
-    background: var(--cursorAccent);
-}
-
 .theme-icon-sun {
     color: var(--yellow);
 }
