@@ -394,13 +394,13 @@ namespace GoVibe.API.Services
                 Thumbnail = p.Thumbnail,
                 Status = p.Status,
                 UpdatedAt = p.UpdatedAt,
-                Category = p.PlaceCategories
+                Categories = p.PlaceCategories
                     .Select(pc => new CategoryModel
                     {
                         Id = pc.Category!.Id.ToString(),
                         Name = pc.Category.Name
                     })
-                    .FirstOrDefault()
+                    .ToList()
             }).ToList();
 
             return new Pagination<PlaceModel>

@@ -1,135 +1,155 @@
-<div class="place-page">
+<div class="p-6 min-h-screen app-page">
     <!-- Header -->
-    <div class="flex justify-between items-center mb-4">
-        <div>
-            <h1 class="page-title text-2xl font-bold">Place Management</h1>
-            <p class="page-subtitle text-sm">Manage places</p>
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+        <h2 class="text-2xl font-bold app-text">Places</h2>
+
+        <!-- Actions -->
+        <div class="flex gap-2">
+            <input type="text" placeholder="Tìm kiếm..." class="px-4 py-2 rounded-xl app-input" />
+
+            <button (click)="openUpsertModal(null)" class="px-4 py-2 rounded-xl app-btn-primary">
+                + Add
+            </button>
         </div>
-
-        <lib-button (click)="openUpsertModal(null)" class="btn-primary rounded-lg">
-            + Add Place
-        </lib-button>
     </div>
 
-    <div class="flex flex-col md:flex-row items-center gap-1 mb-4">
-        <lib-text-input
-            class="flex-1"
-            placeholder="Search place..."
-            [(ngModel)]="searchString"
-        ></lib-text-input>
-
-        <lib-button (click)="getPlaces()" status="primary" class="rounded-xl">
-            Search
-        </lib-button>
-    </div>
-
-    <div class="card rounded-xl shadow flex flex-col h-[calc(100vh-210px)]">
-        <!-- TABLE -->
-        <div class="overflow-auto flex-1">
-            <table class="w-full min-w-225 text-left">
-                <thead class="table-head text-sm sticky top-0 z-10">
+    <!-- Table -->
+    <div class="rounded-2xl shadow-sm overflow-hidden app-card">
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left">
+                <!-- Header -->
+                <thead class="uppercase text-xs app-table-head">
                     <tr>
-                        <th class="p-4">#</th>
-                        <th class="p-4 w-75">Name</th>
-                        <th class="p-4">Average Rating</th>
-                        <th class="p-4">Total Reviews</th>
-                        <th class="p-4">Status</th>
-                        <th class="p-4">Updated At</th>
-                        <th class="p-4">Category</th>
-                        <th class="p-4 text-center">Actions</th>
+                        <th class="px-4 py-3">Địa điểm</th>
+                        <th class="px-4 py-3">Danh mục</th>
+                        <th class="px-4 py-3">Rating</th>
+                        <th class="px-4 py-3">Thống kê</th>
+                        <th class="px-4 py-3">Trạng thái</th>
+                        <th class="px-4 py-3 text-right">Hành động</th>
                     </tr>
                 </thead>
 
+                <!-- Body -->
                 <tbody>
-                    @for (p of places(); track $index) {
-                        <tr class="table-row">
-                            <td class="p-4">{{ $index + 1 }}</td>
-
-                            <td class="p-4 font-medium category-name">
-                                <div class="line-clamp-1">
-                                    {{ p.name }}
+                    @for (place of places(); track place.id) {
+                        <tr class="transition app-table-row">
+                            <!-- Place -->
+                            <td class="px-4 py-3 flex items-center gap-3">
+                                <img
+                                    [src]="place.thumbnail"
+                                    class="w-12 h-12 rounded-lg object-cover"
+                                />
+                                <div>
+                                    <div class="font-semibold app-text">
+                                        {{ place.name }}
+                                    </div>
+                                    <div class="text-xs line-clamp-1 app-text-muted">
+                                        {{ place.address }}
+                                    </div>
                                 </div>
                             </td>
 
-                            <td class="p-4 text-muted">
-                                {{ p.averageRating }}
+                            <!-- Categories -->
+                            <td class="px-4 py-3">
+                                <div class="flex flex-wrap gap-1">
+                                    @for (c of place.categories; track c.id) {
+                                        <span class="text-xs px-2 py-1 rounded-full app-badge">
+                                            {{ c.name }}
+                                        </span>
+                                    }
+                                </div>
                             </td>
 
-                            <td class="p-4">
-                                {{ p.totalReviews }}
+                            <!-- Rating -->
+                            <td class="px-4 py-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-semibold app-rating">
+                                        ⭐ {{ place.averageRating }}
+                                    </span>
+                                    <span class="text-xs app-text-muted">
+                                        ({{ place.totalReviews }})
+                                    </span>
+                                </div>
                             </td>
 
-                            <td class="p-4">
-                                {{ p.status }}
+                            <!-- Stats -->
+                            <td class="px-4 py-3 app-text-muted">
+                                <div>👁 {{ place.totalViews }}</div>
+                                <div>📝 {{ place.totalReviews }}</div>
                             </td>
 
-                            <td class="p-4 text-muted">
-                                {{ p.updatedAt | date }}
+                            <!-- Status -->
+                            <td class="px-4 py-3">
+                                @if (place.status === 1) {
+                                    <span class="px-2 py-1 text-xs rounded-full app-status-active">
+                                        Active
+                                    </span>
+                                } @else {
+                                    <span
+                                        class="px-2 py-1 text-xs rounded-full app-status-inactive"
+                                    >
+                                        Inactive
+                                    </span>
+                                }
                             </td>
 
-                            <td class="p-4 text-muted">
-                                {{ p.category.name }}
-                            </td>
+                            <!-- Actions -->
+                            <td class="px-4 py-3 text-right">
+                                <div class="flex justify-end gap-2">
+                                    <button
+                                        (click)="openUpsertModal(place)"
+                                        class="px-3 py-1 text-xs rounded-lg app-btn-warning"
+                                    >
+                                        Edit
+                                    </button>
 
-                            <td class="p-4 flex justify-center gap-2">
-                                <lib-button
-                                    (click)="openShowReviewModal(true)"
-                                    class="btn-warning rounded"
-                                    status="primary"
-                                >
-                                    Reviews
-                                </lib-button>
-
-                                <lib-button
-                                    (click)="openUpsertModal(p)"
-                                    class="btn-warning rounded"
-                                    status="warning"
-                                >
-                                    Edit
-                                </lib-button>
-
-                                <lib-button
-                                    (click)="openShowDeleteModal(true, p)"
-                                    class="btn-danger rounded"
-                                    status="danger"
-                                >
-                                    Delete
-                                </lib-button>
+                                    <button
+                                        (click)="openShowDeleteModal(true, place)"
+                                        class="px-3 py-1 text-xs rounded-lg app-btn-danger"
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
+
+            <!-- Pagination giữ nguyên -->
+            <lib-pagination
+                [pageIndex]="pageIndex"
+                [totalPages]="totalPages"
+                (pageChange)="onPageChange($event)"
+            ></lib-pagination>
         </div>
 
-        <!-- PAGINATION -->
-        <lib-pagination
-            [pageIndex]="pageIndex"
-            [totalPages]="totalPages"
-            (pageChange)="onPageChange($event)"
-        ></lib-pagination>
+        <!-- Empty -->
+        @if (places().length === 0) {
+            <div class="text-center py-10 app-text-muted">No data 😢</div>
+        }
+
+        <!-- Modal -->
+        @if (showUpsertModal()) {
+            <div class="fixed inset-0 flex items-center justify-center z-50 app-modal-overlay">
+                <app-upsert-place
+                    [placeIdUpdate]="placeIdUpdate"
+                    (closePopup)="closeUpsertModal()"
+                ></app-upsert-place>
+            </div>
+        }
+
+        @if (showDeleteModal()) {
+            <lib-question-cancel-dialog
+                (close)="deletePlace($event)"
+                [isSuccess]="false"
+                [message]="'Delete Place'"
+                [title]="'Do you want to delete this place?'"
+            ></lib-question-cancel-dialog>
+        }
+
+        @if (showReviewModal()) {
+            <app-place-review (close)="openShowReviewModal($event)"></app-place-review>
+        }
     </div>
-
-    <!-- Modal -->
-    @if (showUpsertModal()) {
-        <div class="modal-overlay fixed inset-0 flex items-center justify-center z-50">
-            <app-upsert-place
-                [placeIdUpdate]="placeIdUpdate"
-                (closePopup)="closeUpsertModal()"
-            ></app-upsert-place>
-        </div>
-    }
-
-    @if (showDeleteModal()) {
-        <lib-question-cancel-dialog
-            (close)="deletePlace($event)"
-            [isSuccess]="false"
-            [message]="'Delete Place'"
-            [title]="'Do you want to delete this place?'"
-        ></lib-question-cancel-dialog>
-    }
-
-    @if (showReviewModal()) {
-        <app-place-review (close)="openShowReviewModal($event)"></app-place-review>
-    }
 </div>

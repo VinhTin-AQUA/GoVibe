@@ -1,16 +1,17 @@
 import { CategoryModel } from './category-model';
 
-export interface Place {
+export interface PlaceModel {
     id: string;
     name: string;
-    category: CategoryModel;
-
+    address: string;
     averageRating: number;
+    totalRating: number;
+    totalViews: number;
     totalReviews: number;
+    thumbnail: string;
     status: number;
     updatedAt: Date;
-    totalViews: number;
-    thumbnail: string;
+    categories: CategoryModel[];
 }
 
 export interface PlaceImage {

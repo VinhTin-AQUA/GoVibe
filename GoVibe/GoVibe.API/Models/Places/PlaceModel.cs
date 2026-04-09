@@ -19,8 +19,8 @@ namespace GoVibe.API.Models.Places
         
         public EPlaceStatus Status { get; set; } = EPlaceStatus.None;
         public DateTime UpdatedAt { get; set; }
-        
-        public CategoryModel? Category { get; set; }
+
+        public List<CategoryModel> Categories { get; set; } = [];
     }
 
     public class PlaceDetailsModel

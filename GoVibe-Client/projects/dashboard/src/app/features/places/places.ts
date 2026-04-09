@@ -5,7 +5,7 @@ import { UpsertPlace } from './components/upsert-place/upsert-place';
 import { PlaceReview } from './components/place-review/place-review';
 import { PlaceService } from '../../core/services/place.service';
 import { Pagination, QuestionCancelDialog, Button, TextInput } from '@components';
-import { Place } from '@govibecore';
+import { PlaceModel } from '@govibecore';
 
 @Component({
     selector: 'app-places',
@@ -27,14 +27,13 @@ export class Places {
     showUpsertModal = signal<boolean>(false);
     showDeleteModal = signal<boolean>(false);
     showReviewModal = signal<boolean>(false);
-    placeToDelete: Place | null = null;
+    placeToDelete: PlaceModel | null = null;
     placeIdUpdate: string | null = null;
+    places = signal<PlaceModel[]>([]);
 
     pageIndex = 1;
     totalPages = 20;
     pageSize = 20;
-
-    places = signal<Place[]>([]);
 
     constructor(private placeService: PlaceService) {}
 
@@ -52,8 +51,7 @@ export class Places {
     }
 
     // Add or update
-
-    openUpsertModal(p: Place | null) {
+    openUpsertModal(p: PlaceModel | null) {
         this.showUpsertModal.set(true);
 
         if (p) {
@@ -69,7 +67,7 @@ export class Places {
     }
 
     // delete
-    openShowDeleteModal(value: boolean, p: Place) {
+    openShowDeleteModal(value: boolean, p: PlaceModel) {
         this.showDeleteModal.set(value);
         this.placeToDelete = p;
     }

@@ -1,4 +1,5 @@
-import { PlaceModel } from "./place.model";
+import { PlaceModel } from "@govibecore";
+
 
 export interface StatisticDateRangeQuery {
     fromDate?: string; // ISO string

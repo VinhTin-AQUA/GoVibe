@@ -3,8 +3,8 @@ import type { EChartsCoreOption } from 'echarts/core';
 import { NgxEchartsDirective, NgxEchartsModule } from 'ngx-echarts';
 import { StatisticService } from '../../core/services/statistic.service';
 import { EChartsOption } from 'echarts';
-import { PlaceModel } from '../../core/models/place.model';
 import { DecimalPipe } from '@angular/common';
+import { PlaceModel } from '@govibecore';
 
 @Component({
     selector: 'app-statistic',

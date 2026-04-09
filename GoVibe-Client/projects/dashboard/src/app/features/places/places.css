@@ -1,26 +1,104 @@
-.place-page {
-    background: var(--background);
-    color: var(--foreground);
-}
+@layer components {
+    :host {
+        display: block;
+    }
 
-/* modal overlay */
+    /* ===== PAGE ===== */
+    .app-page {
+        background: var(--background);
+        color: var(--foreground);
+    }
 
-.modal-overlay {
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(4px);
-}
+    /* ===== TEXT ===== */
+    .app-text {
+        color: var(--foreground);
+    }
 
-/* table rows */
+    .app-text-muted {
+        color: var(--white);
+    }
 
-.table-head {
-    background: var(--selectionInactiveBackground);
-    color: var(--white);
-}
+    /* ===== INPUT ===== */
+    .app-input {
+        background: var(--background);
+        color: var(--foreground);
+        border: 1px solid var(--brightBlack);
+    }
 
-.table-row {
-    border-top: 1px solid var(--brightWhite);
-}
+    .app-input::placeholder {
+        color: var(--white);
+    }
 
-.table-row:hover {
-    background: var(--selectionBackground);
+    .app-input:focus {
+        border-color: var(--blue);
+        box-shadow: 0 0 0 2px var(--selectionBackground);
+        outline: none;
+    }
+
+    /* ===== BUTTON ===== */
+    .app-btn-primary {
+        background: var(--blue);
+        color: #fff;
+    }
+
+    .app-btn-primary:hover {
+        background: var(--brightBlue);
+    }
+
+    .app-btn-warning {
+        background: color-mix(in srgb, var(--yellow) 20%, transparent);
+        color: var(--yellow);
+    }
+
+    .app-btn-danger {
+        background: color-mix(in srgb, var(--red) 20%, transparent);
+        color: var(--red);
+    }
+
+    /* ===== CARD / CONTAINER ===== */
+    .app-card {
+        background: var(--background);
+        border: 1px solid var(--brightBlack);
+    }
+
+    /* ===== TABLE ===== */
+    .app-table-head {
+        background: var(--selectionInactiveBackground);
+        color: var(--foreground);
+    }
+
+    .app-table-row {
+        border-top: 1px solid var(--brightBlack);
+    }
+
+    .app-table-row:hover {
+        background: var(--selectionBackground);
+    }
+
+    /* ===== BADGE ===== */
+    .app-badge {
+        background: var(--selectionBackground);
+        color: var(--blue);
+    }
+
+    /* ===== STATUS ===== */
+    .app-status-active {
+        background: color-mix(in srgb, var(--green) 20%, transparent);
+        color: var(--green);
+    }
+
+    .app-status-inactive {
+        background: var(--selectionInactiveBackground);
+        color: var(--white);
+    }
+
+    /* ===== RATING ===== */
+    .app-rating {
+        color: var(--yellow);
+    }
+
+    /* ===== MODAL ===== */
+    .app-modal-overlay {
+        background: rgba(0, 0, 0, 0.4);
+    }
 }

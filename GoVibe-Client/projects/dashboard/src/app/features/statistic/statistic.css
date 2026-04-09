@@ -1,0 +1,62 @@
+@layer components {
+    :host {
+        display: block;
+    }
+
+    /* ===== PAGE ===== */
+    .app-page {
+        background: var(--background);
+        color: var(--foreground);
+    }
+
+    /* ===== CARD ===== */
+    .app-card {
+        background: var(--background);
+        border: 1px solid var(--brightBlack);
+    }
+
+    /* ===== TEXT ===== */
+    .app-text {
+        color: var(--foreground);
+    }
+
+    .app-text-muted {
+        color: var(--white);
+    }
+
+    /* ===== TITLE ===== */
+    .app-title {
+        color: var(--foreground);
+        font-weight: 600;
+    }
+
+    /* ===== METRIC NUMBER ===== */
+    .app-metric {
+        color: var(--foreground);
+    }
+
+    /* ===== BORDER ===== */
+    .app-border {
+        border-color: var(--brightBlack);
+    }
+
+    /* ===== RATING ===== */
+    .app-rating {
+        color: var(--yellow);
+    }
+
+    /* ===== CHART CONTAINER ===== */
+    .app-chart {
+        background: var(--background);
+    }
+
+    /* ===== HOVER ITEM ===== */
+    .app-hover-item:hover {
+        background: var(--selectionBackground);
+    }
+
+    /* ===== DIVIDER ===== */
+    .app-divider {
+        border-bottom: 1px solid var(--brightBlack);
+    }
+}

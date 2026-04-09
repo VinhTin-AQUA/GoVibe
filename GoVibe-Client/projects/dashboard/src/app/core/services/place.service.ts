@@ -2,20 +2,20 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ApiResponse } from '../common/api-response';
-import { Place, PlaceDetails } from '@govibecore';
+import { PlaceModel, PlaceDetails } from '@govibecore';
 import { PaginationModel } from '../common/pagination.model';
 
 @Injectable({
     providedIn: 'root',
 })
 export class PlaceService {
-    private baseUrl = `${environment.API_URL}/Places`;
+    private baseUrl = `${environment.API_URL}/AdminPlaces`;
 
     constructor(private http: HttpClient) {}
 
     // Add (POST - FromForm)
     create(formData: FormData) {
-        return this.http.post<ApiResponse<Place>>(this.baseUrl, formData);
+        return this.http.post<ApiResponse<PlaceModel>>(this.baseUrl, formData);
     }
 
     // Get all (pagination)
@@ -25,7 +25,7 @@ export class PlaceService {
             .set('pageIndex', pageIndex)
             .set('pageSize', pageSize);
 
-        return this.http.get<ApiResponse<PaginationModel<Place>>>(this.baseUrl, { params });
+        return this.http.get<ApiResponse<PaginationModel<PlaceModel>>>(this.baseUrl, { params });
     }
 
     // Get by id
@@ -35,12 +35,12 @@ export class PlaceService {
 
     // Update (PUT - FromForm)
     update(formData: FormData) {
-        return this.http.put<ApiResponse<Place>>(this.baseUrl, formData);
+        return this.http.put<ApiResponse<PlaceModel>>(this.baseUrl, formData);
     }
 
     // Delete 1
     delete(id: string) {
-        return this.http.delete<ApiResponse<Place>>(`${this.baseUrl}/${id}`);
+        return this.http.delete<ApiResponse<PlaceModel>>(`${this.baseUrl}/${id}`);
     }
 
     // Delete many
