@@ -15,11 +15,20 @@ export class Home {
     recent = signal<PlaceModel[]>([]);
     topRated = signal<PlaceModel[]>([]);
 
+    bannerImages = [
+        'https://picsum.photos/1200/400?random=1',
+        'https://picsum.photos/1200/400?random=2',
+        'https://picsum.photos/1200/400?random=3',
+        'https://picsum.photos/1200/400?random=4',
+    ];
+
+    currentBanner = signal(0);
 
     constructor(private placeService: PlaceService) {}
 
     ngOnInit() {
         this.getHome();
+        this.autoSlideBanner();
     }
 
     getHome() {
@@ -32,5 +41,11 @@ export class Home {
             },
             error: (err) => {},
         });
+    }
+
+    autoSlideBanner() {
+        setInterval(() => {
+            this.currentBanner.update((v) => (v + 1) % this.bannerImages.length);
+        }, 3000);
     }
 }
