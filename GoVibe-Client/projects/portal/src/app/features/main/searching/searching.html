@@ -1,0 +1,91 @@
+<div class="p-6 bg-gray-50 min-h-screen">
+    <h2 class="text-2xl font-bold mb-6">Danh sách địa điểm</h2>
+
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        @for (place of places(); track place.id) {
+            <div
+                class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition duration-300 overflow-hidden group"
+            >
+                <!-- Thumbnail -->
+                <div class="relative overflow-hidden">
+                    <img
+                        [src]="place.thumbnail"
+                        alt="thumbnail"
+                        class="w-full h-48 object-cover group-hover:scale-105 transition duration-300"
+                        loading="lazy"
+                    />
+
+                    <!-- Views -->
+                    <span
+                        class="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded"
+                    >
+                        👁 {{ place.totalViews }}
+                    </span>
+
+                    <!-- Status -->
+                    @if (place.status === 1) {
+                        <span
+                            class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded"
+                        >
+                            Active
+                        </span>
+                    } @else {
+                        <span
+                            class="absolute top-2 left-2 bg-gray-400 text-white text-xs px-2 py-1 rounded"
+                        >
+                            Inactive
+                        </span>
+                    }
+                </div>
+
+                <!-- Content -->
+                <div class="p-4 space-y-3">
+                    <!-- Name -->
+                    <h3
+                        class="text-lg font-semibold line-clamp-1 group-hover:text-blue-600 transition"
+                    >
+                        {{ place.name }}
+                    </h3>
+
+                    <!-- Address -->
+                    <p class="text-sm text-gray-500 line-clamp-2">📍 {{ place.address }}</p>
+
+                    <!-- Rating -->
+                    <div class="flex items-center gap-2">
+                        <div class="flex text-yellow-400">
+                            @for (star of [1, 2, 3, 4, 5]; track star) {
+                                <span>
+                                    {{ star <= place.averageRating ? '★' : '☆' }}
+                                </span>
+                            }
+                        </div>
+
+                        <span class="text-sm text-gray-500">
+                            ({{ place.totalReviews }} reviews)
+                        </span>
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="flex flex-wrap gap-2">
+                        @for (c of place.categories; track c.id) {
+                            <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">
+                                {{ c.name }}
+                            </span>
+                        }
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="flex justify-between items-center pt-2 text-sm text-gray-500">
+                        <span>⭐ {{ place.averageRating }}</span>
+                        <span>{{ place.totalRating }} lượt đánh giá</span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Empty state -->
+    @if (!places() || places().length === 0) {
+        <div class="text-center text-gray-500 mt-10">Không có dữ liệu 😢</div>
+    }
+</div>

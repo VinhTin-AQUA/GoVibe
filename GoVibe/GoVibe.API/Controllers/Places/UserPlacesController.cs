@@ -27,7 +27,7 @@ namespace GoVibe.API.Controllers.Places
             _updatePlaceRequestValidator = new UpdatePlaceRequestValidator();
         }
 
-        [HttpGet]
+        [HttpGet("home")]
         public async Task<IActionResult> GetHome()
         {
             (
