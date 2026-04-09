@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { Categories } from './features/categories/categories';
 import { Places } from './features/places/places';
-import { Overview } from './features/overview/overview';
+import { Statistic } from './features/statistic/statistic';
 
 export const routes: Routes = [
     {
@@ -15,9 +15,9 @@ export const routes: Routes = [
         title: 'Places',
     },
     {
-        path: 'overview',
-        component: Overview,
-        title: 'Overview',
+        path: 'statistic',
+        component: Statistic,
+        title: 'Statistic',
     },
     {
         path: '**',

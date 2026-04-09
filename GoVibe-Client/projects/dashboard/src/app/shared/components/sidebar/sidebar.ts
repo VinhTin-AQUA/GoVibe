@@ -15,9 +15,9 @@ export class Sidebar {
     isOpen = signal<boolean>(true);
     menuItems: MenuItem[] = [
         {
-            name: 'Overview',
+            name: 'Statistic',
             icon: 'charBar',
-            url: '/overview',
+            url: '/statistic',
         },
         {
             name: 'Categories',
