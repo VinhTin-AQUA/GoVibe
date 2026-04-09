@@ -66,10 +66,20 @@ namespace GoVibe.API.Controllers.Common
         [HttpGet("GenData")]
         public async Task<IActionResult> GenData()
         {
+            Random random = new();
+
             var faker = new Faker("vi");
             var categoryFaker = new Faker<Category>()
                 .RuleFor(x => x.Name, f => f.Commerce.Categories(1)[0] + "_" + f.UniqueIndex)
                 .RuleFor(x => x.Description, f => f.Lorem.Sentence())
+                .RuleFor(x => x.CreatedAt, f => f.Date.Between(
+                    new DateTime(2010, 1, 1),
+                    new DateTime(2030, 12, 31)
+                ).ToUniversalTime())
+                .RuleFor(x => x.UpdatedAt, f => f.Date.Between(
+                    new DateTime(2010, 1, 1),
+                    new DateTime(2030, 12, 31)
+                ).ToUniversalTime())
                 .RuleFor(x => x.Id, f => Guid.NewGuid());
             var categoryRequests = categoryFaker.Generate(20);
             var categoryIds = new List<Guid>();
@@ -99,6 +109,14 @@ namespace GoVibe.API.Controllers.Common
                 .RuleFor(x => x.TotalReviews, f => f.Random.Int(100, 10000))
                 .RuleFor(x => x.TotalViews, f => f.Random.Int(100, 10000))
                 .RuleFor(x => x.Status, f => EPlaceStatus.Open)
+                .RuleFor(x => x.CreatedAt, f => f.Date.Between(
+                    new DateTime(2010, 1, 1),
+                    new DateTime(2030, 12, 31)
+                ).ToUniversalTime())
+                .RuleFor(x => x.UpdatedAt, f => f.Date.Between(
+                    new DateTime(2010, 1, 1),
+                    new DateTime(2030, 12, 31)
+                ).ToUniversalTime())
                 .RuleFor(x => x.Tags, f => f.PickRandom(tagsPool, f.Random.Int(1, 5)).ToList())
                 .RuleFor(x => x.Thumbnail, f => "https://upload.wikimedia.org/wikipedia/commons/3/3f/JPEG_example_flower.jpg");
 
@@ -111,10 +129,37 @@ namespace GoVibe.API.Controllers.Common
             }
             await _placeCommandRepository.SaveChangesAsync();
 
+            var dateFaker = new Faker();
+            foreach (var placeId in placeIds)
+            {
+                DateTime randomDate = dateFaker.Date.Between(
+                    new DateTime(2010, 1, 1),
+                    new DateTime(2030, 12, 31)
+                ).ToUniversalTime();
+
+                var placeCategory = new PlaceCategory()
+                {
+                    PlaceId = placeId,
+                    CategoryId = categoryIds[random.Next(0, categoryIds.Count)],
+                    CreatedAt = randomDate,
+                    UpdatedAt = randomDate,
+                };
+
+               await _placeCategoryCommandRepository.AddAsync(placeCategory);
+            }
+            await _placeCategoryCommandRepository.SaveChangesAsync();
 
             var reviewFaker = new Faker<Review>()
                 .RuleFor(x => x.PlaceId, f => f.PickRandom(placeIds))
                 .RuleFor(x => x.Rating, f => f.Random.Int(1, 5))
+                .RuleFor(x => x.CreatedAt, f => f.Date.Between(
+                    new DateTime(2010, 1, 1),
+                    new DateTime(2030, 12, 31)
+                ).ToUniversalTime())
+                .RuleFor(x => x.UpdatedAt, f => f.Date.Between(
+                    new DateTime(2010, 1, 1),
+                    new DateTime(2030, 12, 31)
+                ).ToUniversalTime())
                 .RuleFor(x => x.Comment, f => f.Lorem.Sentence());
 
             var reviewRequests = reviewFaker.Generate(1000);
@@ -133,6 +178,10 @@ namespace GoVibe.API.Controllers.Common
         [HttpGet("RemoveAllData")]
         public async Task<IActionResult> RemoveAllData()
         {
+            var allPlaceCategories = await _placeCategoryQueryRepository.GetAllAsync();
+            await _placeCategoryCommandRepository.DeleteRangeAsync(allPlaceCategories);
+            await _placeCategoryCommandRepository.SaveChangesAsync();
+
             var allReviews = await _reviewQueryRepository.GetAllAsync();
             await _reviewCommandRepository.DeleteRangeAsync(allReviews);
             await _reviewCommandRepository.SaveChangesAsync();

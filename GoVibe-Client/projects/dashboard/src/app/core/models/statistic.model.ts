@@ -1,3 +1,5 @@
+import { PlaceModel } from "./place.model";
+
 export interface StatisticDateRangeQuery {
     fromDate?: string; // ISO string
     toDate?: string;
@@ -34,16 +36,9 @@ export interface TopCategory {
     avgRating: number;
 }
 
-// giả sử bạn đã có PlaceModel & CategoryStats
-export interface PlaceModel {
-    id: string;
-    name: string;
-    rating: number;
-}
-
 export interface CategoryStats {
     categoryName: string;
-    totalPlaces: number;
+    placeCount: number;
 }
 
 export interface StatisticSummary {

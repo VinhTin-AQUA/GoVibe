@@ -1,1 +1,82 @@
-<p>statistic works!</p>
+<div class="p-6 space-y-6">
+    <!-- OVERVIEW -->
+
+    @if (overview()) {
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-white shadow rounded-2xl p-4">
+                <p class="text-gray-500">Places</p>
+                <p class="text-2xl font-bold">{{ overview().totalPlaces }}</p>
+            </div>
+
+            <div class="bg-white shadow rounded-2xl p-4">
+                <p class="text-gray-500">Reviews</p>
+                <p class="text-2xl font-bold">{{ overview().totalReviews }}</p>
+            </div>
+
+            <div class="bg-white shadow rounded-2xl p-4">
+                <p class="text-gray-500">Categories</p>
+                <p class="text-2xl font-bold">{{ overview().totalCategories }}</p>
+            </div>
+
+            <div class="bg-white shadow rounded-2xl p-4">
+                <p class="text-gray-500">Avg Rating</p>
+                <p class="text-2xl font-bold">{{ overview().averageRating }}</p>
+            </div>
+        </div>
+    }
+
+    <!-- CHARTS -->
+    <div class="grid md:grid-cols-2 gap-6">
+        <!-- Rating -->
+        <div class="bg-white p-4 rounded-2xl shadow">
+            <h3 class="font-semibold mb-2">Rating Distribution</h3>
+            <div echarts [options]="ratingChart()" class="h-80"></div>
+        </div>
+
+        <!-- Place Growth -->
+        <div class="bg-white p-4 rounded-2xl shadow">
+            <h3 class="font-semibold mb-2">Place Growth</h3>
+            <div echarts [options]="placeGrowthChart()" class="h-80"></div>
+        </div>
+
+        <!-- Review Growth -->
+        <div class="bg-white p-4 rounded-2xl shadow">
+            <h3 class="font-semibold mb-2">Review Growth</h3>
+            <div echarts [options]="reviewGrowthChart()" class="h-80"></div>
+        </div>
+
+        <!-- Category -->
+        <div class="bg-white p-4 rounded-2xl shadow">
+            <h3 class="font-semibold mb-2">Category Distribution</h3>
+            <div echarts [options]="categoryChart()" class="h-80"></div>
+        </div>
+
+        <div class="bg-white p-4 rounded-2xl shadow">
+            <h3 class="font-semibold mb-3">Top Rated Places</h3>
+
+            <div class="space-y-2">
+                @for (p of topRatedPlaces(); track $index) {
+                    <div class="flex justify-between border-b pb-1">
+                        <span>{{ p.name }}</span>
+                        <span class="text-yellow-500"
+                            >⭐ {{ p.averageRating | number: '1.1-1' }}</span
+                        >
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-2xl shadow">
+            <h3 class="font-semibold mb-3">Most Viewed Places</h3>
+
+            <div class="space-y-2">
+                @for (p of mostViewedPlaces(); track $index) {
+                    <div class="flex justify-between border-b pb-1">
+                        <span>{{ p.name }}</span>
+                        <span class="text-gray-500">{{ p.totalViews }} views</span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

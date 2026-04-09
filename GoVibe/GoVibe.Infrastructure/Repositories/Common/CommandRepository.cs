@@ -46,7 +46,6 @@ namespace GoVibe.Infrastructure.Repositories.Common
 
         public async Task AddAsync(T entity)
         {
-            entity.CreatedAt = entity.UpdatedAt = DateTime.Now;
             await _dbSet.AddAsync(entity);
         }
 
