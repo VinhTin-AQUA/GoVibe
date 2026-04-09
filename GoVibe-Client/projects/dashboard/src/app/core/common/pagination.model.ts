@@ -3,4 +3,5 @@ export interface PaginationModel<T = any> {
     pageIndex: number;
     pageSize: number;
     totalCount: number;
+    totalPage: number;
 }

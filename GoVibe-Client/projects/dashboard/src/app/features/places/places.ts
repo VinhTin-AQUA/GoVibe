@@ -45,6 +45,8 @@ export class Places {
         this.placeService.getAll(this.searchString, this.pageIndex, this.pageSize).subscribe({
             next: (res) => {
                 this.places.set(res.item.items);
+                this.pageIndex = res.item.pageIndex;
+                this.totalPages = res.item.totalPage;
             },
             error: (err) => {},
         });
@@ -94,7 +96,7 @@ export class Places {
     onPageChange(page: number) {
         this.pageIndex = page;
 
-        console.log('pageIndex:', page);
+        this.getPlaces();
 
         // load API
         // this.loadCategories()

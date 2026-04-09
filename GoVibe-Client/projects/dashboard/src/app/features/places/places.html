@@ -4,12 +4,19 @@
         <h2 class="text-2xl font-bold app-text">Places</h2>
 
         <!-- Actions -->
-        <div class="flex gap-2">
-            <input type="text" placeholder="Tìm kiếm..." class="px-4 py-2 rounded-xl app-input" />
+        <div class="flex items-center justify-center gap-1 mb-4">
+            <lib-text-input
+                
+                placeholder="Search place..."
+                [(ngModel)]="searchString"
+                class="flex-1 rounded-xl shadow"
+            ></lib-text-input>
 
-            <button (click)="openUpsertModal(null)" class="px-4 py-2 rounded-xl app-btn-primary">
+            <lib-button (click)="getPlaces()" status="primary" class="rounded-xl"> Search </lib-button>
+
+            <lib-button (click)="openUpsertModal(null)" status="primary" class="rounded-xl">
                 + Add
-            </button>
+            </lib-button>
         </div>
     </div>
 
@@ -20,12 +27,12 @@
                 <!-- Header -->
                 <thead class="uppercase text-xs app-table-head">
                     <tr>
-                        <th class="px-4 py-3">Địa điểm</th>
-                        <th class="px-4 py-3">Danh mục</th>
+                        <th class="px-4 py-3">Place</th>
+                        <th class="px-4 py-3">Categories</th>
                         <th class="px-4 py-3">Rating</th>
-                        <th class="px-4 py-3">Thống kê</th>
-                        <th class="px-4 py-3">Trạng thái</th>
-                        <th class="px-4 py-3 text-right">Hành động</th>
+                        <th class="px-4 py-3">Statistic</th>
+                        <th class="px-4 py-3">Status</th>
+                        <th class="px-4 py-3 text-right">Actions</th>
                     </tr>
                 </thead>
 

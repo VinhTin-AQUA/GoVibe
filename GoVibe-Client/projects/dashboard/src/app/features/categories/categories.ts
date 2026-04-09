@@ -26,12 +26,11 @@ export class Categories {
     showUpsertModal = signal<boolean>(false);
     showDeleteModal = signal<boolean>(false);
     categoryToDelete: CategoryModel | null = null;
-
     categories = signal<CategoryModel[]>([]);
 
     pageIndex = 1;
     totalPages = 20;
-    pageSize = 20;
+    pageSize = 5;
 
     constructor(private categoryService: CategoryService) {}
 
@@ -43,6 +42,8 @@ export class Categories {
         this.categoryService.getCategories(this.searchString, this.pageIndex, this.pageSize).subscribe({
             next: (res) => {
                 this.categories.set(res.item.items);
+                this.pageIndex = res.item.pageIndex
+                this.totalPages = res.item.totalPage
             },
             error: (err) => {},
         });
@@ -87,6 +88,8 @@ export class Categories {
         this.pageIndex = page;
 
         console.log('pageIndex:', page);
+
+        this.getCategories();
 
         // load API
         // this.loadCategories()
