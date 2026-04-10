@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FieldTree } from '@angular/forms/signals';
 
-type ButtonStatus = 'primary' | 'success' | 'danger' | 'warning' | 'neutral'
+type ButtonStatus = 'primary' | 'success' | 'danger' | 'warning' | 'neutral' | 'none'
 
 @Component({
     selector: 'lib-button',
@@ -14,7 +14,7 @@ export class Button {
     @Input() formField?: FieldTree<boolean>;
     @Input() disabled = false;
     @Input() icon?: 'check' | 'trash';
-    @Input() status: ButtonStatus = 'primary';
+    @Input() status: ButtonStatus = 'none';
     @Input() class = '';
 
     @Output() click = new EventEmitter<any>(); // <-- linh hoạt

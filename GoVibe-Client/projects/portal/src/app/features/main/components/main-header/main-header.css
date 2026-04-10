@@ -1,0 +1,197 @@
+.active {
+    color: var(--color-blue-600);
+    --tw-font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-semibold);
+    background-color: var(--color-blue-50);
+}
+
+/* ================= HEADER ================= */
+
+.app-header {
+    background: var(--background);
+    box-shadow: 0 2px 12px color-mix(in srgb, var(--black) 10%, transparent);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+/* ================= LOGO ================= */
+
+.logo-box {
+    width: 40px;
+    height: 40px;
+    border-radius: 0.5rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(to right, var(--blue), var(--magenta));
+
+    transition: transform 0.2s ease;
+}
+
+.group:hover .logo-box {
+    transform: scale(1.05);
+}
+
+.logo-text {
+    color: var(--cursorAccent);
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.logo-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    background: linear-gradient(to right, var(--blue), var(--magenta));
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ================= NAV ITEM ================= */
+
+.nav-item {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    color: var(--white);
+
+    font-weight: 500;
+
+    transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+    color: var(--blue);
+    background: var(--selectionBackground);
+}
+
+/* ================= AVATAR ================= */
+
+.avatar-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    border-radius: 999px;
+    transition: transform 0.2s ease;
+}
+
+.avatar-btn:hover {
+    transform: scale(1.05);
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+
+    object-fit: cover;
+
+    border: 2px solid var(--blue);
+
+    box-shadow: 0 2px 8px color-mix(in srgb, var(--black) 15%, transparent);
+}
+
+.avatar-muted {
+    border-color: var(--brightBlack);
+}
+
+.avatar-lg {
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+
+    border: 2px solid var(--blue);
+}
+
+/* ================= DROPDOWN ================= */
+
+.dropdown {
+    position: absolute;
+    right: 0;
+    margin-top: 12px;
+
+    width: 280px;
+
+    background: var(--background);
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-shadow: 0 20px 40px color-mix(in srgb, var(--black) 20%, transparent);
+
+    border: 1px solid var(--selectionInactiveBackground);
+}
+
+/* HEADER */
+.dropdown-header {
+    padding: 12px;
+
+    background: linear-gradient(
+        to right,
+        var(--selectionBackground),
+        var(--selectionInactiveBackground)
+    );
+
+    border-bottom: 1px solid var(--selectionInactiveBackground);
+}
+
+.dropdown-name {
+    font-weight: 600;
+    color: var(--foreground);
+}
+
+.dropdown-email {
+    font-size: 0.875rem;
+    color: var(--white);
+}
+
+/* BODY */
+.dropdown-body {
+    padding: 8px 0;
+}
+
+/* ITEMS */
+.dropdown-item {
+    width: 100%;
+    text-align: left;
+
+    padding: 10px 16px;
+
+    color: var(--foreground);
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background: var(--selectionBackground);
+    color: var(--blue);
+}
+
+/* danger */
+.dropdown-item.danger:hover {
+    background: color-mix(in srgb, var(--red) 15%, transparent);
+    color: var(--red);
+}
+
+/* ================= TEXT ================= */
+
+.text-main {
+    color: var(--foreground);
+    font-weight: 500;
+}
+
+.text-sub {
+    color: var(--white);
+    font-size: 0.875rem;
+}

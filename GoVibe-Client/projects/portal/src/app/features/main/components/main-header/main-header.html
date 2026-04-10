@@ -1,0 +1,102 @@
+<header class="app-header">
+    <nav class="mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <!-- Logo -->
+            <div class="shrink-0">
+                <a href="/" class="flex items-center space-x-2 group">
+                    <div class="logo-box">
+                        <span class="logo-text">A</span>
+                    </div>
+
+                    <span class="logo-title"> AppLogo </span>
+                </a>
+            </div>
+
+            <!-- Menu -->
+            <div class="hidden md:flex items-center space-x-1">
+                @for (item of menuItems; track item.label) {
+                    <a [routerLink]="item.link" routerLinkActive="active" class="nav-item">
+                        <span class="text-lg">{{ item.icon }}</span>
+                        <span>{{ item.label }}</span>
+                    </a>
+                }
+            </div>
+
+            <!-- User -->
+            <div class="flex gap-2 justify-end items-center">
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <lib-button
+                            (click)="toggleTheme()"
+                            class="p-0 avatar-btn bg-(--brightWhite) rounded-full"
+                        >
+                            @if (isDark()) {
+                                <lib-icons
+                                    iconName="moon"
+                                    class="size-8 shrink-0 text-(--background)"
+                                ></lib-icons>
+                            } @else {
+                                <lib-icons
+                                    iconName="sun"
+                                    class="size-8 shrink-0 text-(--background)"
+                                ></lib-icons>
+                            }
+                        </lib-button>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <lib-button (click)="toggleUserMenu()" status="none" class="avatar-btn p-0">
+                            @if (user.isLoggedIn) {
+                                <img [src]="user.avatar" class="avatar" />
+                            } @else {
+                                <img [src]="randomAvatar" class="avatar avatar-muted" />
+                            }
+                        </lib-button>
+
+                        @if (showUserMenu) {
+                            <div class="dropdown">
+                                <!-- User info -->
+                                <div class="dropdown-header">
+                                    @if (user.isLoggedIn) {
+                                        <div class="flex items-center space-x-3">
+                                            <img [src]="user.avatar" class="avatar-lg" />
+
+                                            <div>
+                                                <p class="dropdown-name">{{ user.name }}</p>
+                                                <p class="dropdown-email">{{ user.email }}</p>
+                                            </div>
+                                        </div>
+                                    } @else {
+                                        <div class="text-center">
+                                            <p class="text-main">Chưa đăng nhập</p>
+                                            <p class="text-sub">Đăng nhập để trải nghiệm tốt hơn</p>
+                                        </div>
+                                    }
+                                </div>
+
+                                <!-- Actions -->
+                                <div class="dropdown-body">
+                                    @if (user.isLoggedIn) {
+                                        <button class="dropdown-item" (click)="goToProfile()">
+                                            <span>Profile</span>
+                                        </button>
+
+                                        <button class="dropdown-item danger" (click)="logout()">
+                                            <span>Đăng xuất</span>
+                                        </button>
+                                    } @else {
+                                        <button class="dropdown-item" (click)="loginWithGoogle()">
+                                            <span>Đăng nhập với Google</span>
+                                        </button>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

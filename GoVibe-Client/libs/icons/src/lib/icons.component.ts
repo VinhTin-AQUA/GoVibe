@@ -130,7 +130,7 @@ export class SunIconComponent {}
 @Component({
     selector: 'lib-icon-home',
     standalone: true,
-    template: ` <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+    template: ` <svg fill="currentColor" viewBox="0 0 24 24">
         <path d="M21 12.79A9 9 0 1111.21 3c0 .34.02.68.05 1.02A7 7 0 0021 12.79z" />
     </svg>`,
 })
