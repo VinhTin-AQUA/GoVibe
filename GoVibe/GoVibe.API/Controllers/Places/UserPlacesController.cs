@@ -34,7 +34,11 @@ namespace GoVibe.API.Controllers.Places
                 List<PlaceModel> topRated,
                 List<PlaceModel> mostViewed,
                 List<PlaceModel> recent,
-                List<PlaceModel> explore
+                List<PlaceModel> explore,
+                int totalPlaces,
+                double averageRating,
+                int totalReviews,
+                int totalViews
             ) = await _placeService.GetHome();
 
             return Ok(new ApiResponse<object>
@@ -44,7 +48,11 @@ namespace GoVibe.API.Controllers.Places
                     TopRated = topRated,
                     MostViewed = mostViewed,
                     Recent = recent,
-                    Explore = explore
+                    Explore = explore,
+                    TotalPlaces = totalPlaces,
+                    AverageRating = averageRating,
+                    TotalReviews = totalReviews,
+                    TotalViews = totalViews
                 }
             });
         }

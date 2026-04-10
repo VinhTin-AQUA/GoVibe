@@ -1,0 +1,16 @@
+.layout-theme {
+    background: var(--background);
+    color: var(--foreground);
+}
+
+/* main content */
+.layout-theme .content-area {
+    background: var(--background);
+    color: var(--foreground);
+}
+
+/* mesh background nếu có */
+.layout-theme .mesh {
+    background-color: var(--background);
+    color: var(--foreground);
+}

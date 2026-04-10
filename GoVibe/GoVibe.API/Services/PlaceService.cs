@@ -11,6 +11,7 @@ using GoVibe.Infrastructure.Repositories.Places;
 using GoVibe.Infrastructure.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace GoVibe.API.Services
 {
@@ -243,7 +244,11 @@ namespace GoVibe.API.Services
             List<PlaceModel> topRated, 
             List<PlaceModel> mostViewed,
             List<PlaceModel> recent,
-            List<PlaceModel> explore
+            List<PlaceModel> explore,
+            int totalPlaces,
+            double averageRating,
+            int totalReviews,
+            int totalViews
         )> GetHome()
         {
             var query = await _placeQueryRepository.GetAllAsync(false);
@@ -252,31 +257,40 @@ namespace GoVibe.API.Services
                 .Where(p => p.TotalReviews > 0)
                 .OrderByDescending(p => p.TotalRating / p.TotalReviews)
                 .ThenByDescending(p => p.TotalReviews)
-                .Take(5)
+                .Take(4)
                 .ToList();
 
             var mostViewed = query
                 .OrderByDescending(p => p.TotalViews)
-                .Take(5)
+                .Take(4)
                 .ToList();
 
             var recent = query
                 .OrderByDescending(p => p.UpdatedAt)
-                .Take(5)
+                .Take(4)
                 .ToList();
 
             var explore = query
                 .Where(p => p.TotalReviews > 0 &&
                             (p.TotalRating / p.TotalReviews) >= 3)
                 .OrderBy(p => Guid.NewGuid())
-                .Take(5)
+                .Take(4)
                 .ToList();
+
+            int totalPlaces = await _placeCategoryQueryRepository.CountAsync(x => true);
+            double averageRating = query.Where(p => p.TotalReviews > 0).Select(x => x.TotalRating).Average();
+            int totalReviews = query.Where(p => p.TotalReviews > 0).Select(x => x.TotalReviews).Sum();
+            int totalViews = query.Where(p => p.TotalReviews > 0).Select(x => x.TotalViews).Sum();
 
             return (
                 _mapper.Map<List<PlaceModel>>(topRated),
                 _mapper.Map<List<PlaceModel>>(mostViewed),
                 _mapper.Map<List<PlaceModel>>(recent),
-                _mapper.Map<List<PlaceModel>>(explore)
+                _mapper.Map<List<PlaceModel>>(explore),
+                totalPlaces,
+                averageRating,
+                totalReviews,
+                totalViews
             );
         }
 

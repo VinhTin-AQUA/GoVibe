@@ -5,6 +5,10 @@ export interface GetHomeModel {
     mostViewed: PlaceModel[];
     recent: PlaceModel[];
     explore: PlaceModel[];
+    totalPlaces: number;
+    averageRating: number;
+    totalReviews: number;
+    totalViews: number;
 }
 
 export interface PlaceSearchRequest {

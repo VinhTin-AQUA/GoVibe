@@ -1,13 +1,8 @@
 @if (initialized()) {
     <div class="flex h-screen overflow-hidden layout-theme">
-        <!-- <app-sidebar></app-sidebar> -->
-
-        <div class="flex-1 flex flex-col relative mesh">
-            <!-- HEADER -->
-            <!-- <app-header></app-header> -->
-
+        <div class="flex-1 flex flex-col relative mesh min-w-0">
             <div
-                class="flex-1 overflow-hidden py-3 px-5 content-area h-[calc(100vh-60px)] overflow-y-auto"
+                class="flex-1 overflow-hidden content-area h-[calc(100vh-60px)] overflow-y-auto min-w-0"
             >
                 <router-outlet></router-outlet>
             </div>
