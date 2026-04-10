@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { PlaceModel } from '@govibecore';
 import { PlaceSearchRequest } from '../../../core/models/home.mode';
 import { PlaceService } from '../../../core/services/place.service';
+import { ActivatedRoute, RouterLinkActive } from '@angular/router';
 
 @Component({
     selector: 'app-searching',
@@ -30,10 +31,21 @@ export class Searching {
     };
     totalPages = 0;
 
-    constructor(private placeService: PlaceService) {}
+    constructor(
+        private placeService: PlaceService,
+        private activatedRoute: ActivatedRoute,
+    ) {}
 
     ngOnInit() {
-        this.getPlaces();
+        this.activatedRoute.queryParams.subscribe((params) => {
+            const categoryId = params['category'];
+            if (categoryId) {
+                this.filterRequest.categoryIds = [];
+                this.filterRequest.categoryIds.push(categoryId);
+            }
+
+            this.getPlaces();
+        });
     }
 
     getPlaces() {

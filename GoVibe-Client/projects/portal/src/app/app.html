@@ -1,9 +1,7 @@
 @if (initialized()) {
-    <div class="flex h-screen overflow-hidden layout-theme">
+    <div class="flex layout-theme">
         <div class="flex-1 flex flex-col relative mesh min-w-0">
-            <div
-                class="flex-1 overflow-hidden content-area h-[calc(100vh-60px)] overflow-y-auto min-w-0"
-            >
+            <div class="flex-1 content-area min-w-0">
                 <router-outlet></router-outlet>
             </div>
         </div>

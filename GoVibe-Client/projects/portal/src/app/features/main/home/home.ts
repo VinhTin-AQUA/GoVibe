@@ -4,10 +4,12 @@ import { PlaceService } from '../../../core/services/place.service';
 import { DecimalPipe } from '@angular/common';
 import { CategoryService } from '../../../core/services/category.service';
 import { Icons } from '@icons';
+import { Router, RouterLink } from '@angular/router';
+import { MainRoutes } from '../../../core/constants/routes.constants';
 
 @Component({
     selector: 'app-home',
-    imports: [DecimalPipe, Icons],
+    imports: [DecimalPipe, Icons, RouterLink],
     templateUrl: './home.html',
     styleUrl: './home.css',
 })
@@ -30,10 +32,12 @@ export class Home {
     ];
     currentBannerIndex = signal<number>(0);
     private autoPlayInterval: any;
+    mainRoutes = MainRoutes;
 
     constructor(
         private placeService: PlaceService,
         private categoryService: CategoryService,
+        private router: Router,
     ) {}
 
     ngOnInit() {
@@ -106,4 +110,12 @@ export class Home {
     }
 
     /* ===== Computed stats ===== */
+
+    navigateToSearch(category: string = '') {
+        this.router.navigate([`/${this.mainRoutes.MAIN.path}/${this.mainRoutes.SEARCH.path}`], {
+            queryParams: {
+                category: category,
+            },
+        });
+    }
 }

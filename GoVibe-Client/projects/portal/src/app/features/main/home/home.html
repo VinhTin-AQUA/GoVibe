@@ -27,7 +27,8 @@
                     Thousands of amazing places waiting for you to explore
                 </p>
 
-                <button class="btn-glass">Explore Now</button>
+                <button routerLink="/main/search" class="btn-glass">Explore Now</button>
+                <!-- <button (click)="navigateToSearch()" class="btn-glass">Explore Now</button> -->
             </div>
         </div>
 
@@ -85,7 +86,7 @@
             <button class="chip chip-active">All</button>
 
             @for (category of uniqueCategories(); track category.value) {
-                <button class="chip">
+                <button (click)="navigateToSearch(category.value)" class="chip">
                     {{ category.label }}
                 </button>
             }
@@ -99,7 +100,7 @@
                     <p class="text-sm text-muted mt-1">Most viewed places</p>
                 </div>
 
-                <button class="link-btn">View All →</button>
+                <button (click)="navigateToSearch()" class="link-btn">View All →</button>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -145,7 +146,7 @@
                     <h2 class="section-title">⭐ Top Rated</h2>
                     <p class="text-sm text-muted mt-1">Highest rated places</p>
                 </div>
-                <button class="link-btn">View All →</button>
+                <button (click)="navigateToSearch()" class="link-btn">View All →</button>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -179,7 +180,7 @@
                     <h2 class="section-title">🆕 Recently Updated</h2>
                     <p class="text-sm text-muted mt-1">Always fresh and updated</p>
                 </div>
-                <button class="link-btn">View All →</button>
+                <button (click)="navigateToSearch()" class="link-btn">View All →</button>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -206,7 +207,7 @@
                     <h2 class="section-title">✨ Explore</h2>
                     <p class="text-sm text-muted mt-1">Find your favorite destinations</p>
                 </div>
-                <button class="link-btn">View All →</button>
+                <button (click)="navigateToSearch()" class="link-btn">View All →</button>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

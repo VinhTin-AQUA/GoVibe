@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { Main } from './main';
 import { Home } from './home/home';
 import { Searching } from './searching/searching';
+import { MainRoutes } from '../../core/constants/routes.constants';
 
 export const mainRoutes: Routes = [
     {
@@ -9,18 +10,18 @@ export const mainRoutes: Routes = [
         component: Main,
         children: [
             {
-                path: 'home',
+                path: MainRoutes.HOME.path,
                 component: Home,
-                title: 'Home',
+                title: MainRoutes.HOME.title,
             },
             {
-                path: 'searching',
+                path: MainRoutes.SEARCH.path,
                 component: Searching,
-                title: 'Searching',
+                title: MainRoutes.SEARCH.title,
             },
             {
                 path: '**',
-                redirectTo: 'home',
+                redirectTo: MainRoutes.HOME.path,
             },
         ],
     },
