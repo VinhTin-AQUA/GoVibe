@@ -12,25 +12,16 @@ export interface GetHomeModel {
 }
 
 export interface PlaceSearchRequest {
-    keyword?: string;
-    address?: string;
-    country?: string;
-
-    categoryIds?: string[];
-
-    minRating?: number;
-    maxRating?: number;
-
-    minViews?: number;
-    maxViews?: number;
-
-    status?: number;
-
-    tags?: string[];
-
-    sortBy?: string;
-    sortDesc?: boolean;
-
-    pageIndex?: number;
-    pageSize?: number;
+    keyword: string;
+    address: string;
+    country: string;
+    categoryIds: string[];
+    minRating: number;
+    minViews: number;
+    status: string;
+    tags: string[];
+    sortBy: string;
+    sortDesc: boolean;
+    pageIndex: number;
+    pageSize: string;
 }
