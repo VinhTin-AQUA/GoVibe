@@ -1,0 +1,38 @@
+/* Background + text */
+.footer-bg {
+    background-color: var(--background);
+}
+
+.footer-text {
+    color: var(--white);
+}
+
+.footer-heading {
+    color: var(--foreground);
+}
+
+/* Border */
+.footer-border {
+    border-color: var(--selectionInactiveBackground);
+}
+
+/* Hover */
+.footer-link:hover {
+    color: var(--foreground);
+}
+
+/* Button (optional) */
+.footer-button {
+    background-color: var(--blue);
+    color: var(--cursorAccent);
+}
+
+.footer-button:hover {
+    background-color: var(--brightBlue);
+}
+
+/* Input */
+.footer-input {
+    color: var(--foreground);
+    background-color: var(--selectionInactiveBackground);
+}
