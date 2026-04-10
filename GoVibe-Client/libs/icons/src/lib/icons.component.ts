@@ -136,6 +136,37 @@ export class SunIconComponent {}
 })
 export class MoonIconComponent {}
 
+/* prev button */
+@Component({
+    selector: 'lib-icon-home',
+    standalone: true,
+    template: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"
+        ></path>
+    </svg>`,
+})
+export class PrevIconComponent {}
+
+/* next button */
+
+@Component({
+    selector: 'lib-icon-home',
+    standalone: true,
+    template: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"
+        ></path>
+    </svg>`,
+})
+export class NextIconComponent {}
+
 /* common */
 
 @Component({

@@ -12,3 +12,198 @@
 .animate-fade-in-up {
     animation: fadeInUp 0.8s ease-out;
 }
+
+/* ===== APP BACKGROUND ===== */
+.bg-app {
+    background: var(--background);
+    color: var(--foreground);
+}
+
+/* ===== TEXT ===== */
+.text-foreground {
+    color: var(--foreground);
+}
+
+.text-muted {
+    color: var(--white);
+}
+
+.text-accent {
+    color: var(--yellow);
+}
+
+/* ===== OVERLAY ===== */
+.overlay-dark {
+    background: linear-gradient(
+        to right,
+        color-mix(in srgb, var(--black) 70%, transparent),
+        color-mix(in srgb, var(--black) 30%, transparent)
+    );
+}
+
+/* ===== GRADIENT TEXT ===== */
+.text-gradient-primary {
+    background: linear-gradient(to right, var(--foreground), var(--brightBlue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ===== SHADOW TOKENS ===== */
+.shadow-soft {
+    box-shadow: 0 8px 20px color-mix(in srgb, var(--black) 8%, transparent);
+}
+
+.shadow-medium {
+    box-shadow: 0 10px 25px color-mix(in srgb, var(--black) 12%, transparent);
+}
+
+.shadow-hover:hover {
+    box-shadow: 0 16px 40px color-mix(in srgb, var(--black) 18%, transparent);
+}
+
+/* ===== CARDS ===== */
+.card {
+    background: var(--background);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+}
+
+.place-card {
+    background: var(--background);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
+    transition: 0.3s;
+}
+
+.place-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* ===== CHIPS ===== */
+.chip {
+    padding: 0.5rem 1.25rem;
+    border-radius: 999px;
+    background: var(--selectionInactiveBackground);
+    color: var(--foreground);
+    font-weight: 500;
+}
+
+.chip-active {
+    background: var(--blue);
+    color: var(--cursorAccent);
+}
+
+/* ===== BUTTONS ===== */
+.btn-glass {
+    padding: 0.75rem 2rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--cursorAccent) 80%, transparent);
+    backdrop-filter: blur(10px);
+    border: 1px solid color-mix(in srgb, var(--cursorAccent) 20%, transparent);
+    color: var(--foreground);
+}
+
+/* link button */
+.link-btn {
+    color: var(--blue);
+    font-weight: 500;
+}
+
+/* ===== NAV BUTTON ===== */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+
+    background: color-mix(in srgb, var(--black) 30%, transparent);
+    color: var(--cursorAccent);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== BADGES ===== */
+.badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 6px;
+    color: var(--cursorAccent);
+}
+
+.badge-red {
+    background: var(--red);
+}
+
+/* ===== OVERLAY HOVER ===== */
+.overlay-hover {
+    position: absolute;
+    inset: 0;
+
+    background: color-mix(in srgb, var(--black) 40%, transparent);
+
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.group:hover .overlay-hover {
+    opacity: 1;
+}
+
+/* ===== GRADIENT BUTTONS ===== */
+.btn-gradient-yellow {
+    background: linear-gradient(to right, var(--yellow), var(--brightYellow));
+    color: var(--cursorAccent);
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+}
+
+.btn-gradient-blue {
+    background: linear-gradient(to right, var(--blue), var(--magenta));
+    color: var(--cursorAccent);
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+}
+
+.btn-gradient-cyan {
+    background: linear-gradient(to right, var(--cyan), var(--brightCyan));
+    color: var(--cursorAccent);
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+}
+
+.btn-gradient-magenta {
+    background: linear-gradient(to right, var(--magenta), var(--brightMagenta));
+    color: var(--cursorAccent);
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+}
+
+/* ===== SECTION ===== */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* ===== BORDER ===== */
+.border-highlight {
+    border: 2px solid var(--yellow);
+}

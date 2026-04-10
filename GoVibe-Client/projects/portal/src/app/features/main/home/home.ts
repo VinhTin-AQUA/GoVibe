@@ -1,12 +1,13 @@
 import { Component, signal } from '@angular/core';
-import { CategoryModel, OptionModel, PlaceModel } from '@govibecore';
+import { OptionModel, PlaceModel } from '@govibecore';
 import { PlaceService } from '../../../core/services/place.service';
-import { DatePipe, DecimalPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { CategoryService } from '../../../core/services/category.service';
+import { Icons } from '@icons';
 
 @Component({
     selector: 'app-home',
-    imports: [DecimalPipe, DatePipe],
+    imports: [DecimalPipe, Icons],
     templateUrl: './home.html',
     styleUrl: './home.css',
 })
@@ -98,6 +99,10 @@ export class Home {
         if (this.autoPlayInterval) {
             clearInterval(this.autoPlayInterval);
         }
+    }
+
+    setBannerIndex(index: number) {
+        this.currentBannerIndex.set(index);
     }
 
     /* ===== Computed stats ===== */
