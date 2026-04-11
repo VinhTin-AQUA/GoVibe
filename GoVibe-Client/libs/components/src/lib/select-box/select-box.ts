@@ -20,7 +20,7 @@ export class SelectBox {
     @Input() name!: string;
     @Input() label: string = '';
     @Input() description: string = '';
-    @Input() value!: string;
+    @Input() value!: string | null;
     @Input() disabled: boolean = false;
 
     @Input() options: any[] = [];

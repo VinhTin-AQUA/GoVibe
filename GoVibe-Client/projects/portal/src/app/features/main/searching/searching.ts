@@ -1,38 +1,148 @@
 import { Component, signal } from '@angular/core';
-import { PlaceModel } from '@govibecore';
+import { OptionModel, PlaceModel } from '@govibecore';
 import { PlaceSearchRequest } from '../../../core/models/home.mode';
 import { PlaceService } from '../../../core/services/place.service';
-import { ActivatedRoute, RouterLinkActive } from '@angular/router';
-import { form, FormField, max, min } from '@angular/forms/signals';
+import { ActivatedRoute } from '@angular/router';
+import { TextInput, SelectBox, Radio, Button, Pagination } from '@components';
 
 @Component({
     selector: 'app-searching',
-    imports: [FormField],
+    imports: [TextInput, SelectBox, Radio, Button, Pagination],
     templateUrl: './searching.html',
     styleUrl: './searching.css',
 })
 export class Searching {
     places = signal<PlaceModel[]>([]);
     filterRequest = signal<PlaceSearchRequest>({
-        keyword: '',
-        address: '',
-        country: '',
-        categoryIds: [],
-        minRating: 0,
-        minViews: 0,
-        status: '',
-        tags: [],
-        sortBy: '',
-        sortDesc: true,
+        keyword: undefined,
+        address: undefined,
+        country: undefined,
+        categoryIds: undefined,
+        minRating: undefined,
+        minViews: undefined,
+        status: undefined,
+        tags: undefined,
+        sortBy: undefined,
+        sortDesc: undefined,
         pageIndex: 1,
-        pageSize: 10,
-    });
-    filterRequestForm = form(this.filterRequest, (x) => {
-        min(x.minRating, 1);
-        max(x.minRating, 5);
-        min(x.minViews, 0);
+        pageSize: 12,
     });
     totalPages = 0;
+
+    categoryOptions = signal<OptionModel[]>([
+        {
+            label: 'Du lịch',
+            value: '550e8400-e29b-41d4-a716-446655440000',
+        },
+        {
+            label: 'Ẩm thực',
+            value: '1c6f3f2e-8c6d-4d12-9bfa-2c7a9f8b1234',
+        },
+        {
+            label: 'Công nghệ',
+            value: '9a7b6c5d-1234-4fgh-8abc-1234567890ab',
+        },
+        {
+            label: 'Giáo dục',
+            value: '3f2504e0-4f89-41d3-9a0c-0305e82c3301',
+        },
+        {
+            label: 'Thể thao',
+            value: '6fa459ea-ee8a-3ca4-894e-db77e160355e',
+        },
+    ]);
+
+    countryOptions = signal<OptionModel[]>([
+        {
+            label: 'Việt Nam',
+            value: 'Việt Nam',
+        },
+        {
+            label: 'Hoa Kỳ',
+            value: 'USA',
+        },
+        {
+            label: 'Nhật Bản',
+            value: 'Japan',
+        },
+        {
+            label: 'Hàn Quốc',
+            value: 'Korea',
+        },
+        {
+            label: 'Trung Quốc',
+            value: 'China',
+        },
+        {
+            label: 'Anh',
+            value: 'UK',
+        },
+        {
+            label: 'Pháp',
+            value: 'France',
+        },
+        {
+            label: 'Đức',
+            value: 'Germany',
+        },
+        {
+            label: 'Úc',
+            value: 'Australia',
+        },
+        {
+            label: 'Canada',
+            value: 'Canada',
+        },
+    ]);
+
+    statusOptions = signal<OptionModel[]>([
+        {
+            label: 'Không',
+            value: undefined,
+        },
+        {
+            label: 'Hoạt động',
+            value: 1,
+        },
+        {
+            label: 'Đóng cửa',
+            value: 3,
+        },
+    ]);
+
+    sortByOptions = signal<OptionModel[]>([
+        {
+            label: 'Default',
+            value: undefined,
+        },
+        {
+            label: 'Rating',
+            value: 'rating',
+        },
+        {
+            label: 'Views',
+            value: 'views',
+        },
+        {
+            label: 'Newest',
+            value: 'newest',
+        },
+    ]);
+
+    sortDirection = signal<OptionModel[]>([
+        {
+            label: 'Default',
+            value: undefined,
+        },
+        {
+            label: 'ASC',
+            value: undefined,
+        },
+        {
+            label: 'Default',
+            value: undefined,
+        },
+    ]);
 
     constructor(
         private placeService: PlaceService,
@@ -72,41 +182,37 @@ export class Searching {
         });
 
         this.getPlaces();
-
-        // load API
-        // this.loadCategories()
     }
+
+    // filter
+    updateField<K extends keyof PlaceSearchRequest>(key: K, value: PlaceSearchRequest[K]) {
+        this.filterRequest.update((prev) => ({
+            ...prev,
+            [key]: value ?? undefined,
+        }));
+    }
+
+    onCategoryChange() {}
+
+    onTagChange() {}
 
     resetFilters() {
         this.filterRequest.update((x) => ({
             ...x,
-            keyword: '',
-            address: '',
-            country: '',
-            categoryIds: [],
-            minRating: 0,
-            minViews: 0,
-            status: '',
-            tags: [],
-            sortBy: '',
-            sortDesc: true,
+            keyword: undefined,
+            address: undefined,
+            country: undefined,
+            categoryIds: undefined,
+            minRating: undefined,
+            minViews: undefined,
+            status: undefined,
+            tags: undefined,
+            sortBy: undefined,
+            sortDesc: undefined,
         }));
     }
 
-    toRequest() {
-        return {
-            keyword: this.filterRequestForm.keyword().value() || null,
-            address: this.filterRequestForm.address().value() || null,
-            country: this.filterRequestForm.country().value() || null,
-            categoryIds: this.filterRequestForm.categoryIds().value(),
-            minRating: this.filterRequestForm.minRating().value() || null,
-            minViews: this.filterRequestForm.minViews().value() || null,
-            status: this.filterRequestForm.status().value() || null,
-            tags: this.filterRequestForm.tags().value(),
-            sortBy: this.filterRequestForm.sortBy().value() || null,
-            sortDesc: this.filterRequestForm.sortDesc().value(),
-            pageIndex: this.filterRequestForm.pageIndex().value(),
-            pageSize: this.filterRequestForm.pageSize().value(),
-        };
+    applyFilters() {
+        this.getPlaces();
     }
 }

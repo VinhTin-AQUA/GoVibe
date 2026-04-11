@@ -1,0 +1,109 @@
+@layer components {
+    /* Wrapper */
+    .radio {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        user-select: none;
+        font-size: 14px;
+        color: var(--foreground);
+    }
+
+    .radio-label {
+        line-height: 1;
+    }
+
+    /* Ẩn radio mặc định */
+    .radio input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    /* Box */
+    .radio-box {
+        width: 18px;
+        height: 18px;
+        border-radius: 6px;
+        border: 1.5px solid var(--brightWhite);
+        background: var(--background);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+    }
+
+    /* Hover */
+    .radio:hover .radio-box {
+        border-color: var(--blue);
+    }
+
+    /* Check icon */
+    .radio-box::after {
+        content: '';
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        background: var(--cursorAccent);
+        transform: scale(0);
+        transition: transform 0.15s ease;
+    }
+
+    /* Checked state */
+    .radio input:checked + .radio-box {
+        background: var(--blue);
+        border-color: var(--blue);
+    }
+
+    .radio input:checked + .radio-box::after {
+        transform: scale(1);
+    }
+
+    /* Focus */
+    .radio input:focus-visible + .radio-box {
+        box-shadow: 0 0 0 3px var(--selectionBackground);
+    }
+
+    /* Disabled */
+    .radio input:disabled + .radio-box {
+        background: var(--selectionInactiveBackground);
+        border-color: var(--brightBlack);
+        cursor: not-allowed;
+    }
+
+    .radio input:disabled ~ .radio-label {
+        color: var(--brightWhite);
+        cursor: not-allowed;
+    }
+
+    /* Variants */
+    .radio-success input:checked + .radio-box {
+        background: var(--green);
+        border-color: var(--green);
+    }
+
+    .radio-success input:focus-visible + .radio-box {
+        box-shadow: 0 0 0 3px var(--brightGreen);
+    }
+
+    .radio-error input:checked + .radio-box {
+        background: var(--red);
+        border-color: var(--red);
+    }
+
+    .radio-error input:focus-visible + .radio-box {
+        box-shadow: 0 0 0 3px var(--brightRed);
+    }
+
+    .radio-warning input:checked + .radio-box {
+        background: var(--yellow);
+        border-color: var(--yellow);
+    }
+
+    .radio-warning input:focus-visible + .radio-box {
+        box-shadow: 0 0 0 3px var(--brightYellow);
+    }
+}
