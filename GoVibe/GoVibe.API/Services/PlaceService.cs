@@ -298,10 +298,10 @@ namespace GoVibe.API.Services
         {
             var queries = new List<Func<IQueryable<Place>, IQueryable<Place>>>();
 
-            // 1. Default filter
+            // Default filter
             //queries.Add(q => q.Where(p => p.Status == EPlaceStatus.Active));
 
-            // 2. Keyword
+            // Keyword
             if (!string.IsNullOrWhiteSpace(request.Keyword))
             {
                 var keyword = request.Keyword.ToLower();
@@ -309,21 +309,14 @@ namespace GoVibe.API.Services
                     p.Name.ToLower().Contains(keyword) ||
                     p.Address.ToLower().Contains(keyword)));
             }
-
-            // 3. Address
-            if (!string.IsNullOrWhiteSpace(request.Address))
-            {
-                var address = request.Address.ToLower();
-                queries.Add(q => q.Where(p => p.Address.ToLower().Contains(address)));
-            }
-
-            // 4. Country
+            
+            // Country
             if (!string.IsNullOrWhiteSpace(request.Country))
             {
                 queries.Add(q => q.Where(p => p.Country == request.Country));
             }
 
-            // 5. Category
+            // Category
             if (request.CategoryIds != null && request.CategoryIds.Any())
             {
                 queries.Add(q => q.Where(p =>
@@ -331,7 +324,7 @@ namespace GoVibe.API.Services
                         request.CategoryIds.Contains(pc.CategoryId))));
             }
 
-            // 6. Rating
+            // Rating
             if (request.MinRating.HasValue)
             {
                 queries.Add(q => q.Where(p =>
@@ -346,7 +339,7 @@ namespace GoVibe.API.Services
                     (p.TotalRating / p.TotalReviews) <= request.MaxRating.Value));
             }
 
-            // 7. Views
+            // Views
             if (request.MinViews.HasValue)
             {
                 queries.Add(q => q.Where(p => p.TotalViews >= request.MinViews));
@@ -357,14 +350,14 @@ namespace GoVibe.API.Services
                 queries.Add(q => q.Where(p => p.TotalViews <= request.MaxViews));
             }
 
-            // 8. Tags
+            // Tags
             if (request.Tags != null && request.Tags.Any())
             {
                 queries.Add(q => q.Where(p =>
                     p.Tags.Any(tag => request.Tags.Contains(tag))));
             }
 
-            // 9. Sorting
+            // Sorting
             queries.Add(request.SortBy?.ToLower() switch
             {
                 "rating" => request.SortDesc

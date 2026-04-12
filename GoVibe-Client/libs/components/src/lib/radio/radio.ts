@@ -14,21 +14,25 @@ export class Radio {
 	@Input() options: any = [];
 	@Input() name: string = '';
 	@Input() label: string = '';
+	@Input() variant: string = '';
 
 	/** Signal form field */
 	@Input() field: any | null = null;
 
 	/** ngModel binding */
 	@Input() modelValue: any;
-	@Output() modelValueChange = new EventEmitter<any>();
+	@Output() valueChange = new EventEmitter<any>();
 
 	/** Change event chung */
 	@Output() change = new EventEmitter<any>();
 
-	onNgModelChange(val: any) {
-		this.modelValueChange.emit(val);
-		this.change.emit(val);
-	}
+    ngOnInit() {
+    }
+
+onNgModelChange(val: any) {
+  this.modelValue = val;
+  this.valueChange.emit(val); // đổi tên ở đây
+}
 
 	emitChange(val: any) {
 		this.change.emit(val);

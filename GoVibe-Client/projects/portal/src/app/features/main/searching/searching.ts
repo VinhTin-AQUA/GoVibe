@@ -15,7 +15,6 @@ export class Searching {
     places = signal<PlaceModel[]>([]);
     filterRequest = signal<PlaceSearchRequest>({
         keyword: undefined,
-        address: undefined,
         country: undefined,
         categoryIds: undefined,
         minRating: undefined,
@@ -53,6 +52,10 @@ export class Searching {
     ]);
 
     countryOptions = signal<OptionModel[]>([
+        {
+            label: 'No',
+            value: null,
+        },
         {
             label: 'Việt Nam',
             value: 'Việt Nam',
@@ -113,7 +116,7 @@ export class Searching {
     sortByOptions = signal<OptionModel[]>([
         {
             label: 'Default',
-            value: undefined,
+            value: null,
         },
         {
             label: 'Rating',
@@ -136,11 +139,11 @@ export class Searching {
         },
         {
             label: 'ASC',
-            value: undefined,
+            value: 'asc',
         },
         {
-            label: 'Default',
-            value: undefined,
+            label: 'DESC',
+            value: 'desc',
         },
     ]);
 
@@ -192,6 +195,14 @@ export class Searching {
         }));
     }
 
+    onSortDescChange(value: string) {
+        const sortDesc = value === 'desc' ? true : value === 'asc' ? false : undefined;
+
+        this.filterRequest.update((x) => {
+            return { ...x, sortDesc };
+        });
+    }
+
     onCategoryChange() {}
 
     onTagChange() {}
@@ -200,7 +211,6 @@ export class Searching {
         this.filterRequest.update((x) => ({
             ...x,
             keyword: undefined,
-            address: undefined,
             country: undefined,
             categoryIds: undefined,
             minRating: undefined,
@@ -210,9 +220,11 @@ export class Searching {
             sortBy: undefined,
             sortDesc: undefined,
         }));
+        this.getPlaces();
     }
 
     applyFilters() {
-        this.getPlaces();
+        // this.getPlaces();
+        console.log(this.filterRequest());
     }
 }

@@ -90,7 +90,6 @@ namespace GoVibe.API.Models.Places
     public class PlaceSearchRequest
     {
         public string? Keyword { get; set; }          // name + address
-        public string? Address { get; set; }
         public string? Country { get; set; }
 
         public List<Guid>? CategoryIds { get; set; }

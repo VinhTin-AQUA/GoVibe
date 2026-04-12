@@ -1,10 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FormField, FieldTree } from '@angular/forms/signals';
 
 @Component({
     selector: 'lib-select-box',
-    imports: [FormField],
+    imports: [FormField, FormsModule],
     templateUrl: './select-box.html',
     styleUrl: './select-box.css',
     providers: [
@@ -49,8 +50,7 @@ export class SelectBox {
         this.disabled = isDisabled;
     }
 
-    handleChange(event: Event) {
-        const selectedValue = (event.target as HTMLSelectElement).value;
+    handleChange(selectedValue: any) {
         this.value = selectedValue;
 
         if (this.formField) {

@@ -16,6 +16,7 @@
                 <!-- Keyword -->
                 <lib-text-input
                     label="Tìm kiếm"
+                    placeholder="Name or Address"
                     [value]="filterRequest().keyword ?? ''"
                     (valueChange)="updateField('keyword', $event)"
                 ></lib-text-input>
@@ -31,13 +32,6 @@
                         />
                     </div>
                 </div> -->
-
-                <!-- Address -->
-                <lib-text-input
-                    label="Address"
-                    [value]="filterRequest().address?? ''"
-                    (valueChange)="updateField('address', $event)"
-                ></lib-text-input>
 
                 <!-- <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2"> Địa chỉ </label>
@@ -134,57 +128,13 @@
                 </div> -->
 
                 <!-- Status Radio -->
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">
-                        Trạng thái
-                    </label>
-                    <div class="space-y-2">
-                        <lib-radio
-                            label="Trạng thái"
-                            name="status"
-                            [options]="statusOptions()"
-                            [modelValue]="filterRequest().status"
-                            (change)="updateField('status', $event)"
-                        ></lib-radio>
-
-                        <!-- <label class="flex items-center gap-3 cursor-pointer">
-                            <input
-                                name="status"
-                                type="radio"
-                                (change)="onStatusChange(1)"
-                                class="w-4 h-4 text-blue-600 focus:ring-blue-500"
-                            />
-                            <span class="text-sm text-gray-700">
-                                <span
-                                    class="inline-block w-2 h-2 rounded-full bg-green-500 mr-2"
-                                ></span>
-                            </span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer">
-                            <input
-                                name="status"
-                                type="radio"
-                                (change)="onStatusChange(2)"
-                                class="w-4 h-4 text-blue-600 focus:ring-blue-500"
-                            />
-                            <span class="text-sm text-gray-700">
-                                <span
-                                    class="inline-block w-2 h-2 rounded-full bg-gray-400 mr-2"
-                                ></span>
-                                Đóng cửa
-                            </span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer">
-                            <input
-                                name="status"
-                                type="radio"
-                                (change)="onStatusChange(0)"
-                                class="w-4 h-4 text-blue-600 focus:ring-blue-500"
-                            />
-                            <span class="text-sm text-gray-700">Tất cả</span>
-                        </label> -->
-                    </div>
-                </div>
+                <lib-radio
+                    label="Trạng thái"
+                    name="status"
+                    [options]="statusOptions()"
+                    [modelValue]="filterRequest().status"
+                    (valueChange)="updateField('status', $event)"
+                ></lib-radio>
 
                 <!-- Sort By -->
                 <lib-select-box
@@ -195,13 +145,12 @@
                 ></lib-select-box>
 
                 <!-- Sort Direction -->
-
                 <lib-radio
                     label="Sort Direction"
                     name="sort-direction"
                     [options]="sortDirection()"
-                    [modelValue]="filterRequest().sortBy"
-                    (change)="updateField('sortBy', $event)"
+                    [modelValue]="filterRequest().sortDesc"
+                    (valueChange)="onSortDescChange($event)"
                 ></lib-radio>
 
                 <!-- Action Buttons -->

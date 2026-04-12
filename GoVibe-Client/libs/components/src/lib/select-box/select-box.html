@@ -5,18 +5,18 @@
         @if (formField) {
             <select class="select" (change)="handleChange($event)" [formField]="formField">
                 @for (item of options; track $index) {
-                    <option [value]="item[optionValue]">{{ item[optionLabel] }}</option>
+                    <option [ngValue]="item[optionValue]">{{ item[optionLabel] }}</option>
                 }
             </select>
         } @else {
             <select
                 class="select"
-                [value]="value"
-                (change)="handleChange($event)"
+                 [ngModel]="value"
+                (ngModelChange)="handleChange($event)"
                 [disabled]="disabled"
             >
                 @for (item of options; track $index) {
-                    <option [value]="item[optionValue]">{{ item[optionLabel] }}</option>
+                    <option [ngValue]="item[optionValue]">{{ item[optionLabel] }}</option>
                 }
             </select>
         }

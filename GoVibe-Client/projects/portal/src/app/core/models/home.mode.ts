@@ -13,7 +13,6 @@ export interface GetHomeModel {
 
 export interface PlaceSearchRequest {
     keyword?: string;
-    address?: string;
     country?: string;
     categoryIds?: string[];
     minRating?: number;
