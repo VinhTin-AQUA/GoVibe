@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FormField, FieldTree } from '@angular/forms/signals';
 
 @Component({
     selector: 'lib-select-box',
-    imports: [FormField, FormsModule],
+    imports: [FormField, FormsModule, CommonModule],
     templateUrl: './select-box.html',
     styleUrl: './select-box.css',
     providers: [
@@ -19,6 +19,7 @@ import { FormField, FieldTree } from '@angular/forms/signals';
 export class SelectBox {
     @Input() formField?: FieldTree<string>;
     @Input() name!: string;
+    @Input() class!: string;
     @Input() label: string = '';
     @Input() description: string = '';
     @Input() value!: string | null;

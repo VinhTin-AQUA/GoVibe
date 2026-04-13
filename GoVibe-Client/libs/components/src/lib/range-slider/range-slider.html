@@ -1,0 +1,34 @@
+<div
+    class="slider-container shadow-lg hover:shadow-xl transition-shadow duration-300"
+    [ngClass]="class"
+>
+    <!-- Header với label và value -->
+    <div class="slider-header">
+        <label class="slider-label font-medium tracking-wide">
+            {{ label || 'Slider' }}
+        </label>
+        <div class="value font-mono shadow-sm hover:shadow transition-all duration-200">
+            {{ value }}{{ unit || '' }}
+        </div>
+    </div>
+
+    <div class="slider-wrapper">
+        <input
+            type="range"
+            [min]="min"
+            [max]="max"
+            [step]="step"
+            [value]="value"
+            (input)="onChange($event)"
+            class="slider flex-1"
+            [style.--fill-percentage]="((value - min) / (max - min)) * 100 + '%'"
+        />
+    </div>
+
+    @if (showMinMax) {
+        <div class="min-max-labels">
+            <span class="min-label text-xs">{{ min }}{{ unit || '' }}</span>
+            <span class="max-label text-xs">{{ max }}{{ unit || '' }}</span>
+        </div>
+    }
+</div>

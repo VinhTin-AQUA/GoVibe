@@ -3,11 +3,11 @@ import { OptionModel, PlaceModel } from '@govibecore';
 import { PlaceSearchRequest } from '../../../core/models/home.mode';
 import { PlaceService } from '../../../core/services/place.service';
 import { ActivatedRoute } from '@angular/router';
-import { TextInput, SelectBox, Radio, Button, Pagination } from '@components';
+import { TextInput, SelectBox, Radio, Button, Pagination, RangeSlider } from '@components';
 
 @Component({
     selector: 'app-searching',
-    imports: [TextInput, SelectBox, Radio, Button, Pagination],
+    imports: [TextInput, SelectBox, Radio, Button, Pagination, RangeSlider],
     templateUrl: './searching.html',
     styleUrl: './searching.css',
 })
@@ -200,6 +200,18 @@ export class Searching {
 
         this.filterRequest.update((x) => {
             return { ...x, sortDesc };
+        });
+    }
+
+    onMinViewChange(event: any) {
+        this.filterRequest.update((x) => {
+            return { ...x, minViews: event };
+        });
+    }
+
+    onRatingChange(event: any) {
+        this.filterRequest.update((x) => {
+            return { ...x, minRating: event };
         });
     }
 

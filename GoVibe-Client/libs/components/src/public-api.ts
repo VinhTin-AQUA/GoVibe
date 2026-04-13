@@ -10,4 +10,5 @@ export * from './lib/text-editor/text-editor';
 export * from './lib/pagination/pagination';
 export * from './lib/question-cancel-dialog/question-cancel-dialog';
 export * from './lib/radio/radio';
+export * from './lib/range-slider/range-slider';
 export * from './lib/loader/loader';

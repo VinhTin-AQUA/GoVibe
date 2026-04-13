@@ -1,0 +1,147 @@
+/* Slider container */
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: var(--background);
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+}
+
+/* Header section chứa label và value */
+.slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+/* Label styles */
+.slider-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--foreground);
+    letter-spacing: 0.025em;
+}
+
+/* Giá trị hiển thị */
+.value {
+    min-width: 3rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 0.25rem 0.75rem;
+    background: var(--selectionBackground);
+    color: var(--selectionForeground);
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+/* Slider track wrapper */
+.slider-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Slider track */
+.slider {
+    flex: 1;
+    height: 0.25rem;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+/* Track */
+.slider::-webkit-slider-runnable-track {
+    height: 0.25rem;
+    background: var(--brightBlack);
+    border-radius: 0.125rem;
+}
+
+.slider::-moz-range-track {
+    height: 0.25rem;
+    background: var(--brightBlack);
+    border-radius: 0.125rem;
+}
+
+/* Thumb (nút kéo) */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    background: var(--cursor);
+    border-radius: 50%;
+    margin-top: -0.375rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    background: var(--brightBlue);
+}
+
+.slider::-moz-range-thumb {
+    width: 1rem;
+    height: 1rem;
+    background: var(--cursor);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.slider::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    background: var(--brightBlue);
+}
+
+/* Focus styles */
+.slider:focus {
+    outline: none;
+}
+
+.slider:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 0 3px var(--selectionBackground);
+}
+
+/* Progress fill (hiệu ứng đổ màu) */
+.slider::-webkit-slider-runnable-track {
+    background: linear-gradient(
+        to right,
+        var(--blue) 0%,
+        var(--blue) var(--fill-percentage, 0%),
+        var(--brightBlack) var(--fill-percentage, 0%),
+        var(--brightBlack) 100%
+    );
+}
+
+.slider::-moz-range-progress {
+    height: 0.25rem;
+    background: var(--blue);
+    border-radius: 0.125rem;
+}
+
+/* Min/Max labels */
+.min-max-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--brightBlack);
+    margin-top: 0.25rem;
+}
+
+.min-label,
+.max-label {
+    transition: color 0.2s ease;
+}
+
+.min-label:hover,
+.max-label:hover {
+    color: var(--foreground);
+}
