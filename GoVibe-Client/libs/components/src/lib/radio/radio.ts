@@ -15,6 +15,7 @@ export class Radio {
 	@Input() name: string = '';
 	@Input() label: string = '';
 	@Input() variant: string = '';
+	@Input() class: string = '';
 
 	/** Signal form field */
 	@Input() field: any | null = null;

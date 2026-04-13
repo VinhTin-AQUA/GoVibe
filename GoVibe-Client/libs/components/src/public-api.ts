@@ -12,3 +12,4 @@ export * from './lib/question-cancel-dialog/question-cancel-dialog';
 export * from './lib/radio/radio';
 export * from './lib/range-slider/range-slider';
 export * from './lib/loader/loader';
+export * from './lib/multi-select/multi-select';

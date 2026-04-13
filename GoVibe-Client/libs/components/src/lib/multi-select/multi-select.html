@@ -1,0 +1,101 @@
+<div class="multi-select w-full">
+    @if (label) {
+        <label
+            class="block mb-2 text-sm font-medium transition-colors"
+            style="color: var(--foreground)"
+        >
+            {{ label }}
+            @if (required) {
+                <span class="ml-1" style="color: var(--red)">*</span>
+            }
+        </label>
+    }
+
+    <div class="relative w-full">
+        <div
+            class="select-box flex items-center justify-between p-2 border rounded-md cursor-pointer min-h-9.5 transition-colors"
+            [class.border-red-500]="!hasValue()"
+            (click)="toggleDropdown()"
+        >
+            <span class="flex-1 truncate" [class.opacity-50]="!selectedLabels()">
+                {{ selectedLabels() || placeholder || 'Chọn...' }}
+            </span>
+            <svg
+                class="w-4 h-4 transition-transform shrink-0 ml-2"
+                [class.rotate-180]="open()"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                ></path>
+            </svg>
+        </div>
+
+        @if (open()) {
+            <div
+                class="dropdown absolute w-full mt-1 border rounded-md shadow-lg z-50 max-h-60 overflow-y-auto"
+            >
+                @if (searchable) {
+                    <div
+                        class="sticky top-0 p-2 border-b"
+                        style="
+                            background-color: var(--background);
+                            border-color: var(--brightBlack);
+                        "
+                    >
+                          <input
+                        type="text"
+                        (input)="onChangeSearchTerm($event)"
+                        placeholder="Tìm kiếm..."
+                        class="w-full p-2 text-sm border rounded-md focus:outline-none transition-colors"
+                        style="
+                            background-color: var(--background);
+                            color: var(--foreground);
+                            border-color: var(--brightBlack);
+                        "
+                        (click)="$event.stopPropagation()"
+                    />
+                    </div>
+                }
+
+                @if (filteredOptions().length === 0) {
+                    <div class="p-4 text-center text-sm" style="color: var(--brightBlack)">
+                        Không có dữ liệu
+                    </div>
+                } @else {
+                    @for (opt of filteredOptions(); track $index) {
+                        <div
+                            class="option flex items-center gap-2 p-2 cursor-pointer transition-colors"
+                            [class.selected]="isSelected(opt.value)"
+                            (click)="toggleOption(opt.value)"
+                        >
+                            <input
+                                type="checkbox"
+                                [checked]="isSelected(opt.value)"
+                                (click)="$event.stopPropagation()"
+                                class="w-4 h-4 rounded cursor-pointer"
+                            />
+                            <span class="flex-1">{{ opt.label }}</span>
+                            @if (showBadge && isSelected(opt.value)) {
+                                <span
+                                    class="text-xs px-1.5 py-0.5 rounded-full"
+                                    style="
+                                        background-color: var(--selectionBackground);
+                                        color: var(--blue);
+                                    "
+                                >
+                                    ✓
+                                </span>
+                            }
+                        </div>
+                    }
+                }
+            </div>
+        }
+    </div>
+</div>

@@ -3,11 +3,19 @@ import { OptionModel, PlaceModel } from '@govibecore';
 import { PlaceSearchRequest } from '../../../core/models/home.mode';
 import { PlaceService } from '../../../core/services/place.service';
 import { ActivatedRoute } from '@angular/router';
-import { TextInput, SelectBox, Radio, Button, Pagination, RangeSlider } from '@components';
+import {
+    TextInput,
+    SelectBox,
+    Radio,
+    Button,
+    Pagination,
+    RangeSlider,
+    MultiSelect,
+} from '@components';
 
 @Component({
     selector: 'app-searching',
-    imports: [TextInput, SelectBox, Radio, Button, Pagination, RangeSlider],
+    imports: [TextInput, SelectBox, Radio, Button, Pagination, RangeSlider, MultiSelect],
     templateUrl: './searching.html',
     styleUrl: './searching.css',
 })
@@ -215,7 +223,12 @@ export class Searching {
         });
     }
 
-    onCategoryChange() {}
+    onCategoryChange(array: any) {
+        this.filterRequest.update((prev) => ({
+            ...prev,
+            categoryIds: array,
+        }));
+    }
 
     onTagChange() {}
 

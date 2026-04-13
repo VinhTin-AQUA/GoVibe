@@ -32,34 +32,13 @@
                 ></lib-select-box>
 
                 <!-- Categories Multi Select -->
-
-                <!-- ================================================ -->
-                <!-- <lib-select-box
-                    label="Categories"
-                    [value]="filterRequest().categoryIds[0] ?? ''"
+                <lib-multi-select
                     [options]="categoryOptions()"
-                             (valueChange)="updateField('country', $event)"
-                ></lib-select-box> -->
-                <!-- ================================================== -->
-
-                <!-- <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2"> Danh mục </label>
-                    <div class="border border-gray-300 rounded-lg p-2 max-h-32 overflow-y-auto">
-                        @for (category of availableCategories(); track category.id) {
-                            <label
-                                class="flex items-center gap-2 py-1 cursor-pointer hover:bg-gray-50 px-2 rounded"
-                            >
-                                <input
-                                    type="checkbox"
-                                    [value]="category.id"
-                                    (change)="onCategoryChange($event)"
-                                    class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                                />
-                                <span class="text-sm text-gray-700">{{ category.name }}</span>
-                            </label>
-                        }
-                    </div>
-                </div> -->
+                    (selectedValuesChange)="onCategoryChange($event)"
+                    [selectedValues]="['6fa459ea-ee8a-3ca4-894e-db77e160355e']"
+                    [searchable]="true"
+                    label="Categories"
+                ></lib-multi-select>
 
                 <!-- Min Rating -->
                 <lib-range-slider
@@ -80,6 +59,7 @@
                     [value]="filterRequest().minViews ?? 0"
                     (valueChange)="onMinViewChange($event)"
                     label="Min views"
+                    class="mb-3"
                 ></lib-range-slider>
 
                 <!-- Status Radio -->
@@ -89,6 +69,7 @@
                     [options]="statusOptions()"
                     [modelValue]="filterRequest().status"
                     (valueChange)="updateField('status', $event)"
+                    class="mb-3"
                 ></lib-radio>
 
                 <!-- Sort By -->

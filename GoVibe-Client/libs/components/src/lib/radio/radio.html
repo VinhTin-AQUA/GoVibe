@@ -1,4 +1,4 @@
-<section class="space-y-2">
+<section class="space-y-2" [ngClass]="class">
     <h3 class="section-title">{{ label }}</h3>
     <div class="grid gap-3" [class]="'grid-cols-' + options.length">
         @for (opt of options; track $index) {
