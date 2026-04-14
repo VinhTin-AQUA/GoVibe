@@ -61,62 +61,62 @@ export class Searching {
 
     countryOptions = signal<OptionModel[]>([
         {
-            label: 'No',
+            label: 'None',
             value: null,
         },
         {
-            label: 'Việt Nam',
-            value: 'Việt Nam',
+            label: 'Vietnam',
+            value: 'vietnam',
         },
         {
-            label: 'Hoa Kỳ',
-            value: 'USA',
+            label: 'United States',
+            value: 'usa',
         },
         {
-            label: 'Nhật Bản',
-            value: 'Japan',
+            label: 'Japan',
+            value: 'japan',
         },
         {
-            label: 'Hàn Quốc',
-            value: 'Korea',
+            label: 'South Korea',
+            value: 'korea',
         },
         {
-            label: 'Trung Quốc',
-            value: 'China',
+            label: 'China',
+            value: 'china',
         },
         {
-            label: 'Anh',
-            value: 'UK',
+            label: 'United Kingdom',
+            value: 'uk',
         },
         {
-            label: 'Pháp',
-            value: 'France',
+            label: 'France',
+            value: 'france',
         },
         {
-            label: 'Đức',
-            value: 'Germany',
+            label: 'Germany',
+            value: 'germany',
         },
         {
-            label: 'Úc',
-            value: 'Australia',
+            label: 'Australia',
+            value: 'australia',
         },
         {
             label: 'Canada',
-            value: 'Canada',
+            value: 'canada',
         },
     ]);
 
     statusOptions = signal<OptionModel[]>([
         {
-            label: 'Không',
+            label: 'Default',
             value: undefined,
         },
         {
-            label: 'Hoạt động',
+            label: 'Open',
             value: 1,
         },
         {
-            label: 'Đóng cửa',
+            label: 'Close',
             value: 3,
         },
     ]);

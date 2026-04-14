@@ -1,3 +1,9 @@
-<app-main-header></app-main-header>
-<router-outlet></router-outlet>
-<app-main-footer></app-main-footer>
+<div class="flex flex-col min-h-screen">
+    <app-main-header></app-main-header>
+
+    <div class="flex-1">
+        <router-outlet></router-outlet>
+    </div>
+
+    <!-- <app-main-footer></app-main-footer> -->
+</div>

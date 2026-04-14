@@ -1,0 +1,74 @@
+@layer components {
+    /* Background */
+    .app-bg {
+        background: var(--background);
+    }
+
+    .sidebar-bg {
+        background: var(--background);
+    }
+
+    .card-bg {
+        background: var(--background);
+    }
+
+    /* Text */
+    .text-primary {
+        color: var(--foreground);
+    }
+
+    .text-secondary {
+        color: var(--white);
+    }
+
+    /* Link */
+    .text-link {
+        color: var(--blue);
+    }
+
+    .text-link-hover:hover {
+        color: var(--bright-blue);
+    }
+
+    /* Border */
+    .app-border {
+        border-color: var(--selection-inactive-bg);
+    }
+
+    /* Badge */
+    .badge-views {
+        background: rgba(36, 41, 47, 0.6);
+        color: white;
+    }
+
+    .badge-active {
+        background: var(--green);
+        color: white;
+    }
+
+    .badge-inactive {
+        background: var(--bright-black);
+        color: white;
+    }
+
+    /* Rating */
+    .text-rating {
+        color: var(--yellow);
+    }
+
+    /* Tag */
+    .tag {
+        background: var(--selection-bg);
+        color: var(--blue);
+    }
+
+    /* Button */
+    .btn-primary {
+        background: var(--blue);
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background: var(--bright-blue);
+    }
+}

@@ -1,37 +1,27 @@
-<div class="flex min-h-screen bg-gray-50">
+<div class="flex h-[calc(100vh-64px)] overflow-hidden app-bg">
     <!-- Sidebar Filter -->
-    <aside class="w-80 bg-white border-r border-gray-200 shadow-lg overflow-y-auto">
+    <aside class="w-80 h-full sidebar-bg app-border shadow-lg overflow-y-auto">
         <div class="p-6">
             <div class="flex items-center justify-between mb-6">
-                <h3 class="text-xl font-bold text-gray-800">Bộ lọc</h3>
-                <button
-                    (click)="resetFilters()"
-                    class="text-sm text-blue-600 hover:text-blue-700 font-medium transition"
-                >
-                    Đặt lại
-                </button>
+                <h3 class="text-xl font-bold text-primary">Filters</h3>
+                <lib-button (click)="resetFilters()">Reset</lib-button>
             </div>
 
             <div class="space-y-6">
-                <!-- Keyword -->
                 <lib-text-input
-                    label="Tìm kiếm"
+                    label="Search"
                     placeholder="Name or Address"
                     [value]="filterRequest().keyword ?? ''"
                     (valueChange)="updateField('keyword', $event)"
-                    class="mb-3"
                 ></lib-text-input>
 
-                <!-- Country -->
                 <lib-select-box
                     label="Country"
                     [value]="filterRequest().country ?? null"
                     [options]="countryOptions()"
                     (valueChange)="updateField('country', $event)"
-                    class="mb-3"
                 ></lib-select-box>
 
-                <!-- Categories Multi Select -->
                 <lib-multi-select
                     [options]="categoryOptions()"
                     (selectedValuesChange)="onCategoryChange($event)"
@@ -40,7 +30,6 @@
                     label="Categories"
                 ></lib-multi-select>
 
-                <!-- Min Rating -->
                 <lib-range-slider
                     [max]="5"
                     [min]="1"
@@ -48,10 +37,8 @@
                     [value]="filterRequest().minRating ?? 0"
                     (valueChange)="onRatingChange($event)"
                     label="Min rating"
-                    class="mb-3"
                 ></lib-range-slider>
 
-                <!-- Min Views -->
                 <lib-range-slider
                     [max]="5000"
                     [min]="1"
@@ -59,20 +46,16 @@
                     [value]="filterRequest().minViews ?? 0"
                     (valueChange)="onMinViewChange($event)"
                     label="Min views"
-                    class="mb-3"
                 ></lib-range-slider>
 
-                <!-- Status Radio -->
                 <lib-radio
-                    label="Trạng thái"
+                    label="Status"
                     name="status"
                     [options]="statusOptions()"
                     [modelValue]="filterRequest().status"
                     (valueChange)="updateField('status', $event)"
-                    class="mb-3"
                 ></lib-radio>
 
-                <!-- Sort By -->
                 <lib-select-box
                     label="Sort By"
                     [value]="filterRequest().sortBy ?? null"
@@ -80,7 +63,6 @@
                     (valueChange)="updateField('sortBy', $event)"
                 ></lib-select-box>
 
-                <!-- Sort Direction -->
                 <lib-radio
                     label="Sort Direction"
                     name="sort-direction"
@@ -89,51 +71,47 @@
                     (valueChange)="onSortDescChange($event)"
                 ></lib-radio>
 
-                <!-- Action Buttons -->
                 <div class="pt-4 space-y-2">
-                    <lib-button status="primary" class="w-full" (click)="applyFilters()"
-                        >Áp dụng bộ lọc</lib-button
-                    >
+                    <lib-button status="primary" class=" w-full" (click)="applyFilters()">
+                        Apply Filters
+                    </lib-button>
                 </div>
             </div>
         </div>
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 p-6">
-        <h2 class="text-2xl font-bold mb-6">Danh sách địa điểm</h2>
+    <main class="flex-1 h-full overflow-y-auto p-6">
+        <h2 class="text-2xl font-bold text-primary mb-6">Place List</h2>
 
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-3">
             @for (place of places(); track place.id) {
                 <div
-                    class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition duration-300 overflow-hidden group"
+                    class="rounded-2xl shadow-sm hover:shadow-xl transition overflow-hidden group card-bg"
                 >
                     <!-- Thumbnail -->
                     <div class="relative overflow-hidden">
                         <img
                             [src]="place.thumbnail"
-                            alt="thumbnail"
                             class="w-full h-48 object-cover group-hover:scale-105 transition duration-300"
                             loading="lazy"
                         />
 
                         <!-- Views -->
-                        <span
-                            class="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded"
-                        >
+                        <span class="absolute top-2 right-2 badge-views text-xs px-2 py-1 rounded">
                             👁 {{ place.totalViews }}
                         </span>
 
                         <!-- Status -->
                         @if (place.status === 1) {
                             <span
-                                class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded"
+                                class="absolute top-2 left-2 badge-active text-xs px-2 py-1 rounded"
                             >
                                 Active
                             </span>
                         } @else {
                             <span
-                                class="absolute top-2 left-2 bg-gray-400 text-white text-xs px-2 py-1 rounded"
+                                class="absolute top-2 left-2 badge-inactive text-xs px-2 py-1 rounded"
                             >
                                 Inactive
                             </span>
@@ -143,37 +121,35 @@
                     <!-- Content -->
                     <div class="p-4 space-y-3">
                         <h3
-                            class="text-lg font-semibold line-clamp-1 group-hover:text-blue-600 transition"
+                            class="text-lg font-semibold truncate text-primary group-hover:text-link transition"
                         >
                             {{ place.name }}
                         </h3>
 
-                        <p class="text-sm text-gray-500 line-clamp-2">📍 {{ place.address }}</p>
+                        <p class="text-sm text-secondary">📍 {{ place.address }}</p>
 
                         <div class="flex items-center gap-2">
-                            <div class="flex text-yellow-400">
+                            <div class="flex text-rating">
                                 @for (star of [1, 2, 3, 4, 5]; track star) {
                                     <span>{{ star <= place.averageRating ? '★' : '☆' }}</span>
                                 }
                             </div>
-                            <span class="text-sm text-gray-500"
-                                >({{ place.totalReviews }} reviews)</span
-                            >
+                            <span class="text-sm text-secondary">
+                                ({{ place.totalReviews }} reviews)
+                            </span>
                         </div>
 
                         <div class="flex flex-wrap gap-2">
                             @for (c of place.categories; track c.id) {
-                                <span
-                                    class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full"
-                                >
+                                <span class="text-xs px-2 py-1 rounded-full tag">
                                     {{ c.name }}
                                 </span>
                             }
                         </div>
 
-                        <div class="flex justify-between items-center pt-2 text-sm text-gray-500">
+                        <div class="flex justify-between items-center pt-2 text-sm text-secondary">
                             <span>⭐ {{ place.averageRating }}</span>
-                            <span>{{ place.totalRating }} lượt đánh giá</span>
+                            <span>{{ place.totalRating }} ratings</span>
                         </div>
                     </div>
                 </div>
@@ -186,9 +162,8 @@
             (pageChange)="onPageChange($event)"
         ></lib-pagination>
 
-        <!-- Empty state -->
         @if (!places() || places().length === 0) {
-            <div class="text-center text-gray-500 mt-10">Không có dữ liệu</div>
+            <div class="text-center text-secondary mt-10">No data available</div>
         }
     </main>
 </div>

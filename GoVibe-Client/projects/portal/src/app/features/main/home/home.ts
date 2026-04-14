@@ -6,10 +6,11 @@ import { CategoryService } from '../../../core/services/category.service';
 import { Icons } from '@icons';
 import { Router, RouterLink } from '@angular/router';
 import { MainRoutes } from '../../../core/constants/routes.constants';
+import { MainFooter } from "../components/main-footer/main-footer";
 
 @Component({
     selector: 'app-home',
-    imports: [DecimalPipe, Icons, RouterLink],
+    imports: [DecimalPipe, Icons, RouterLink, MainFooter],
     templateUrl: './home.html',
     styleUrl: './home.css',
 })
