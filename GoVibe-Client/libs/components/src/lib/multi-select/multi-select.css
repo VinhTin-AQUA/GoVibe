@@ -1,44 +1,46 @@
-/* Màu sắc sử dụng biến CSS từ JSON */
-.select-box {
-    background-color: var(--background);
-    border-color: var(--brightBlack);
-    color: var(--foreground);
-}
+@layer components {
+    /* Màu sắc sử dụng biến CSS từ JSON */
+    .select-box {
+        background-color: var(--background);
+        border-color: var(--brightBlack);
+        color: var(--foreground);
+    }
 
-.select-box:hover:not(:has(+ .disabled)) {
-    border-color: var(--blue);
-}
+    .select-box:hover:not(:has(+ .disabled)) {
+        border-color: var(--blue);
+    }
 
-.dropdown {
-    background-color: var(--background);
-    border-color: var(--brightBlack);
-    box-shadow:
-        0 4px 6px -1px rgb(0 0 0 / 0.1),
-        0 2px 4px -2px rgb(0 0 0 / 0.1);
-}
+    .dropdown {
+        background-color: var(--background);
+        border-color: var(--brightBlack);
+        box-shadow:
+            0 4px 6px -1px rgb(0 0 0 / 0.1),
+            0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
 
-.option {
-    color: var(--foreground);
-}
+    .option {
+        color: var(--foreground);
+    }
 
-.option:hover {
-    background-color: var(--selectionBackground);
-    color: var(--selectionForeground);
-}
+    .option:hover {
+        background-color: var(--selectionBackground);
+        color: var(--selectionForeground);
+    }
 
-.option.selected {
-    background-color: var(--selectionBackground);
-}
+    .option.selected {
+        background-color: var(--selectionBackground);
+    }
 
-/* Checkbox styling */
-input[type='checkbox'] {
-    accent-color: var(--blue);
-    background-color: var(--background);
-    border-color: var(--brightBlack);
-}
+    /* Checkbox styling */
+    input[type='checkbox'] {
+        accent-color: var(--blue);
+        background-color: var(--background);
+        border-color: var(--brightBlack);
+    }
 
-/* Disabled state */
-.select-box.disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+    /* Disabled state */
+    .select-box.disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
 }

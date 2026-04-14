@@ -12,10 +12,11 @@ import {
     RangeSlider,
     MultiSelect,
 } from '@components';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
     selector: 'app-searching',
-    imports: [TextInput, SelectBox, Radio, Button, Pagination, RangeSlider, MultiSelect],
+    imports: [TextInput, SelectBox, Radio, Button, Pagination, RangeSlider, MultiSelect, DecimalPipe],
     templateUrl: './searching.html',
     styleUrl: './searching.css',
 })

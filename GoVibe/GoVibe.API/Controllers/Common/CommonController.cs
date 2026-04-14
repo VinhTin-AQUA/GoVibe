@@ -105,8 +105,16 @@ namespace GoVibe.API.Controllers.Common
                 .RuleFor(x => x.Phone, f => f.Phone.PhoneNumber())
                 .RuleFor(x => x.Website, f => f.Internet.Url())
                 .RuleFor(x => x.OpeningHours, f => "08:00 - 22:00")
-                .RuleFor(x => x.TotalRating, f => f.Random.Int(100, 10000))
-                .RuleFor(x => x.TotalReviews, f => f.Random.Int(100, 10000))
+                .RuleFor(x => x.TotalReviews, f => f.Random.Int(100, 1000))
+                .RuleFor(x => x.TotalRating, (f, x) =>
+                {
+                    int total = 0;
+                    for (int i = 0; i < x.TotalReviews; i++)
+                    {
+                        total += f.Random.Int(1, 5); 
+                    }
+                    return total;
+                })
                 .RuleFor(x => x.TotalViews, f => f.Random.Int(100, 10000))
                 .RuleFor(x => x.Status, f => EPlaceStatus.Open)
                 .RuleFor(x => x.CreatedAt, f => f.Date.Between(

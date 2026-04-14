@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
     Component,
     computed,
@@ -12,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'lib-multi-select',
-    imports: [FormsModule],
+    imports: [FormsModule, CommonModule],
     templateUrl: './multi-select.html',
     styleUrl: './multi-select.css',
 })
@@ -29,6 +30,7 @@ export class MultiSelect {
     @Input() searchable: boolean = false;
     @Input() showBadge: boolean = true;
     @Input() disabled: boolean = false;
+    @Input() class: string = '';
 
     open = signal(false);
     searchTerm = signal('');

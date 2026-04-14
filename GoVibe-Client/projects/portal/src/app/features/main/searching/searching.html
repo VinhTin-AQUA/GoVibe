@@ -4,7 +4,7 @@
         <div class="p-6">
             <div class="flex items-center justify-between mb-6">
                 <h3 class="text-xl font-bold text-primary">Filters</h3>
-                <lib-button (click)="resetFilters()">Reset</lib-button>
+                <lib-button status="warning" (click)="resetFilters()">Reset</lib-button>
             </div>
 
             <div class="space-y-6">
@@ -13,6 +13,7 @@
                     placeholder="Name or Address"
                     [value]="filterRequest().keyword ?? ''"
                     (valueChange)="updateField('keyword', $event)"
+                    class="mb-3 text-sm"
                 ></lib-text-input>
 
                 <lib-select-box
@@ -20,6 +21,7 @@
                     [value]="filterRequest().country ?? null"
                     [options]="countryOptions()"
                     (valueChange)="updateField('country', $event)"
+                    class="mb-3 text-sm"
                 ></lib-select-box>
 
                 <lib-multi-select
@@ -28,6 +30,7 @@
                     [selectedValues]="['6fa459ea-ee8a-3ca4-894e-db77e160355e']"
                     [searchable]="true"
                     label="Categories"
+                    class="mb-3 text-sm"
                 ></lib-multi-select>
 
                 <lib-range-slider
@@ -37,6 +40,7 @@
                     [value]="filterRequest().minRating ?? 0"
                     (valueChange)="onRatingChange($event)"
                     label="Min rating"
+                    class="mb-3 text-sm"
                 ></lib-range-slider>
 
                 <lib-range-slider
@@ -46,6 +50,7 @@
                     [value]="filterRequest().minViews ?? 0"
                     (valueChange)="onMinViewChange($event)"
                     label="Min views"
+                    class="mb-3 text-sm"
                 ></lib-range-slider>
 
                 <lib-radio
@@ -54,6 +59,7 @@
                     [options]="statusOptions()"
                     [modelValue]="filterRequest().status"
                     (valueChange)="updateField('status', $event)"
+                    class="mb-3 text-sm"
                 ></lib-radio>
 
                 <lib-select-box
@@ -69,6 +75,7 @@
                     [options]="sortDirection()"
                     [modelValue]="filterRequest().sortDesc"
                     (valueChange)="onSortDescChange($event)"
+                    class="mb-3 text-sm"
                 ></lib-radio>
 
                 <div class="pt-4 space-y-2">
@@ -148,8 +155,8 @@
                         </div>
 
                         <div class="flex justify-between items-center pt-2 text-sm text-secondary">
-                            <span>⭐ {{ place.averageRating }}</span>
-                            <span>{{ place.totalRating }} ratings</span>
+                            <span>⭐ {{ place.averageRating | number: '1.1-1'  }}</span>
+                            <span>{{ place.totalRating  }} ratings</span>
                         </div>
                     </div>
                 </div>

@@ -8,7 +8,6 @@
 	}
 
 	.input-label {
-		font-size: 16px;
 		font-weight: 500;
 		color: var(--foreground);
 	}
@@ -16,7 +15,6 @@
 	.input {
 		width: 100%;
 		padding: 10px 14px;
-		font-size: 14px;
 		border-radius: 10px;
 		border: 1px solid var(--brightWhite);
 		background: var(--background);

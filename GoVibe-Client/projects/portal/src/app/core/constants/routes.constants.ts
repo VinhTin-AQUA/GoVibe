@@ -9,7 +9,7 @@ export const MainRoutes = {
     },
     SEARCH: {
         path: 'search',
-        title: 'path',
+        title: 'Search',
     },
 } as const;
 
