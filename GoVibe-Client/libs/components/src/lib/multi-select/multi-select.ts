@@ -22,7 +22,6 @@ export class MultiSelect {
     @Input() selectedValues: any[] | null = null;
     @Output() selectedValuesChange = new EventEmitter<any[]>();
 
-    // Các input mới bổ sung
     @Input() label: string = '';
     @Input() placeholder: string = '';
     @Input() required: boolean = false;
@@ -39,7 +38,6 @@ export class MultiSelect {
     constructor(private elementRef: ElementRef) {}
 
     ngOnInit() {
-        // Xử lý giá trị mặc định
         if (this.selectedValues === null) {
             this.internalSelectedValues.set([]);
         } else {
@@ -61,9 +59,7 @@ export class MultiSelect {
     });
 
     filteredOptions = computed(() => {
-        console.log(12);
         this.searchTerm();
-
         if (!this.searchable || !this.searchTerm()) {
             return this.options;
         }

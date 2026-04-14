@@ -126,7 +126,7 @@
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-1 text-muted">
                                     <span class="text-foreground font-semibold">
-                                        {{ place.averageRating }}
+                                        {{ place.averageRating | number: '1.1-1' }}
                                     </span>
                                     <span class="text-xs">({{ place.totalReviews }})</span>
                                 </div>
@@ -161,7 +161,7 @@
 
                             <div class="flex items-center gap-2 mb-3 text-muted">
                                 <span class="text-accent font-bold">
-                                    {{ place.averageRating }}
+                                    {{ place.averageRating | number: '1.1-1' }}
                                 </span>
                                 <span>/5</span>
                             </div>
@@ -193,6 +193,13 @@
                                 {{ place.name }}
                             </h3>
 
+                            <div class="flex items-center gap-2 mb-3 text-muted">
+                                <span class="text-accent font-bold">
+                                    {{ place.averageRating | number: '1.1-1' }}
+                                </span>
+                                <span>/5</span>
+                            </div>
+
                             <button class="btn-gradient-blue w-full">Explore Now</button>
                         </div>
                     </div>
@@ -207,6 +214,7 @@
                     <h2 class="section-title">✨ Explore</h2>
                     <p class="text-sm text-muted mt-1">Find your favorite destinations</p>
                 </div>
+
                 <button (click)="navigateToSearch()" class="link-btn">View All →</button>
             </div>
 
@@ -219,6 +227,13 @@
                             <h3 class="font-bold text-lg text-foreground">
                                 {{ place.name }}
                             </h3>
+
+                            <div class="flex items-center gap-2 mb-3 text-muted">
+                                <span class="text-accent font-bold">
+                                    {{ place.averageRating | number: '1.1-1' }}
+                                </span>
+                                <span>/5</span>
+                            </div>
 
                             <button class="btn-gradient-cyan w-full">Discover Now</button>
                         </div>

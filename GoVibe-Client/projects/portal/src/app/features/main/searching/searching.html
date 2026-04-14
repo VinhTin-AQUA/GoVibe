@@ -1,176 +1,182 @@
-<div class="flex h-[calc(100vh-64px)] overflow-hidden app-bg">
-    <!-- Sidebar Filter -->
-    <aside class="w-80 h-full sidebar-bg app-border shadow-lg overflow-y-auto">
-        <div class="p-6">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-xl font-bold text-primary">Filters</h3>
-                <lib-button status="warning" (click)="resetFilters()">Reset</lib-button>
-            </div>
+@if (initialized()) {
+    <div class="flex h-[calc(100vh-64px)] overflow-hidden app-bg">
+        <!-- Sidebar Filter -->
+        <aside class="w-80 h-full sidebar-bg app-border shadow-lg overflow-y-auto">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-bold text-primary">Filters</h3>
+                    <lib-button status="warning" (click)="resetFilters()">Reset</lib-button>
+                </div>
 
-            <div class="space-y-6">
-                <lib-text-input
-                    label="Search"
-                    placeholder="Name or Address"
-                    [value]="filterRequest().keyword ?? ''"
-                    (valueChange)="updateField('keyword', $event)"
-                    class="mb-3 text-sm"
-                ></lib-text-input>
+                <div class="space-y-6">
+                    <lib-text-input
+                        label="Search"
+                        placeholder="Name or Address"
+                        [value]="filterRequest().keyword ?? ''"
+                        (valueChange)="updateField('keyword', $event)"
+                        class="mb-3 text-sm"
+                    ></lib-text-input>
 
-                <lib-select-box
-                    label="Country"
-                    [value]="filterRequest().country ?? null"
-                    [options]="countryOptions()"
-                    (valueChange)="updateField('country', $event)"
-                    class="mb-3 text-sm"
-                ></lib-select-box>
+                    <lib-select-box
+                        label="Country"
+                        [value]="filterRequest().country ?? null"
+                        [options]="countryOptions()"
+                        (valueChange)="updateField('country', $event)"
+                        class="mb-3 text-sm"
+                    ></lib-select-box>
 
-                <lib-multi-select
-                    [options]="categoryOptions()"
-                    (selectedValuesChange)="onCategoryChange($event)"
-                    [selectedValues]="['6fa459ea-ee8a-3ca4-894e-db77e160355e']"
-                    [searchable]="true"
-                    label="Categories"
-                    class="mb-3 text-sm"
-                ></lib-multi-select>
+                    <lib-multi-select
+                        [options]="categoryOptions()"
+                        (selectedValuesChange)="onCategoryChange($event)"
+                        [selectedValues]="this.filterRequest().categoryIds ?? []"
+                        [searchable]="true"
+                        label="Categories"
+                        class="mb-3 text-sm"
+                    ></lib-multi-select>
 
-                <lib-range-slider
-                    [max]="5"
-                    [min]="1"
-                    [step]="1"
-                    [value]="filterRequest().minRating ?? 0"
-                    (valueChange)="onRatingChange($event)"
-                    label="Min rating"
-                    class="mb-3 text-sm"
-                ></lib-range-slider>
+                    <lib-range-slider
+                        [max]="5"
+                        [min]="1"
+                        [step]="1"
+                        [value]="filterRequest().minRating ?? 0"
+                        (valueChange)="onRatingChange($event)"
+                        label="Min rating"
+                        class="mb-3 text-sm"
+                    ></lib-range-slider>
 
-                <lib-range-slider
-                    [max]="5000"
-                    [min]="1"
-                    [step]="1"
-                    [value]="filterRequest().minViews ?? 0"
-                    (valueChange)="onMinViewChange($event)"
-                    label="Min views"
-                    class="mb-3 text-sm"
-                ></lib-range-slider>
+                    <lib-range-slider
+                        [max]="5000"
+                        [min]="1"
+                        [step]="1"
+                        [value]="filterRequest().minViews ?? 0"
+                        (valueChange)="onMinViewChange($event)"
+                        label="Min views"
+                        class="mb-3 text-sm"
+                    ></lib-range-slider>
 
-                <lib-radio
-                    label="Status"
-                    name="status"
-                    [options]="statusOptions()"
-                    [modelValue]="filterRequest().status"
-                    (valueChange)="updateField('status', $event)"
-                    class="mb-3 text-sm"
-                ></lib-radio>
+                    <lib-radio
+                        label="Status"
+                        name="status"
+                        [options]="statusOptions()"
+                        [modelValue]="filterRequest().status"
+                        (valueChange)="updateField('status', $event)"
+                        class="mb-3 text-sm"
+                    ></lib-radio>
 
-                <lib-select-box
-                    label="Sort By"
-                    [value]="filterRequest().sortBy ?? null"
-                    [options]="sortByOptions()"
-                    (valueChange)="updateField('sortBy', $event)"
-                ></lib-select-box>
+                    <lib-select-box
+                        label="Sort By"
+                        [value]="filterRequest().sortBy ?? null"
+                        [options]="sortByOptions()"
+                        (valueChange)="updateField('sortBy', $event)"
+                    ></lib-select-box>
 
-                <lib-radio
-                    label="Sort Direction"
-                    name="sort-direction"
-                    [options]="sortDirection()"
-                    [modelValue]="filterRequest().sortDesc"
-                    (valueChange)="onSortDescChange($event)"
-                    class="mb-3 text-sm"
-                ></lib-radio>
+                    <lib-radio
+                        label="Sort Direction"
+                        name="sort-direction"
+                        [options]="sortDirection()"
+                        [modelValue]="filterRequest().sortDesc"
+                        (valueChange)="onSortDescChange($event)"
+                        class="mb-3 text-sm"
+                    ></lib-radio>
 
-                <div class="pt-4 space-y-2">
-                    <lib-button status="primary" class=" w-full" (click)="applyFilters()">
-                        Apply Filters
-                    </lib-button>
+                    <div class="pt-4 space-y-2">
+                        <lib-button status="primary" class="w-full" (click)="applyFilters()">
+                            Apply Filters
+                        </lib-button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </aside>
+        </aside>
 
-    <!-- Main Content -->
-    <main class="flex-1 h-full overflow-y-auto p-6">
-        <h2 class="text-2xl font-bold text-primary mb-6">Place List</h2>
+        <!-- Main Content -->
+        <main class="flex-1 h-full overflow-y-auto p-6">
+            <h2 class="text-2xl font-bold text-primary mb-6">Place List</h2>
 
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-3">
-            @for (place of places(); track place.id) {
-                <div
-                    class="rounded-2xl shadow-sm hover:shadow-xl transition overflow-hidden group card-bg"
-                >
-                    <!-- Thumbnail -->
-                    <div class="relative overflow-hidden">
-                        <img
-                            [src]="place.thumbnail"
-                            class="w-full h-48 object-cover group-hover:scale-105 transition duration-300"
-                            loading="lazy"
-                        />
+            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-3">
+                @for (place of places(); track place.id) {
+                    <div
+                        class="rounded-2xl shadow-sm hover:shadow-xl transition overflow-hidden group card-bg"
+                    >
+                        <!-- Thumbnail -->
+                        <div class="relative overflow-hidden">
+                            <img
+                                [src]="place.thumbnail"
+                                class="w-full h-48 object-cover group-hover:scale-105 transition duration-300"
+                                loading="lazy"
+                            />
 
-                        <!-- Views -->
-                        <span class="absolute top-2 right-2 badge-views text-xs px-2 py-1 rounded">
-                            👁 {{ place.totalViews }}
-                        </span>
-
-                        <!-- Status -->
-                        @if (place.status === 1) {
+                            <!-- Views -->
                             <span
-                                class="absolute top-2 left-2 badge-active text-xs px-2 py-1 rounded"
+                                class="absolute top-2 right-2 badge-views text-xs px-2 py-1 rounded"
                             >
-                                Active
+                                👁 {{ place.totalViews }}
                             </span>
-                        } @else {
-                            <span
-                                class="absolute top-2 left-2 badge-inactive text-xs px-2 py-1 rounded"
-                            >
-                                Inactive
-                            </span>
-                        }
-                    </div>
 
-                    <!-- Content -->
-                    <div class="p-4 space-y-3">
-                        <h3
-                            class="text-lg font-semibold truncate text-primary group-hover:text-link transition"
-                        >
-                            {{ place.name }}
-                        </h3>
-
-                        <p class="text-sm text-secondary">📍 {{ place.address }}</p>
-
-                        <div class="flex items-center gap-2">
-                            <div class="flex text-rating">
-                                @for (star of [1, 2, 3, 4, 5]; track star) {
-                                    <span>{{ star <= place.averageRating ? '★' : '☆' }}</span>
-                                }
-                            </div>
-                            <span class="text-sm text-secondary">
-                                ({{ place.totalReviews }} reviews)
-                            </span>
-                        </div>
-
-                        <div class="flex flex-wrap gap-2">
-                            @for (c of place.categories; track c.id) {
-                                <span class="text-xs px-2 py-1 rounded-full tag">
-                                    {{ c.name }}
+                            <!-- Status -->
+                            @if (place.status === 1) {
+                                <span
+                                    class="absolute top-2 left-2 badge-active text-xs px-2 py-1 rounded"
+                                >
+                                    Active
+                                </span>
+                            } @else {
+                                <span
+                                    class="absolute top-2 left-2 badge-inactive text-xs px-2 py-1 rounded"
+                                >
+                                    Inactive
                                 </span>
                             }
                         </div>
 
-                        <div class="flex justify-between items-center pt-2 text-sm text-secondary">
-                            <span>⭐ {{ place.averageRating | number: '1.1-1'  }}</span>
-                            <span>{{ place.totalRating  }} ratings</span>
+                        <!-- Content -->
+                        <div class="p-4 space-y-3">
+                            <h3
+                                class="text-lg font-semibold truncate text-primary group-hover:text-link transition"
+                            >
+                                {{ place.name }}
+                            </h3>
+
+                            <p class="text-sm text-secondary">📍 {{ place.address }}</p>
+
+                            <div class="flex items-center gap-2">
+                                <div class="flex text-rating">
+                                    @for (star of [1, 2, 3, 4, 5]; track star) {
+                                        <span>{{ star <= place.averageRating ? '★' : '☆' }}</span>
+                                    }
+                                </div>
+                                <span class="text-sm text-secondary">
+                                    ({{ place.totalReviews }} reviews)
+                                </span>
+                            </div>
+
+                            <div class="flex flex-wrap gap-2">
+                                @for (c of place.categories; track c.id) {
+                                    <span class="text-xs px-2 py-1 rounded-full tag">
+                                        {{ c.name }}
+                                    </span>
+                                }
+                            </div>
+
+                            <div
+                                class="flex justify-between items-center pt-2 text-sm text-secondary"
+                            >
+                                <span>⭐ {{ place.averageRating | number: '1.1-1' }}</span>
+                                <span>{{ place.totalRating }} ratings</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
+            </div>
+
+            <lib-pagination
+                [pageIndex]="filterRequest().pageIndex ?? 1"
+                [totalPages]="totalPages"
+                (pageChange)="onPageChange($event)"
+            ></lib-pagination>
+
+            @if (!places() || places().length === 0) {
+                <div class="text-center text-secondary mt-10">No data available</div>
             }
-        </div>
-
-        <lib-pagination
-            [pageIndex]="filterRequest().pageIndex ?? 1"
-            [totalPages]="totalPages"
-            (pageChange)="onPageChange($event)"
-        ></lib-pagination>
-
-        @if (!places() || places().length === 0) {
-            <div class="text-center text-secondary mt-10">No data available</div>
-        }
-    </main>
-</div>
+        </main>
+    </div>
+}

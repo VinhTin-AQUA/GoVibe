@@ -18,7 +18,7 @@
             (click)="toggleDropdown()"
         >
             <span class="flex-1 truncate" [class.opacity-50]="!selectedLabels()">
-                {{ selectedLabels() || placeholder || 'Chọn...' }}
+                {{ selectedLabels() || placeholder || 'Select...' }}
             </span>
             <svg
                 class="w-4 h-4 transition-transform shrink-0 ml-2"
@@ -48,18 +48,18 @@
                             border-color: var(--brightBlack);
                         "
                     >
-                          <input
-                        type="text"
-                        (input)="onChangeSearchTerm($event)"
-                        placeholder="Tìm kiếm..."
-                        class="w-full p-2 text-sm border rounded-md focus:outline-none transition-colors"
-                        style="
-                            background-color: var(--background);
-                            color: var(--foreground);
-                            border-color: var(--brightBlack);
-                        "
-                        (click)="$event.stopPropagation()"
-                    />
+                        <input
+                            type="text"
+                            (input)="onChangeSearchTerm($event)"
+                            placeholder="Input name..."
+                            class="w-full p-2 text-sm border rounded-md focus:outline-none transition-colors"
+                            style="
+                                background-color: var(--background);
+                                color: var(--foreground);
+                                border-color: var(--brightBlack);
+                            "
+                            (click)="$event.stopPropagation()"
+                        />
                     </div>
                 }
 

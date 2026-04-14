@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using Bogus;
-using GoVibe.API.Models.Categories;
-using GoVibe.API.Models.Places;
-using GoVibe.API.Models.Reviews;
+using GoVibe.API.Models;
 using GoVibe.API.Services;
 using GoVibe.Domain.Entities;
 using GoVibe.Domain.Enums;
@@ -207,6 +205,27 @@ namespace GoVibe.API.Controllers.Common
             {
                 Message = "Success"
             });
+        }
+        
+        [HttpGet("country-options")]
+        public IActionResult GetCountryOptions()
+        {
+            var countryOptions = new List<Options<string, string?>>
+            {
+                new() { Label = "None", Value = null },
+                new() { Label = "Vietnam", Value = "vietnam" },
+                new() { Label = "United States", Value = "usa" },
+                new() { Label = "Japan", Value = "japan" },
+                new() { Label = "South Korea", Value = "korea" },
+                new() { Label = "China", Value = "china" },
+                new() { Label = "United Kingdom", Value = "uk" },
+                new() { Label = "France", Value = "france" },
+                new() { Label = "Germany", Value = "germany" },
+                new() { Label = "Australia", Value = "australia" },
+                new() { Label = "Canada", Value = "canada" }
+            };
+
+            return Ok(countryOptions);
         }
     }
 }

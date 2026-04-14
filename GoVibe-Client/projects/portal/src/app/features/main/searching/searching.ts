@@ -12,11 +12,24 @@ import {
     RangeSlider,
     MultiSelect,
 } from '@components';
+import { of } from 'rxjs';
+import { concatMap, take, tap } from 'rxjs/operators';
 import { DecimalPipe } from '@angular/common';
+import { CategoryService } from '../../../core/services/category.service';
+import { CommonService } from '../../../core/services/common.service';
 
 @Component({
     selector: 'app-searching',
-    imports: [TextInput, SelectBox, Radio, Button, Pagination, RangeSlider, MultiSelect, DecimalPipe],
+    imports: [
+        TextInput,
+        SelectBox,
+        Radio,
+        Button,
+        Pagination,
+        RangeSlider,
+        MultiSelect,
+        DecimalPipe,
+    ],
     templateUrl: './searching.html',
     styleUrl: './searching.css',
 })
@@ -37,75 +50,9 @@ export class Searching {
     });
     totalPages = 0;
 
-    categoryOptions = signal<OptionModel[]>([
-        {
-            label: 'Du lịch',
-            value: '550e8400-e29b-41d4-a716-446655440000',
-        },
-        {
-            label: 'Ẩm thực',
-            value: '1c6f3f2e-8c6d-4d12-9bfa-2c7a9f8b1234',
-        },
-        {
-            label: 'Công nghệ',
-            value: '9a7b6c5d-1234-4fgh-8abc-1234567890ab',
-        },
-        {
-            label: 'Giáo dục',
-            value: '3f2504e0-4f89-41d3-9a0c-0305e82c3301',
-        },
-        {
-            label: 'Thể thao',
-            value: '6fa459ea-ee8a-3ca4-894e-db77e160355e',
-        },
-    ]);
+    categoryOptions = signal<OptionModel[]>([]);
 
-    countryOptions = signal<OptionModel[]>([
-        {
-            label: 'None',
-            value: null,
-        },
-        {
-            label: 'Vietnam',
-            value: 'vietnam',
-        },
-        {
-            label: 'United States',
-            value: 'usa',
-        },
-        {
-            label: 'Japan',
-            value: 'japan',
-        },
-        {
-            label: 'South Korea',
-            value: 'korea',
-        },
-        {
-            label: 'China',
-            value: 'china',
-        },
-        {
-            label: 'United Kingdom',
-            value: 'uk',
-        },
-        {
-            label: 'France',
-            value: 'france',
-        },
-        {
-            label: 'Germany',
-            value: 'germany',
-        },
-        {
-            label: 'Australia',
-            value: 'australia',
-        },
-        {
-            label: 'Canada',
-            value: 'canada',
-        },
-    ]);
+    countryOptions = signal<OptionModel[]>([]);
 
     statusOptions = signal<OptionModel[]>([
         {
@@ -155,23 +102,42 @@ export class Searching {
             value: 'desc',
         },
     ]);
+    initialized = signal<boolean>(false);
 
     constructor(
         private placeService: PlaceService,
+        private categoryService: CategoryService,
         private activatedRoute: ActivatedRoute,
+        private commonService: CommonService,
     ) {}
 
     ngOnInit() {
-        this.activatedRoute.queryParams.subscribe((params) => {
-            const categoryId = params['category'];
-            if (categoryId) {
-                this.filterRequest.update((x) => {
-                    return { ...x, categoryIds: [categoryId] };
-                });
-            }
+        this.categoryService
+            .getOptions()
+            .pipe(
+                tap((x) => this.categoryOptions.set(x.item)),
 
-            this.getPlaces();
-        });
+                concatMap(() => this.commonService.getContryOptions()),
+                tap((x) => this.countryOptions.set(x.item)),
+
+                concatMap(() => this.activatedRoute.queryParams.pipe(take(1))),
+                tap((params) => {
+                    const categoryId = params['category'];
+                    if (categoryId) {
+
+                        this.filterRequest.update((x) => ({
+                            ...x,
+                            categoryIds: [categoryId],
+                        }));
+                    }
+                }),
+            )
+            .subscribe({
+                next: () => {
+                    this.getPlaces();
+                },
+                error: (err) => console.error(err),
+            });
     }
 
     getPlaces() {
@@ -182,6 +148,7 @@ export class Searching {
                     return { ...x, pageIndex: res.item.pageIndex };
                 });
                 this.totalPages = res.item.totalPage;
+                this.initialized.set(true)
             },
             error: (err) => {},
         });
@@ -250,7 +217,7 @@ export class Searching {
     }
 
     applyFilters() {
-        // this.getPlaces();
+        this.getPlaces();
         console.log(this.filterRequest());
     }
 }
