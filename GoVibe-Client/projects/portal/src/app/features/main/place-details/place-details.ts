@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TextViewHtml } from '@components';
@@ -6,7 +7,7 @@ import { PlaceDetails as PlaceDetailsModel } from '@govibecore';
 
 @Component({
     selector: 'app-place-details',
-    imports: [TextViewHtml],
+    imports: [TextViewHtml, DatePipe],
     templateUrl: './place-details.html',
     styleUrl: './place-details.css',
 })
@@ -28,14 +29,10 @@ export class PlaceDetails {
         totalReviews: 0,
         status: 0,
         updatedAt: new Date(),
-        category: {
-            id: '',
-            name: '',
-            description: '',
-            updatedAt: new Date(),
-        },
+        categories: [],
         images: [],
         reviews: [],
+        tags: []
     });
 
     constructor(private activatedRoute: ActivatedRoute) {}
@@ -44,7 +41,7 @@ export class PlaceDetails {
         this.activatedRoute.params.subscribe({
             next: (params: any) => {
                 console.log(params); //{id}
-                this.getDetails(params.id)
+                this.getDetails(params.id);
             },
         });
     }
@@ -55,8 +52,17 @@ export class PlaceDetails {
             next: (res) => {
                 this.placeDetails.set(res.item);
                 console.log(this.placeDetails());
-                
             },
         });
+    }
+
+    openGallery(index: number) {
+        // Implement gallery modal logic here
+        console.log('Open gallery at index:', index);
+    }
+
+    openReviewImage(imageUrl: string) {
+        // Implement image preview logic here
+        console.log('Open review image:', imageUrl);
     }
 }

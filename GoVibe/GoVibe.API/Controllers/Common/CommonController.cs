@@ -11,6 +11,7 @@ using GoVibe.Infrastructure.Repositories.Reviews;
 using GoVibe.Infrastructure.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.Text.Json;
 
 namespace GoVibe.API.Controllers.Common
 {
@@ -30,6 +31,7 @@ namespace GoVibe.API.Controllers.Common
         private readonly IReviewQueryRepository _reviewQueryRepository;
         private readonly GarageService _garageService;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _env;
         private readonly IMapper _mapper;
 
         public CommonController(
@@ -45,6 +47,7 @@ namespace GoVibe.API.Controllers.Common
             IReviewQueryRepository reviewQueryRepository,
             GarageService garageService,
             IUnitOfWork unitOfWork,
+            IWebHostEnvironment env,
             IMapper mapper)
         {
             _placeQueryRepository = placeQueryRepository;
@@ -59,6 +62,7 @@ namespace GoVibe.API.Controllers.Common
             _reviewQueryRepository = reviewQueryRepository;
             _garageService = garageService;
             _unitOfWork = unitOfWork;
+            _env = env;
             _mapper = mapper;
         }
 
@@ -67,7 +71,10 @@ namespace GoVibe.API.Controllers.Common
         {
             Random random = new();
 
-            var faker = new Faker("vi");
+            //var faker = new Faker("vi");
+
+            #region category
+
             var categoryFaker = new Faker<Category>()
                 .RuleFor(x => x.Name, f => f.Commerce.Categories(1)[0] + "_" + f.UniqueIndex)
                 .RuleFor(x => x.Description, f => f.Lorem.Sentence())
@@ -90,6 +97,14 @@ namespace GoVibe.API.Controllers.Common
             }
             await _categoryCommandRepository.SaveChangesAsync();
 
+            #endregion
+
+            #region place
+
+            var placeDescriptionSamplePath = Path.Combine(_env.ContentRootPath, "Uploads", "SampleData", "place_descriptions.json");
+            var json = System.IO.File.ReadAllText(placeDescriptionSamplePath);
+            var placeDescriptions = JsonSerializer.Deserialize<List<PlaceSeed>>(json);
+
             var tagsPool = new[]
             {
                 "food", "coffee", "restaurant", "hotel",
@@ -98,7 +113,9 @@ namespace GoVibe.API.Controllers.Common
 
             var placeFaker = new Faker<Place>()
                 .RuleFor(x => x.Name, f => f.Company.CompanyName())
-                .RuleFor(x => x.Description, f => f.Lorem.Paragraph())
+                .RuleFor(x => x.Description, f =>
+                    f.PickRandom(placeDescriptions).Description
+                )
                 .RuleFor(x => x.Address, f => f.Address.FullAddress())
                 .RuleFor(x => x.Country, f => f.Address.Country())
                 .RuleFor(x => x.Phone, f => f.Phone.PhoneNumber())
@@ -110,7 +127,7 @@ namespace GoVibe.API.Controllers.Common
                     int total = 0;
                     for (int i = 0; i < x.TotalReviews; i++)
                     {
-                        total += f.Random.Int(1, 5); 
+                        total += f.Random.Int(1, 5);
                     }
                     return total;
                 })
@@ -136,6 +153,10 @@ namespace GoVibe.API.Controllers.Common
             }
             await _placeCommandRepository.SaveChangesAsync();
 
+            #endregion
+
+            #region placeCategory
+
             var dateFaker = new Faker();
             foreach (var placeId in placeIds)
             {
@@ -152,9 +173,13 @@ namespace GoVibe.API.Controllers.Common
                     UpdatedAt = randomDate,
                 };
 
-               await _placeCategoryCommandRepository.AddAsync(placeCategory);
+                await _placeCategoryCommandRepository.AddAsync(placeCategory);
             }
             await _placeCategoryCommandRepository.SaveChangesAsync();
+
+            #endregion
+
+            #region Review
 
             var reviewFaker = new Faker<Review>()
                 .RuleFor(x => x.PlaceId, f => f.PickRandom(placeIds))
@@ -175,6 +200,39 @@ namespace GoVibe.API.Controllers.Common
                 await _reviewCommandRepository.AddAsync(review);
             }
             await _reviewCommandRepository.SaveChangesAsync();
+
+            #endregion
+
+
+            // review image
+
+            #region place image
+
+            var placeImages = new List<PlaceImage>();
+            int width = 1200;
+            int height = 800;
+
+            foreach (var placeId in placeIds)
+            {
+                int imageCount = random.Next(3, 6); // 3 → 5
+
+                for (int i = 0; i < imageCount; i++)
+                {
+                    int seed = random.Next(1, 1000000);
+
+                    string url = $"https://picsum.photos/seed/{seed}/{width}/{height}";
+
+                    placeImages.Add(new PlaceImage
+                    {
+                        PlaceId = placeId,
+                        ImageUrl = url
+                    });
+                }
+            }
+            await _placeImageCommandRepository.AddRangeAsync(placeImages);
+            await _placeImageCommandRepository.SaveChangesAsync();
+
+            #endregion
 
             return Ok(new
             {
@@ -201,6 +259,9 @@ namespace GoVibe.API.Controllers.Common
             await _categoryCommandRepository.DeleteRangeAsync(allCates);
             await _categoryCommandRepository.SaveChangesAsync();
 
+            var placeImages = await _placeImageQueryRepository.GetAllAsync();
+            await _placeImageCommandRepository.DeleteRangeAsync(placeImages);
+            await _placeImageCommandRepository.SaveChangesAsync();
 
             return Ok(new
             {
@@ -231,5 +292,10 @@ namespace GoVibe.API.Controllers.Common
                 Item = countryOptions
             });
         }
+    }
+
+    public class PlaceSeed
+    {
+        public string Description { get; set; } = "";
     }
 }

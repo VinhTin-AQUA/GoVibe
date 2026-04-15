@@ -36,9 +36,10 @@ export interface PlaceDetails {
     totalReviews: number;
     status: number;
     updatedAt: Date;
-    category: CategoryModel;
+    categories: CategoryModel[];
     images: PlaceImage[];
     reviews: Review[];
+    tags: string[],
 }
 
 export interface ReviewImage {

@@ -7,11 +7,11 @@ namespace GoVibe.API.Controllers.Places
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PlacesControllerr : ControllerBaseApi
+    public class PlacesController : ControllerBaseApi
     {
         private readonly PlaceService _placeService;
 
-        public PlacesControllerr(PlaceService placeService)
+        public PlacesController(PlaceService placeService)
         {
             _placeService = placeService;
         }
