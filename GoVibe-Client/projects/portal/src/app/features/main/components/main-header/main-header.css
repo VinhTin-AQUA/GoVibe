@@ -28,7 +28,7 @@
 
     background: linear-gradient(to right, var(--blue), var(--magenta));
 
-    transition: transform 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .group:hover .logo-box {

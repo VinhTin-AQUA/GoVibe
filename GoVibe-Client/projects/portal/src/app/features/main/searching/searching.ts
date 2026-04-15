@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { OptionModel, PlaceModel } from '@govibecore';
 import { PlaceSearchRequest } from '../../../core/models/home.mode';
 import { PlaceService } from '../../../core/services/place.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
     TextInput,
     SelectBox,
@@ -12,11 +12,11 @@ import {
     RangeSlider,
     MultiSelect,
 } from '@components';
-import { of } from 'rxjs';
 import { concatMap, take, tap } from 'rxjs/operators';
 import { DecimalPipe } from '@angular/common';
 import { CategoryService } from '../../../core/services/category.service';
 import { CommonService } from '../../../core/services/common.service';
+import { MainRoutes } from '../../../core/constants/routes.constants';
 
 @Component({
     selector: 'app-searching',
@@ -109,6 +109,7 @@ export class Searching {
         private categoryService: CategoryService,
         private activatedRoute: ActivatedRoute,
         private commonService: CommonService,
+        private router: Router,
     ) {}
 
     ngOnInit() {
@@ -124,7 +125,6 @@ export class Searching {
                 tap((params) => {
                     const categoryId = params['category'];
                     if (categoryId) {
-
                         this.filterRequest.update((x) => ({
                             ...x,
                             categoryIds: [categoryId],
@@ -148,7 +148,7 @@ export class Searching {
                     return { ...x, pageIndex: res.item.pageIndex };
                 });
                 this.totalPages = res.item.totalPage;
-                this.initialized.set(true)
+                this.initialized.set(true);
             },
             error: (err) => {},
         });
@@ -219,5 +219,9 @@ export class Searching {
     applyFilters() {
         this.getPlaces();
         console.log(this.filterRequest());
+    }
+
+    navigateToDetails(id: string) {
+        this.router.navigateByUrl(`${MainRoutes.MAIN.path}/${MainRoutes.PLACE_DETAILS.path}/${id}`);
     }
 }

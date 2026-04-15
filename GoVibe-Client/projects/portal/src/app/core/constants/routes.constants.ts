@@ -11,6 +11,10 @@ export const MainRoutes = {
         path: 'search',
         title: 'Search',
     },
+    PLACE_DETAILS: {
+        path: 'place-details',
+        title: 'Place Details',
+    },
 } as const;
 
 export const AuthRoutes = {

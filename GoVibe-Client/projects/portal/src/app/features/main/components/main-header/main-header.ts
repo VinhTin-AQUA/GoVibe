@@ -34,7 +34,7 @@ export class MainHeader {
     menuItems = [
         { label: 'Home', link: '/', icon: '🏠' },
         { label: 'Contact', link: '/contact', icon: '📞' },
-        { label: 'Đề xuất', link: '/suggestions', icon: '💡' },
+        { label: 'Suggestions', link: '/suggestions', icon: '💡' },
     ];
 
     isDark = computed(() => this.themeService.themeValue() === 'dark');
