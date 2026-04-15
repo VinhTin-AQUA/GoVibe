@@ -216,6 +216,58 @@
                     }
                 }
             }
+        },
+        "core-services": {
+          "projectType": "library",
+          "root": "libs/core-services",
+          "sourceRoot": "libs/core-services/src",
+          "prefix": "lib",
+          "architect": {
+            "build": {
+              "builder": "@angular/build:ng-packagr",
+              "configurations": {
+                "production": {
+                  "tsConfig": "libs/core-services/tsconfig.lib.prod.json"
+                },
+                "development": {
+                  "tsConfig": "libs/core-services/tsconfig.lib.json"
+                }
+              },
+              "defaultConfiguration": "production"
+            },
+            "test": {
+              "builder": "@angular/build:unit-test",
+              "options": {
+                "tsConfig": "libs/core-services/tsconfig.spec.json"
+              }
+            }
+          }
+        },
+        "shared": {
+          "projectType": "library",
+          "root": "libs/shared",
+          "sourceRoot": "libs/shared/src",
+          "prefix": "lib",
+          "architect": {
+            "build": {
+              "builder": "@angular/build:ng-packagr",
+              "configurations": {
+                "production": {
+                  "tsConfig": "libs/shared/tsconfig.lib.prod.json"
+                },
+                "development": {
+                  "tsConfig": "libs/shared/tsconfig.lib.json"
+                }
+              },
+              "defaultConfiguration": "production"
+            },
+            "test": {
+              "builder": "@angular/build:unit-test",
+              "options": {
+                "tsConfig": "libs/shared/tsconfig.spec.json"
+              }
+            }
+          }
         }
     }
 }

@@ -1,11 +1,10 @@
-import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, signal } from '@angular/core';
 import { form, FormField, required } from '@angular/forms/signals';
 import { FormsModule } from '@angular/forms';
 import { PlaceFormModel } from '../../models/add-place-model';
-import { PlaceService } from '../../../../core/services/place.service';
+import { PlaceService, CategoryService } from '@core-services';
 import { TextInput, SelectBox, TextEditor, Button } from '@components';
 import { OptionModel } from '@govibecore';
-import { CategoryService } from '../../../../core/services/category.service';
 
 @Component({
     selector: 'app-upsert-place',
@@ -17,6 +16,9 @@ export class UpsertPlace {
     @Input() placeIdUpdate: string | null = null;
 
     @Output() closePopup = new EventEmitter<void>();
+
+    private placeService = inject(PlaceService);
+    private categoryService = inject(CategoryService);
 
     categories = signal<OptionModel[]>([]);
     model = signal<PlaceFormModel>({
@@ -41,10 +43,7 @@ export class UpsertPlace {
         required(x.categoryId, { message: 'CategoryId is required' });
     });
 
-    constructor(
-        private placeService: PlaceService,
-        private categoryService: CategoryService,
-    ) {}
+    constructor() {}
 
     ngOnInit() {
         if (this.placeIdUpdate) {

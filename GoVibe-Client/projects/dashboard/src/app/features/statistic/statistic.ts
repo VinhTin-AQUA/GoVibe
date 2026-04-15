@@ -1,7 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import type { EChartsCoreOption } from 'echarts/core';
 import { NgxEchartsDirective, NgxEchartsModule } from 'ngx-echarts';
-import { StatisticService } from '../../core/services/statistic.service';
+import { StatisticService } from '@core-services';
 import { EChartsOption } from 'echarts';
 import { DecimalPipe } from '@angular/common';
 import { PlaceModel } from '@govibecore';
@@ -13,6 +13,8 @@ import { PlaceModel } from '@govibecore';
     styleUrl: './statistic.css',
 })
 export class Statistic {
+    private statisticService = inject(StatisticService);
+
     options!: EChartsCoreOption;
     updateOptions!: EChartsCoreOption;
 
@@ -24,7 +26,7 @@ export class Statistic {
     topRatedPlaces = signal<PlaceModel[]>([]);
     mostViewedPlaces = signal<PlaceModel[]>([]);
 
-    constructor(private statisticService: StatisticService) {}
+    constructor() {}
 
     ngOnInit(): void {
         const query = {

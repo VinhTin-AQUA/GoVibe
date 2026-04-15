@@ -1,15 +1,14 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment.development';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { ApiResponse } from '../common/api-response';
-import { PlaceModel, PlaceDetails } from '@govibecore';
-import { PaginationModel } from '../common/pagination.model';
+import { PlaceModel, PlaceDetails, CORE_API_URL } from '@govibecore';
+import { PaginationModel, ApiResponse, GetHomeModel, PlaceSearchRequest } from '@shared';
 
 @Injectable({
     providedIn: 'root',
 })
 export class PlaceService {
-    private baseUrl = `${environment.API_URL}/AdminPlaces`;
+    private apiUrl = inject(CORE_API_URL);
+    private baseUrl = `${this.apiUrl}/AdminPlaces`;
 
     constructor(private http: HttpClient) {}
 
@@ -48,5 +47,13 @@ export class PlaceService {
         return this.http.request<ApiResponse<any>>('delete', this.baseUrl, {
             body: { ids },
         });
+    }
+
+    getHome() {
+        return this.http.get<ApiResponse<GetHomeModel>>(`${this.baseUrl}/home`);
+    }
+
+    search(request: PlaceSearchRequest) {
+        return this.http.post<ApiResponse<PaginationModel<PlaceModel>>>(`${this.baseUrl}/search`, request);
     }
 }

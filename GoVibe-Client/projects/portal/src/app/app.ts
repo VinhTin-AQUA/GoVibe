@@ -1,9 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ThemeService } from './core/services/theme.service';
-import { LoadingService } from './core/services/loading.service';
 import { Loader } from '@components';
-import { Toast } from "./shared/components/toast/toast";
+import { Toast } from './shared/components/toast/toast';
+import { LoadingService, ThemeService } from '@core-services';
 
 @Component({
     selector: 'app-root',
@@ -12,14 +11,13 @@ import { Toast } from "./shared/components/toast/toast";
     styleUrl: './app.css',
 })
 export class App {
+    private themeService = inject(ThemeService);
+    public loadingService = inject(LoadingService);
     protected readonly title = signal('portal');
 
     initialized = signal<boolean>(false);
 
-    constructor(
-        private themeService: ThemeService,
-        public loadingService: LoadingService,
-    ) {}
+    constructor() {}
 
     async ngOnInit() {
         await this.themeService.init();

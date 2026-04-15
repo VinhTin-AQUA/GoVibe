@@ -1,9 +1,8 @@
 import { HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpRequest } from '@angular/common/http';
 import { catchError, finalize, Observable, throwError } from 'rxjs';
-import { LoadingService } from '../../core/services/loading.service';
+import { LoadingService, ToastService } from '@core-services';
 import { inject } from '@angular/core';
-import { ApiErrorResponse } from '../../core/common/api-error-response';
-import { ToastService } from '../../core/services/toast.service';
+import { ApiErrorResponse } from '@shared';
 
 export function loadingInterceptor(
     req: HttpRequest<unknown>,

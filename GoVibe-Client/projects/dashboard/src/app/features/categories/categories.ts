@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UpsertCategory } from './components/upsert-category/upsert-category';
-import { CategoryService } from '../../core/services/category.service';
+import { CategoryService } from '@core-services';
 import { CategoryModel } from '@govibecore';
 import { Pagination, QuestionCancelDialog, TextInput, Button } from '@components';
 
@@ -21,6 +21,8 @@ import { Pagination, QuestionCancelDialog, TextInput, Button } from '@components
     styleUrl: './categories.css',
 })
 export class Categories {
+    private categoryService = inject(CategoryService);
+
     searchString = '';
     categoryIdUpdate: string | null = null;
     showUpsertModal = signal<boolean>(false);
@@ -32,7 +34,7 @@ export class Categories {
     totalPages = 20;
     pageSize = 5;
 
-    constructor(private categoryService: CategoryService) {}
+    constructor() {}
 
     ngOnInit() {
         this.getCategories();

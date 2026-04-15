@@ -1,7 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { OptionModel, PlaceModel } from '@govibecore';
-import { PlaceSearchRequest } from '../../../core/models/home.mode';
-import { PlaceService } from '../../../core/services/place.service';
+import { PlaceSearchRequest } from '@shared';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
     TextInput,
@@ -14,8 +13,7 @@ import {
 } from '@components';
 import { concatMap, take, tap } from 'rxjs/operators';
 import { DecimalPipe } from '@angular/common';
-import { CategoryService } from '../../../core/services/category.service';
-import { CommonService } from '../../../core/services/common.service';
+import { CategoryService, CommonService, PlaceService } from '@core-services';
 import { MainRoutes } from '../../../core/constants/routes.constants';
 
 @Component({
@@ -34,6 +32,12 @@ import { MainRoutes } from '../../../core/constants/routes.constants';
     styleUrl: './searching.css',
 })
 export class Searching {
+    private placeService = inject(PlaceService);
+    private categoryService = inject(CategoryService);
+    private activatedRoute = inject(ActivatedRoute);
+    private commonService = inject(CommonService);
+    private router = inject(Router);
+
     places = signal<PlaceModel[]>([]);
     filterRequest = signal<PlaceSearchRequest>({
         keyword: undefined,
@@ -104,13 +108,7 @@ export class Searching {
     ]);
     initialized = signal<boolean>(false);
 
-    constructor(
-        private placeService: PlaceService,
-        private categoryService: CategoryService,
-        private activatedRoute: ActivatedRoute,
-        private commonService: CommonService,
-        private router: Router,
-    ) {}
+    constructor() {}
 
     ngOnInit() {
         this.categoryService

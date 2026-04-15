@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment.development';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {
     PlaceGrowth,
@@ -8,15 +7,17 @@ import {
     StatisticDateRangeQuery,
     StatisticOverview,
     StatisticSummary,
-} from '../models/statistic.model';
+    CORE_API_URL,
+} from '@govibecore';
 import { Observable } from 'rxjs';
-import { ApiResponse } from '../common/api-response';
+import { ApiResponse } from '@shared';
 
 @Injectable({
     providedIn: 'root',
 })
 export class StatisticService {
-    private baseUrl = `${environment.API_URL}/AdminStatistics`;
+    private apiUrl = inject(CORE_API_URL);
+    private baseUrl = `${this.apiUrl}/AdminStatistics`;
 
     constructor(private http: HttpClient) {}
 

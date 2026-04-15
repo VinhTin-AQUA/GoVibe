@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { ApiErrorResponse } from '../common/api-error-response';
+import { ApiErrorResponse } from '@shared';
 
 export interface ToastModel {
     id: number;

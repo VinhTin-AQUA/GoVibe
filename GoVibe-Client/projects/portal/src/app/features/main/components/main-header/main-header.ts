@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Button } from '@components';
-import { ThemeService } from '../../../../core/services/theme.service';
-import { Icons } from "@icons";
+import { ThemeService } from '@core-services';
+import { Icons } from '@icons';
 
 interface User {
     name: string;
@@ -19,7 +19,8 @@ interface User {
     styleUrl: './main-header.css',
 })
 export class MainHeader {
-    // Dữ liệu mẫu
+    private themeService = inject(ThemeService);
+
     user: User = {
         name: 'Nguyễn Văn A',
         email: 'nguyenvana@example.com',
@@ -39,8 +40,7 @@ export class MainHeader {
 
     isDark = computed(() => this.themeService.themeValue() === 'dark');
 
-    constructor(private themeService: ThemeService) {
-        // Tạo ảnh ngẫu nhiên mỗi lần load
+    constructor() {
         const randomId = Math.floor(Math.random() * 100);
         this.randomAvatar = `https://randomuser.me/api/portraits/${Math.random() > 0.5 ? 'men' : 'women'}/${randomId}.jpg`;
     }
@@ -50,7 +50,6 @@ export class MainHeader {
     }
 
     loginWithGoogle() {
-        // Giả lập đăng nhập với Google
         console.log('Đăng nhập với Google');
         this.user.isLoggedIn = true;
         this.user.name = 'Nguyễn Văn A';
@@ -74,7 +73,6 @@ export class MainHeader {
     goToProfile() {
         console.log('Đi đến trang profile');
         this.showUserMenu = false;
-        // Điều hướng đến trang profile
     }
 
     toggleTheme() {

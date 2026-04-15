@@ -1,12 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { OptionModel, PlaceModel } from '@govibecore';
-import { PlaceService } from '../../../core/services/place.service';
 import { DecimalPipe } from '@angular/common';
-import { CategoryService } from '../../../core/services/category.service';
+import { CategoryService, PlaceService } from '@core-services';
 import { Icons } from '@icons';
 import { Router, RouterLink } from '@angular/router';
 import { MainRoutes } from '../../../core/constants/routes.constants';
-import { MainFooter } from "../components/main-footer/main-footer";
+import { MainFooter } from '../components/main-footer/main-footer';
 
 @Component({
     selector: 'app-home',
@@ -15,6 +14,10 @@ import { MainFooter } from "../components/main-footer/main-footer";
     styleUrl: './home.css',
 })
 export class Home {
+    private placeService = inject(PlaceService);
+    private categoryService = inject(CategoryService);
+    private router = inject(Router);
+
     explore = signal<PlaceModel[]>([]);
     mostViewed = signal<PlaceModel[]>([]);
     recent = signal<PlaceModel[]>([]);
@@ -35,11 +38,7 @@ export class Home {
     private autoPlayInterval: any;
     mainRoutes = MainRoutes;
 
-    constructor(
-        private placeService: PlaceService,
-        private categoryService: CategoryService,
-        private router: Router,
-    ) {}
+    constructor() {}
 
     ngOnInit() {
         this.getHome();

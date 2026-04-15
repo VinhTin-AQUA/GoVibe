@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, effect, HostListener } from '@angular/core';
-import { ThemeService } from '../../../core/services/theme.service';
-import {Button} from '@components'
-import { Icons } from "@icons";
+import { Component, computed, effect, HostListener, inject } from '@angular/core';
+import { ThemeService } from '@core-services';
+import { Button } from '@components';
+import { Icons } from '@icons';
 
 @Component({
     selector: 'app-header',
@@ -11,10 +11,12 @@ import { Icons } from "@icons";
     styleUrl: './header.css',
 })
 export class Header {
+    private themeService = inject(ThemeService);
     isDark = computed(() => this.themeService.themeValue() === 'dark');
     menuOpen = false;
 
-    constructor(private themeService: ThemeService) {
+
+    constructor() {
         // effect(() => {
         //     this.isDark = this.themeService.themeValue() === 'dark';
         // });

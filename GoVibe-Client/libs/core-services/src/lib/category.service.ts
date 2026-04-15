@@ -1,16 +1,14 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment.development';
-import { CategoryModel, OptionModel } from '@govibecore';
-import { AddCategoryModel, UpdateCategoryModel } from '../models/category.model';
-import { ApiResponse } from '../common/api-response';
-import { PaginationModel } from '../common/pagination.model';
+import { inject, Injectable } from '@angular/core';
+import { CategoryModel, OptionModel, CORE_API_URL } from '@govibecore';
+import { ApiResponse, PaginationModel, AddCategoryModel, UpdateCategoryModel } from '@shared';
 
 @Injectable({
     providedIn: 'root',
 })
 export class CategoryService {
-    private baseUrl = `${environment.API_URL}/AdminCategories`;
+    private apiUrl = inject(CORE_API_URL);
+    private baseUrl = `${this.apiUrl}/AdminCategories`;
 
     constructor(private http: HttpClient) {}
 

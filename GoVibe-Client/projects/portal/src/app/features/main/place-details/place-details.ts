@@ -18,4 +18,8 @@ export class PlaceDetails {
             },
         });
     }
+
+    getDetails() {
+        
+    }
 }

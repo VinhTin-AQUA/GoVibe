@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UpsertPlace } from './components/upsert-place/upsert-place';
 import { PlaceReview } from './components/place-review/place-review';
-import { PlaceService } from '../../core/services/place.service';
+import { PlaceService } from '@core-services';
 import { Pagination, QuestionCancelDialog, Button, TextInput } from '@components';
 import { PlaceModel } from '@govibecore';
 
@@ -23,6 +23,8 @@ import { PlaceModel } from '@govibecore';
     styleUrl: './places.css',
 })
 export class Places {
+    private placeService = inject(PlaceService);
+
     searchString = '';
     showUpsertModal = signal<boolean>(false);
     showDeleteModal = signal<boolean>(false);
@@ -35,7 +37,7 @@ export class Places {
     totalPages = 20;
     pageSize = 20;
 
-    constructor(private placeService: PlaceService) {}
+    constructor() {}
 
     ngOnInit() {
         this.getPlaces();

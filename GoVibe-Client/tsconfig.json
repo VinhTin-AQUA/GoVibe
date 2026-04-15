@@ -10,8 +10,15 @@
         "paths": {
             "@components": ["./libs/components/src/public-api.ts"],
             "@icons": ["./libs/icons/src/public-api.ts"],
-            "@govibecore": ["./libs/govibecore/src/public-api.ts"]
-
+            "@govibecore": [
+              "./libs/govibecore/src/public-api.ts"
+            ],
+            "@core-services": [
+              "./libs/core-services/src/public-api.ts"
+            ],
+            "@shared": [
+              "./libs/shared/src/public-api.ts"
+            ]
         },
 
         // "paths": {
@@ -44,35 +51,47 @@
     },
     "files": [],
     "references": [
-        {
-            "path": "./projects/dashboard/tsconfig.app.json"
-        },
-        {
-            "path": "./projects/dashboard/tsconfig.spec.json"
-        },
-        {
-            "path": "./projects/portal/tsconfig.app.json"
-        },
-        {
-            "path": "./projects/portal/tsconfig.spec.json"
-        },
-        {
-            "path": "./libs/icons/tsconfig.lib.json"
-        },
-        {
-            "path": "./libs/icons/tsconfig.spec.json"
-        },
-        {
-            "path": "./libs/components/tsconfig.lib.json"
-        },
-        {
-            "path": "./libs/components/tsconfig.spec.json"
-        },
-        {
-            "path": "./libs/govibecore/tsconfig.lib.json"
-        },
-        {
-            "path": "./libs/govibecore/tsconfig.spec.json"
-        }
+      {
+        "path": "./projects/dashboard/tsconfig.app.json"
+      },
+      {
+        "path": "./projects/dashboard/tsconfig.spec.json"
+      },
+      {
+        "path": "./projects/portal/tsconfig.app.json"
+      },
+      {
+        "path": "./projects/portal/tsconfig.spec.json"
+      },
+      {
+        "path": "./libs/icons/tsconfig.lib.json"
+      },
+      {
+        "path": "./libs/icons/tsconfig.spec.json"
+      },
+      {
+        "path": "./libs/components/tsconfig.lib.json"
+      },
+      {
+        "path": "./libs/components/tsconfig.spec.json"
+      },
+      {
+        "path": "./libs/govibecore/tsconfig.lib.json"
+      },
+      {
+        "path": "./libs/govibecore/tsconfig.spec.json"
+      },
+      {
+        "path": "./libs/core-services/tsconfig.lib.json"
+      },
+      {
+        "path": "./libs/core-services/tsconfig.spec.json"
+      },
+      {
+        "path": "./libs/shared/tsconfig.lib.json"
+      },
+      {
+        "path": "./libs/shared/tsconfig.spec.json"
+      }
     ]
 }

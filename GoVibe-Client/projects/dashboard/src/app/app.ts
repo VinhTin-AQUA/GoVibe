@@ -1,11 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Sidebar } from './shared/components/sidebar/sidebar';
-import { ThemeService } from './core/services/theme.service';
-import { Header } from './shared/components/header/header';
-import { LoadingService } from './core/services/loading.service';
+import { LoadingService, ThemeService } from '@core-services';
 import { Loader } from '@components';
-import { Toast } from "./shared/components/toast/toast";
+import { Sidebar } from './shared/components/sidebar/sidebar';
+import { Header } from './shared/components/header/header';
+import { Toast } from './shared/components/toast/toast';
 
 @Component({
     selector: 'app-root',
@@ -14,13 +13,12 @@ import { Toast } from "./shared/components/toast/toast";
     styleUrl: './app.css',
 })
 export class App {
+    private themeService = inject(ThemeService);
+    public loadingService = inject(LoadingService);
     protected readonly title = signal('dashboard');
     initialized = signal<boolean>(false);
 
-    constructor(
-        private themeService: ThemeService,
-        public loadingService: LoadingService,
-    ) {}
+    constructor() {}
 
     async ngOnInit() {
         await this.themeService.init();

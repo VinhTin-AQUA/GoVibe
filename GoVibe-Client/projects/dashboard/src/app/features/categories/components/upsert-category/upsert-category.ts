@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, signal } from '@angular/core';
 import { form, FormField, required } from '@angular/forms/signals';
-import { CategoryService } from '../../../../core/services/category.service';
-import { UpdateCategoryModel } from '../../../../core/models/category.model';
+import { CategoryService } from '@core-services';
+import { UpdateCategoryModel } from '@shared';
 import { TextInput, TextArea, Button } from '@components';
 
 @Component({
@@ -16,16 +16,18 @@ export class UpsertCategory {
     @Output() closeModel = new EventEmitter<boolean>();
     @Output() reload = new EventEmitter<void>();
 
+    private categoryService = inject(CategoryService);
+
     categoryModel = signal<UpdateCategoryModel>({
         id: '',
         description: '',
         name: '',
     });
     addCategoryForm = form(this.categoryModel, (opt) => {
-        required(opt.name,{message: 'Name must be required'})
+        required(opt.name, { message: 'Name must be required' });
     });
 
-    constructor(private categoryService: CategoryService) {}
+    constructor() {}
 
     async ngOnInit() {
         if (this.categoryId) {
@@ -42,9 +44,8 @@ export class UpsertCategory {
     }
 
     saveCategory() {
-
-        if(this.addCategoryForm().valid() === false) {
-            return
+        if (this.addCategoryForm().valid() === false) {
+            return;
         }
 
         const request$ = this.categoryId
