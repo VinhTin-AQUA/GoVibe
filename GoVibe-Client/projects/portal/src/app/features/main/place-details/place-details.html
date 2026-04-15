@@ -9,59 +9,21 @@
                 </h1>
                 <div class="flex flex-wrap items-center gap-3">
                     <div class="flex items-center">
-                        <svg
-                            class="w-5 h-5 mr-1 star-filled"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                        >
-                            <path
-                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                            />
-                        </svg>
+                        <lib-icons class="w-5 h-5 mr-1 star-filled" iconName="star"></lib-icons>
                         <span class="font-semibold text-custom-foreground">{{
                             placeDetails().totalRating
                         }}</span>
                         <span class="mx-1 text-custom-secondary">·</span>
                         <span class="text-custom-secondary"
-                            >{{ placeDetails().totalReviews }} đánh giá</span
+                            >{{ placeDetails().totalReviews }} reviews</span
                         >
                     </div>
                     <div class="flex items-center text-custom-secondary">
-                        <svg
-                            class="w-5 h-5 mr-1"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                            />
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                            />
-                        </svg>
-                        <span>{{ placeDetails().totalViews }} lượt xem</span>
+                        <lib-icons class="w-5 h-5 mr-1" iconName="eye"></lib-icons>
+                        <span>{{ placeDetails().totalViews }} views</span>
                     </div>
                     <div class="flex items-center text-custom-secondary">
-                        <svg
-                            class="w-5 h-5 mr-1"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                        </svg>
+                        <lib-icons class="w-5 h-5 mr-1" iconName="clock"></lib-icons>
                         <span>{{ placeDetails().openingHours }}</span>
                     </div>
                 </div>
@@ -70,7 +32,7 @@
                 <span
                     class="px-3 py-1 bg-custom-success rounded-full text-sm font-semibold text-custom-foreground"
                 >
-                    Hoạt động
+                    Active
                 </span>
             </div>
         </div>
@@ -103,10 +65,10 @@
                     />
                     @if ($index === 2 && placeDetails().images.length > 5) {
                         <div
-                            class="absolute inset-0 bg-black bg-opacity-50 rounded-lg flex items-center justify-center cursor-pointer"
+                            class="absolute inset-0 bg-custom-primary bg-opacity-50 rounded-lg flex items-center justify-center cursor-pointer"
                             (click)="openGallery(3)"
                         >
-                            <span class="text-white text-xl font-bold"
+                            <span class="text-custom-primary text-xl font-bold"
                                 >+{{ placeDetails().images.length - 4 }}</span
                             >
                         </div>
@@ -121,7 +83,7 @@
         <div class="lg:col-span-2 space-y-8">
             <!-- Description -->
             <div class="bg-custom-surface rounded-xl shadow-sm p-6">
-                <h2 class="text-xl font-bold text-custom-foreground mb-4">Giới thiệu</h2>
+                <h2 class="text-xl font-bold text-custom-foreground mb-4">Introduction</h2>
                 <lib-text-view-html [content]="placeDetails().description"></lib-text-view-html>
             </div>
 
@@ -141,7 +103,7 @@
 
             <!-- Categories -->
             <div class="bg-custom-surface rounded-xl shadow-sm p-6">
-                <h2 class="text-xl font-bold text-custom-foreground mb-4">Danh mục</h2>
+                <h2 class="text-xl font-bold text-custom-foreground mb-4">Categories</h2>
                 <div class="space-y-4">
                     @for (category of placeDetails().categories; track $index) {
                         <div class="border-b border-custom pb-3 last:border-0">
@@ -152,7 +114,7 @@
                                 {{ category.description }}
                             </p>
                             <p class="text-custom-secondary text-xs mt-1">
-                                Cập nhật: {{ category.updatedAt | date: 'dd/MM/yyyy' }}
+                                Updated: {{ category.updatedAt | date: 'dd/MM/yyyy' }}
                             </p>
                         </div>
                     }
@@ -162,9 +124,9 @@
             <!-- Reviews -->
             <div class="bg-custom-surface rounded-xl shadow-sm p-6">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl font-bold text-custom-foreground">Đánh giá</h2>
+                    <h2 class="text-xl font-bold text-custom-foreground">Reviews</h2>
                     <button class="text-custom-primary hover:text-custom-primary-hover font-medium">
-                        Xem tất cả
+                        View all
                     </button>
                 </div>
 
@@ -180,7 +142,7 @@
                                     </div>
                                     <div>
                                         <p class="font-semibold text-custom-foreground">
-                                            Người dùng {{ review.id.slice(0, 8) }}
+                                            User {{ review.id.slice(0, 8) }}
                                         </p>
                                         <div class="flex items-center gap-1">
                                             @for (star of [1, 2, 3, 4, 5]; track $index) {
@@ -226,8 +188,8 @@
         <!-- Sidebar -->
         <div class="space-y-6">
             <!-- Contact Info -->
-            <div class="bg-custom-surface rounded-xl shadow-sm p-6 sticky top-6">
-                <h2 class="text-xl font-bold text-custom-foreground mb-4">Thông tin liên hệ</h2>
+            <div class="bg-custom-surface rounded-xl shadow-sm p-6 sticky top-12">
+                <h2 class="text-xl font-bold text-custom-foreground mb-4">Contact Information</h2>
 
                 <div class="space-y-4">
                     <div class="flex items-start gap-3">
@@ -251,7 +213,7 @@
                             />
                         </svg>
                         <div>
-                            <p class="text-sm text-custom-secondary">Địa chỉ</p>
+                            <p class="text-sm text-custom-secondary">Address</p>
                             <p class="text-custom-foreground">
                                 {{ placeDetails().address }}
                             </p>
@@ -273,7 +235,7 @@
                             />
                         </svg>
                         <div>
-                            <p class="text-sm text-custom-secondary">Điện thoại</p>
+                            <p class="text-sm text-custom-secondary">Phone</p>
                             <p class="text-custom-foreground">{{ placeDetails().phone }}</p>
                         </div>
                     </div>
@@ -319,22 +281,19 @@
                             />
                         </svg>
                         <div>
-                            <p class="text-sm text-custom-secondary">Giờ mở cửa</p>
+                            <p class="text-sm text-custom-secondary">Opening Hours</p>
                             <p class="text-custom-foreground font-semibold">
                                 {{ placeDetails().openingHours }}
                             </p>
                         </div>
-                    </div>
-
-                    <div class="pt-4 border-t border-custom">
-                        <button
-                            class="w-full bg-custom-primary hover:bg-custom-primary-hover text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
-                        >
-                            Đặt lịch hẹn
-                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<app-main-footer></app-main-footer>
+
+@if (showImageDetails()) {
+    <lib-image-carousel [images]="images" (closePopup)="closeGallery()"> </lib-image-carousel>
+}

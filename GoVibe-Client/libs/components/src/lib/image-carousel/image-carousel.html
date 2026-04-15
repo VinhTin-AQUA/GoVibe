@@ -1,0 +1,82 @@
+<div
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm animate-fadeIn"
+    (click)="onBackdropClick($event)"
+>
+    <div
+        class="relative w-full max-w-6xl h-[90vh] flex items-center justify-center "
+    >
+        <!-- CLOSE BUTTON -->
+        <button
+            (click)="close()"
+            class="absolute h-10 w-10 top-4 right-4 z-30 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-300 hover:scale-110"
+        >
+            ✕
+        </button>
+
+        <!-- BACKGROUND BLUR (theo ảnh hiện tại) -->
+        <div
+            class="absolute inset-0 bg-center bg-cover blur-2xl scale-110 opacity-40 "
+            [style.backgroundImage]="'url(' + images[currentIndex] + ')'"
+        ></div>
+
+        <!-- MAIN CONTENT -->
+        <div class="relative w-full h-full flex items-center justify-center px-16 ">
+            
+            <!-- IMAGE SLIDER -->
+            <div class="relative w-full h-full overflow-hidden flex items-center justify-center " >
+                
+                <div
+                    class="flex transition-transform duration-500 ease-in-out h-full"
+                    [style.transform]="'translateX(-' + currentIndex * 100 + '%)'"
+                >
+                    @for (image of images; track $index) {
+                        <div class="w-full shrink-0 flex items-center justify-center">
+                            <img
+                                [src]="image"
+                                class="max-w-full max-h-[80vh] object-contain rounded-xl shadow-2xl"
+                                loading="lazy"
+                            />
+                        </div>
+                    }
+                </div>
+
+            </div>
+
+            <!-- PREV BUTTON -->
+            @if (images.length > 1) {
+                <button
+                    (click)="previousImage()"
+                    class="absolute h-10 w-10 text-[0.6rem] left-4 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all hover:scale-110"
+                >
+                    ❮
+                </button>
+            }
+
+            <!-- NEXT BUTTON -->
+            @if (images.length > 1) {
+                <button
+                    (click)="nextImage()"
+                    class="absolute h-10 w-10 text-[0.6rem] right-4 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all hover:scale-110"
+                >
+                    ❯
+                </button>
+            }
+
+            <!-- DOTS -->
+            @if (images.length > 1) {
+                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+                    @for (image of images; track $index) {
+                        <button
+                            (click)="goToImage($index)"
+                            class="h-2 rounded-full transition-all duration-300"
+                            [class.bg-white]="$index === currentIndex"
+                            [class.bg-white/50]="$index !== currentIndex"
+                            [class.w-6]="$index === currentIndex"
+                            [class.w-2]="$index !== currentIndex"
+                        ></button>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

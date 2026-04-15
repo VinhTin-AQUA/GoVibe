@@ -1,13 +1,15 @@
 import { DatePipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TextViewHtml } from '@components';
+import { ImageCarousel, TextViewHtml } from '@components';
 import { PlaceService } from '@core-services';
 import { PlaceDetails as PlaceDetailsModel } from '@govibecore';
+import { MainFooter } from '../components/main-footer/main-footer';
+import { Icons } from '@icons';
 
 @Component({
     selector: 'app-place-details',
-    imports: [TextViewHtml, DatePipe],
+    imports: [TextViewHtml, DatePipe, MainFooter, Icons, ImageCarousel],
     templateUrl: './place-details.html',
     styleUrl: './place-details.css',
 })
@@ -32,15 +34,16 @@ export class PlaceDetails {
         categories: [],
         images: [],
         reviews: [],
-        tags: []
+        tags: [],
     });
+    showImageDetails = signal<boolean>(false);
+    images: string[] = [];
 
     constructor(private activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.activatedRoute.params.subscribe({
             next: (params: any) => {
-                console.log(params); //{id}
                 this.getDetails(params.id);
             },
         });
@@ -51,14 +54,18 @@ export class PlaceDetails {
         this.placeService.getById(id).subscribe({
             next: (res) => {
                 this.placeDetails.set(res.item);
-                console.log(this.placeDetails());
             },
         });
     }
 
     openGallery(index: number) {
-        // Implement gallery modal logic here
-        console.log('Open gallery at index:', index);
+        this.images = this.placeDetails().images.map((x) => x.imageUrl);
+        this.showImageDetails.set(true);
+    }
+
+    closeGallery() {
+        this.showImageDetails.set(false);
+        this.images = [];
     }
 
     openReviewImage(imageUrl: string) {

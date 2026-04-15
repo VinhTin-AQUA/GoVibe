@@ -1,33 +1,3 @@
-/* Theme variables sẽ được áp dụng dynamic thông qua class theme-light/theme-dark */
-.theme-light {
-    --background: #fdfdfd;
-    --foreground: #1f2328;
-
-    --black: #24292f;
-    --red: #cf222e;
-    --green: #116329;
-    --yellow: #9a6700;
-    --blue: #0969da;
-    --magenta: #8250df;
-    --cyan: #1b7c83;
-    --white: #6e7781;
-
-    --brightBlack: #57606a;
-    --brightRed: #a40e26;
-    --brightGreen: #1a7f37;
-    --brightYellow: #bf8700;
-    --brightBlue: #218bff;
-    --brightMagenta: #a475f9;
-    --brightCyan: #3192aa;
-    --brightWhite: #8c959f;
-
-    --cursor: #0969da;
-    --cursorAccent: #ffffff;
-
-    --selectionBackground: #0969da33;
-    --selectionForeground: #1f2328;
-    --selectionInactiveBackground: #b6c2cf;
-}
 
 /* Custom color classes sử dụng CSS variables */
 .bg-custom-primary {
@@ -85,10 +55,4 @@
 
 .star-empty {
     color: var(--selectionInactiveBackground);
-}
-
-/* Selection styles */
-::selection {
-    background-color: var(--selectionBackground);
-    color: var(--selectionForeground);
 }

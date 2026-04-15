@@ -103,7 +103,10 @@ namespace GoVibe.API.Controllers.Common
 
             var placeDescriptionSamplePath = Path.Combine(_env.ContentRootPath, "Uploads", "SampleData", "place_descriptions.json");
             var json = System.IO.File.ReadAllText(placeDescriptionSamplePath);
-            var placeDescriptions = JsonSerializer.Deserialize<List<PlaceSeed>>(json);
+            var placeDescriptions = JsonSerializer.Deserialize<List<PlaceSeed>>(json, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
 
             var tagsPool = new[]
             {

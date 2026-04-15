@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Type } from '@angular/core';
 import { NgComponentOutlet } from '@angular/common';
-import { ChartBarconComponent, ExclamationCircleIconComponent, HomeIconComponent, MenuIconComponent, MoonIconComponent, NextIconComponent, ObjectsColumnIconComponent, PrevIconComponent, SunIconComponent } from './icons.component';
+import { ChartBarconComponent, ClockIconComponent, ExclamationCircleIconComponent, EyeIconComponent, HomeIconComponent, MenuIconComponent, MoonIconComponent, NextIconComponent, ObjectsColumnIconComponent, PrevIconComponent, StarIconComponent, SunIconComponent } from './icons.component';
 
 export const ICON_REGISTRY: Record<string, Type<any>> = {
     home: HomeIconComponent,
@@ -13,6 +13,9 @@ export const ICON_REGISTRY: Record<string, Type<any>> = {
     moon: MoonIconComponent,
     prev: PrevIconComponent,
     next: NextIconComponent,
+    star: StarIconComponent,
+    eye: EyeIconComponent,
+    clock: ClockIconComponent,
 };
 
 export type IconNames =
@@ -25,6 +28,9 @@ export type IconNames =
     | 'moon'
     | 'prev'
     | 'next'
+    | 'star'
+    | 'eye'
+    | 'clock'
     | 'error';
 
 @Component({

@@ -3,6 +3,7 @@
  */
 
 export * from './lib/button/button';
+export * from './lib/image-carousel/image-carousel';
 export * from './lib/text-input/text-input';
 export * from './lib/text-view-html/text-view-html';
 export * from './lib/select-box/select-box';
