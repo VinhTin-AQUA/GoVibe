@@ -14,7 +14,7 @@ namespace GoVibe.API.Controllers.Categories
             _categoryService = categoryService;
         }
 
-        [HttpGet]
+        [HttpGet("options")]
         public async Task<IActionResult> GetOptions()
         {
             var options = await _categoryService.GetOptions();

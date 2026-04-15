@@ -42,16 +42,6 @@ namespace GoVibe.API.Controllers.Places
             });
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(string id)
-        {
-            var r = await _placeService.Get(id);
-            return Ok(new ApiResponse<object>
-            {
-                Item = r,
-            });
-        }
-
         [HttpPut]
         public async Task<IActionResult> Update([FromForm] UpdatePlaceRequest request)
         {

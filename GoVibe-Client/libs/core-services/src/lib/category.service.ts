@@ -8,39 +8,45 @@ import { ApiResponse, PaginationModel, AddCategoryModel, UpdateCategoryModel } f
 })
 export class CategoryService {
     private apiUrl = inject(CORE_API_URL);
-    private baseUrl = `${this.apiUrl}/AdminCategories`;
+    private adminBaseUrl = `${this.apiUrl}/AdminCategories`;
+    private userBaseUrl = `${this.apiUrl}/UserCategories`;
+    private baseUrl = `${this.apiUrl}/Categories`;
 
     constructor(private http: HttpClient) {}
 
+    /* ===== common ===== */
+    getOptions() {
+        return this.http.get<ApiResponse<OptionModel<string>[]>>(`${this.baseUrl}/options`);
+    }
+
+    /* ===== admin ===== */
     getCategories(searchString: string, pageIndex: number, pageSize: number) {
         return this.http.get<ApiResponse<PaginationModel<CategoryModel>>>(
-            `${this.baseUrl}?pageIndex=${pageIndex}&pageSize=${pageSize}&searchString=${searchString}`,
+            `${this.adminBaseUrl}?pageIndex=${pageIndex}&pageSize=${pageSize}&searchString=${searchString}`,
         );
     }
 
     getById(id: string) {
-        return this.http.get<ApiResponse<CategoryModel>>(`${this.baseUrl}/${id}`);
+        return this.http.get<ApiResponse<CategoryModel>>(`${this.adminBaseUrl}/${id}`);
     }
 
     createCategory(data: AddCategoryModel) {
-        return this.http.post<ApiResponse<CategoryModel>>(this.baseUrl, data);
+        return this.http.post<ApiResponse<CategoryModel>>(this.adminBaseUrl, data);
     }
 
     updateCategory(data: UpdateCategoryModel) {
-        return this.http.put<ApiResponse<CategoryModel>>(this.baseUrl, data);
+        return this.http.put<ApiResponse<CategoryModel>>(this.adminBaseUrl, data);
     }
 
     deleteMultiple(ids: string[]) {
-        return this.http.request<ApiResponse<any>>('delete', this.baseUrl, {
+        return this.http.request<ApiResponse<any>>('delete', this.adminBaseUrl, {
             body: { ids },
         });
     }
 
     deleteById(id: string) {
-        return this.http.delete<ApiResponse<CategoryModel>>(`${this.baseUrl}/${id}`);
+        return this.http.delete<ApiResponse<CategoryModel>>(`${this.adminBaseUrl}/${id}`);
     }
 
-    getOptions() {
-        return this.http.get<ApiResponse<OptionModel<string>[]>>(`${this.baseUrl}/options`);
-    }
+    /* ===== user ===== */
 }

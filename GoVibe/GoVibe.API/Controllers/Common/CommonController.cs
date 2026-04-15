@@ -10,6 +10,7 @@ using GoVibe.Infrastructure.Repositories.Places;
 using GoVibe.Infrastructure.Repositories.Reviews;
 using GoVibe.Infrastructure.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace GoVibe.API.Controllers.Common
 {
@@ -225,7 +226,10 @@ namespace GoVibe.API.Controllers.Common
                 new() { Label = "Canada", Value = "canada" }
             };
 
-            return Ok(countryOptions);
+            return Ok(new ApiResponse<object>
+            {
+                Item = countryOptions
+            });
         }
     }
 }

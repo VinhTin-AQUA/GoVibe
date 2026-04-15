@@ -117,7 +117,9 @@ export class Searching {
                 tap((x) => this.categoryOptions.set(x.item)),
 
                 concatMap(() => this.commonService.getContryOptions()),
-                tap((x) => this.countryOptions.set(x.item)),
+                tap((x) => {
+                    return this.countryOptions.set(x.item);
+                }),
 
                 concatMap(() => this.activatedRoute.queryParams.pipe(take(1))),
                 tap((params) => {
@@ -216,7 +218,6 @@ export class Searching {
 
     applyFilters() {
         this.getPlaces();
-        console.log(this.filterRequest());
     }
 
     navigateToDetails(id: string) {
