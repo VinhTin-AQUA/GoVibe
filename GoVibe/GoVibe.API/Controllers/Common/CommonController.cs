@@ -145,7 +145,13 @@ namespace GoVibe.API.Controllers.Common
                     new DateTime(2030, 12, 31)
                 ).ToUniversalTime())
                 .RuleFor(x => x.Tags, f => f.PickRandom(tagsPool, f.Random.Int(1, 5)).ToList())
-                .RuleFor(x => x.Thumbnail, f => "https://upload.wikimedia.org/wikipedia/commons/3/3f/JPEG_example_flower.jpg");
+                .RuleFor(x => x.Thumbnail, f =>
+                {
+                    int seed = random.Next(1, 1000000);
+
+                    string url = $"https://picsum.photos/seed/{seed}/{200}/{200}";
+                    return url;
+                });
 
             var placeRequests = placeFaker.Generate(500);
             var placeIds = new List<Guid>();
