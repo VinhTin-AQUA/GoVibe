@@ -1,3 +1,4 @@
+import { ReviewModel } from './review.model';
 import { CategoryModel } from './category-model';
 
 export interface PlaceModel {
@@ -38,21 +39,6 @@ export interface PlaceDetails {
     updatedAt: Date;
     categories: CategoryModel[];
     images: PlaceImage[];
-    reviews: Review[];
+    reviews: ReviewModel[];
     tags: string[],
-}
-
-export interface ReviewImage {
-    id: string;
-    reviewId: string;
-    imageUrl: string;
-}
-
-export interface Review {
-    id: string;
-    placeId: string;
-    rating: number;
-    comment: string;
-    updatedAt: Date;
-    images: ReviewImage[];
 }

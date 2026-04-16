@@ -13,6 +13,7 @@ namespace GoVibe.API.Profiles
                 .ForMember(x => x.Categories, y => y.MapFrom(z => z.PlaceCategories.Select(x => x.Category).ToList()));
 
             CreateMap<Place, PlaceDetailsModel>()
+                .ForMember(x => x.Reviews, y => y.MapFrom(z => z.Reviews.OrderByDescending(x => x.UpdatedAt).ToList()))
                 .ForMember(x => x.Categories, y => y.MapFrom(z => z.PlaceCategories.Select(x =>x.Category).ToList()));
         }
     }
