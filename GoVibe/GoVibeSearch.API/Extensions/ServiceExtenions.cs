@@ -1,5 +1,6 @@
 ﻿using Elastic.Clients.Elasticsearch;
 using Elastic.Transport;
+using GoVibeSearch.API.Configs;
 using GoVibeSearch.API.Services;
 
 namespace GoVibeSearch.API.Extensions
@@ -16,6 +17,9 @@ namespace GoVibeSearch.API.Extensions
         private static void AddServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped(typeof(IElasticService<>), typeof(ElasticService<>));
+            services.AddScoped<IPlaceSearchService, PlaceSearchService>();
+            
+            services.Configure<ElasticIndexes>(configuration.GetSection("Elasticsearch:ElasticIndexes"));
         }
 
         private static void AddElasticService(IServiceCollection services, IConfiguration configuration)

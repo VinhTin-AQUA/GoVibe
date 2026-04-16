@@ -7,6 +7,6 @@
 
     public class PlaceQueueNames
     {
-        public const string PlaceCreated = "place.created.queue";
+        public const string PlaceCreated = "place-created";
     }
 }

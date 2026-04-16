@@ -9,17 +9,18 @@ namespace GoVibeSearch.API.Services
         Task<T?> GetAsync(string id, string? index = null);
         Task<bool> DeleteAsync(string id, string? index = null);
         Task<List<T>> SearchAsync(Func<SearchRequestDescriptor<T>, SearchRequestDescriptor<T>> selector);
+        Task<List<T>> GetAllAsync();
     }
 
     public class ElasticService<T> : IElasticService<T> where T : class
     {
         private readonly ElasticsearchClient _client;
-        private readonly string _defaultIndex;
+        protected string _defaultIndex;
 
         public ElasticService(ElasticsearchClient client)
         {
             _client = client;
-            _defaultIndex = typeof(T).Name.ToLower(); // class name
+            _defaultIndex = "";
         }
 
         public async Task<bool> IndexAsync(T document, string? index = null)
@@ -65,6 +66,28 @@ namespace GoVibeSearch.API.Services
             var response = await _client.SearchAsync<T>(s =>
                 selector(s.Indices(_defaultIndex))
             );
+
+            return response.Documents.ToList();
+        }
+        
+        public async Task<List<T>> GetAllAsync()
+        {
+            var response = await _client.SearchAsync<T>(s => s
+                .Indices(_defaultIndex)
+                .Size(10000) // max default
+                .Query(q => q.MatchAll())
+            );
+
+            if (!response.IsValidResponse)
+                throw new Exception("Elastic search failed");
+
+            if (!response.IsValidResponse)
+            {
+                var error = response.ElasticsearchServerError?.Error?.Reason;
+                var debug = response.DebugInformation;
+
+                throw new Exception($"Elastic failed: {error}\n{debug}");
+            }
 
             return response.Documents.ToList();
         }

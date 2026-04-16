@@ -1,11 +1,14 @@
 ﻿using Elastic.Clients.Elasticsearch;
 using Elastic.Clients.Elasticsearch.QueryDsl;
+using GoVibeSearch.API.Configs;
 using GoVibeSearch.API.Models;
+using Microsoft.Extensions.Options;
 
 namespace GoVibeSearch.API.Services
 {
     public interface IPlaceSearchService : IElasticService<PlaceSearchModel>
     {
+        string GetIndexName();
         Task<List<PlaceSearchModel>> SearchByNameAsync(string keyword);
         Task<List<PlaceSearchModel>> SearchByAddressAsync(string address);
         Task<List<PlaceSearchModel>> SearchByCountryAsync(string country);
@@ -21,9 +24,12 @@ namespace GoVibeSearch.API.Services
 
     public class PlaceSearchService : ElasticService<PlaceSearchModel>, IPlaceSearchService
     {
-        public PlaceSearchService(ElasticsearchClient client) : base(client)
+        public PlaceSearchService(ElasticsearchClient client, IOptions<ElasticIndexes> options) : base(client)
         {
+            _defaultIndex = options.Value.PlaceSearchIndex;
         }
+        
+        public string GetIndexName() => _defaultIndex;
 
         public async Task<List<PlaceSearchModel>> SearchByNameAsync(string keyword)
         {

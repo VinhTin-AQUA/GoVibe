@@ -17,7 +17,6 @@ namespace GoVibe.API.Extensions
             services.AddScoped<StatisticService>();
             
             services.AddSingleton<GarageService>();
-            
             services.Configure<GarageConfig>(configuration.GetSection("Garage"));
 
             //services.AddSingleton<IAmazonS3>(sp =>

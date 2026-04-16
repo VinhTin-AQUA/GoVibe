@@ -53,6 +53,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;.NET Launch Settings Profile.GoVibe: https.executor&quot;: &quot;Debug&quot;,
+    &quot;.NET Launch Settings Profile.GoVibeSearch.API: https.executor&quot;: &quot;Debug&quot;,
     &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -73,7 +74,12 @@
     ]
   }
 }</component>
-  <component name="RunManager" selected=".NET Launch Settings Profile.GoVibe: https">
+  <component name="RunManager" selected="Compound.Run All">
+    <configuration name="Run All" type="CompoundRunConfigurationType">
+      <toRun name="GoVibe: https" type="LaunchSettings" />
+      <toRun name="GoVibeSearch.API: https" type="LaunchSettings" />
+      <method v="2" />
+    </configuration>
     <configuration name="ApiGateway: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/ApiGateway/ApiGateway.csproj" />
       <option name="LAUNCH_PROFILE_TFM" value="net8.0" />
@@ -314,6 +320,23 @@
         <option name="Build" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue=".NET Launch Settings Profile.ApiGateway: http" />
+      <item itemvalue=".NET Launch Settings Profile.ApiGateway: https" />
+      <item itemvalue=".NET Launch Settings Profile.GoVibe: http" />
+      <item itemvalue=".NET Launch Settings Profile.GoVibe: https" />
+      <item itemvalue=".NET Launch Settings Profile.GoVibeAuth.API: http" />
+      <item itemvalue=".NET Launch Settings Profile.GoVibeAuth.API: https" />
+      <item itemvalue=".NET Launch Settings Profile.GoVibeFavorite.API: http" />
+      <item itemvalue=".NET Launch Settings Profile.GoVibeFavorite.API: https" />
+      <item itemvalue=".NET Launch Settings Profile.GoVibeItinerary.API: http" />
+      <item itemvalue=".NET Launch Settings Profile.GoVibeItinerary.API: https" />
+      <item itemvalue=".NET Launch Settings Profile.GoVibeMetadata.API: http" />
+      <item itemvalue=".NET Launch Settings Profile.GoVibeMetadata.API: https" />
+      <item itemvalue=".NET Launch Settings Profile.GoVibeSearch.API: http" />
+      <item itemvalue=".NET Launch Settings Profile.GoVibeSearch.API: https" />
+      <item itemvalue="Compound.Run All" />
+    </list>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -351,6 +374,8 @@
       <workItem from="1776094073573" duration="603000" />
       <workItem from="1776178663042" duration="2602000" />
       <workItem from="1776264360287" duration="3321000" />
+      <workItem from="1776351387916" duration="3078000" />
+      <workItem from="1776354651837" duration="1230000" />
     </task>
     <servers />
   </component>
