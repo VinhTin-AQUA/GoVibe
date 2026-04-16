@@ -18,6 +18,9 @@
         <PackageReference Include="AWSSDK.S3" Version="4.0.19.2" />
         <PackageReference Include="Bogus" Version="35.6.5" />
         <PackageReference Include="FluentValidation" Version="12.1.1" />
+        <PackageReference Include="MassTransit" Version="9.1.0" />
+        <PackageReference Include="MassTransit.AspNetCore" Version="7.3.1" />
+        <PackageReference Include="MassTransit.RabbitMQ" Version="9.1.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.24">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -26,6 +29,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Contracts\Contracts.csproj" />
       <ProjectReference Include="..\GoVibe.Infrastructure\GoVibe.Infrastructure.csproj" />
     </ItemGroup>
 

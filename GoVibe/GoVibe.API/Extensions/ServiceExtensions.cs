@@ -2,6 +2,8 @@
 using Amazon.S3;
 using GoVibe.API.Configurations;
 using GoVibe.API.Services;
+using GoVibe.API.Services.RabbitMQ;
+using MassTransit;
 
 namespace GoVibe.API.Extensions
 {
@@ -17,7 +19,7 @@ namespace GoVibe.API.Extensions
             services.AddSingleton<GarageService>();
             
             services.Configure<GarageConfig>(configuration.GetSection("Garage"));
-            
+
             //services.AddSingleton<IAmazonS3>(sp =>
             //{
             //    var config = sp.GetRequiredService<IConfiguration>();
@@ -38,8 +40,32 @@ namespace GoVibe.API.Extensions
             //        s3Config
             //    );
             //});
-            
+
+            AddRabbitServices(services, configuration);
+            services.AddScoped<RabbitMQService>();
+
             return services;
+        }
+
+        private static void AddRabbitServices(IServiceCollection services, IConfiguration configuration)
+        {
+            var url = configuration["RabbitMQ:Url"] ?? "";
+            var userName = configuration["RabbitMQ:UserName"] ?? "";
+            var password = configuration["RabbitMQ:Password"] ?? "";
+
+            services.AddMassTransit(x =>
+            {
+                // Cấu hình sử dụng RabbitMQ
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host(url, "/", h =>
+                    {
+                        h.Username(userName);
+                        h.Password(password);
+                    });
+                });
+
+            });
         }
     }
 }
