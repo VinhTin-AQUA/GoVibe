@@ -20,7 +20,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ddba8ae6-6af0-467c-823f-aef2c114acc4" name="Changes" comment="" />
+    <list default="true" id="ddba8ae6-6af0-467c-823f-aef2c114acc4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.GoVibe/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoVibe/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contracts/Events/PlaceEvents.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Contracts/Events/PlaceEvents.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contracts/Models/CategoryModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Contracts/Models/CategoryModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoVibe.API/Controllers/Common/CommonController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibe.API/Controllers/Common/CommonController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoVibe.API/Extensions/ServiceExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibe.API/Extensions/ServiceExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoVibe.API/Services/RabbitMQ/RabbitMQService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoVibeSearch.API/Extensions/ServiceExtenions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibeSearch.API/Extensions/ServiceExtenions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoVibeSearch.API/GoVibeSearch.API.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibeSearch.API/GoVibeSearch.API.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GoVibeSearch.API/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibeSearch.API/appsettings.Development.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -376,6 +387,8 @@
       <workItem from="1776264360287" duration="3321000" />
       <workItem from="1776351387916" duration="3078000" />
       <workItem from="1776354651837" duration="1230000" />
+      <workItem from="1776528928535" duration="2266000" />
+      <workItem from="1776531215021" duration="1620000" />
     </task>
     <servers />
   </component>

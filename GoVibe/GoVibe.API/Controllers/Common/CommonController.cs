@@ -12,6 +12,11 @@ using GoVibe.Infrastructure.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Text.Json;
+using Contracts.Models;
+using Contracts.Places;
+using GoVibe.API.Messaging.RabbitMQ;
+using GoVibe.Infrastructure.Repositories.PlaceCategories;
+using Microsoft.EntityFrameworkCore;
 
 namespace GoVibe.API.Controllers.Common
 {
@@ -32,6 +37,7 @@ namespace GoVibe.API.Controllers.Common
         private readonly GarageService _garageService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
+        private readonly RabbitMQService _rabbitMqService;
         private readonly IMapper _mapper;
 
         public CommonController(
@@ -48,6 +54,7 @@ namespace GoVibe.API.Controllers.Common
             GarageService garageService,
             IUnitOfWork unitOfWork,
             IWebHostEnvironment env,
+            RabbitMQService rabbitMQService,
             IMapper mapper)
         {
             _placeQueryRepository = placeQueryRepository;
@@ -63,6 +70,7 @@ namespace GoVibe.API.Controllers.Common
             _garageService = garageService;
             _unitOfWork = unitOfWork;
             _env = env;
+            _rabbitMqService = rabbitMQService;
             _mapper = mapper;
         }
 
@@ -154,14 +162,10 @@ namespace GoVibe.API.Controllers.Common
                 });
 
             var placeRequests = placeFaker.Generate(500);
-            var placeIds = new List<Guid>();
-            foreach (var place in placeRequests)
-            {
-                await _placeCommandRepository.AddAsync(place);
-                placeIds.Add(place.Id);
-            }
+            await _placeCommandRepository.AddRangeAsync(placeRequests);
             await _placeCommandRepository.SaveChangesAsync();
-
+            var placeIds = placeRequests.Select(x => x.Id).ToList();
+            
             #endregion
 
             #region placeCategory
@@ -211,8 +215,7 @@ namespace GoVibe.API.Controllers.Common
             await _reviewCommandRepository.SaveChangesAsync();
 
             #endregion
-
-
+            
             // review image
 
             #region place image
@@ -241,6 +244,33 @@ namespace GoVibe.API.Controllers.Common
             await _placeImageCommandRepository.AddRangeAsync(placeImages);
             await _placeImageCommandRepository.SaveChangesAsync();
 
+            #endregion
+            
+            #region rabbitMQ places
+
+            foreach (var place in placeRequests)
+            {
+                var placeCategories = await _placeCategoryQueryRepository.GetAllAsync(false, q => q.Include(pc => pc.Category));
+                var categories = placeCategories.Select(x => new CategoryOfPlaceEvent
+                {
+                    Id = x.CategoryId,
+                    Name = x.Category?.Name ?? "",
+                }).ToList();
+                
+                PlaceCreatedEvent model = new()
+                {
+                    Id = place.Id,
+                    Name = place.Name,
+                    Address = place.Address,
+                    Country = place.Country,
+                    TotalViews = place.TotalViews,
+                    TotalRating = place.TotalRating,
+                    TotalReviews = place.TotalReviews,
+                    Categories = categories,
+                };
+                await _rabbitMqService.SendMessage<PlaceCreatedEvent>(model);
+            }
+            
             #endregion
 
             return Ok(new

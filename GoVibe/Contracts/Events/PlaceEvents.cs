@@ -17,6 +17,6 @@ namespace Contracts.Places
         public int TotalViews { get; set; }
         public double TotalRating { get; set; }
         public int TotalReviews { get; set; }
-        public ICollection<CategoryModel> Categories { get; set; } = [];
+        public ICollection<CategoryOfPlaceEvent> Categories { get; set; } = [];
     }
 }

@@ -1,6 +1,6 @@
 ﻿using MassTransit;
 
-namespace GoVibe.API.Services.RabbitMQ
+namespace GoVibe.API.Messaging.RabbitMQ
 {
     public class RabbitMQService
     {

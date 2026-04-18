@@ -1,5 +1,8 @@
-﻿using FluentValidation;
+﻿using Contracts.Models;
+using Contracts.Places;
+using FluentValidation;
 using GoVibe.API.Controllers.Common;
+using GoVibe.API.Messaging.RabbitMQ;
 using GoVibe.API.Models;
 using GoVibe.API.Models.Places;
 using GoVibe.API.Services;
@@ -11,12 +14,20 @@ namespace GoVibe.API.Controllers.Places
     public class AdminPlacesController : ControllerBaseApi
     {
         private readonly PlaceService _placeService;
+        private readonly CategoryService _categoryService;
+        private readonly RabbitMQService _rabbitMqService;
         private readonly AddPlaceRequestValidator _addPlaceRequestValidator;
         private readonly UpdatePlaceRequestValidator _updatePlaceRequestValidator;
 
-        public AdminPlacesController(PlaceService placeService)
+        public AdminPlacesController(
+            PlaceService placeService, 
+            CategoryService categoryService,
+            RabbitMQService rabbitMqService
+        )
         {
             _placeService = placeService;
+            _categoryService = categoryService;
+            _rabbitMqService = rabbitMqService;
             _addPlaceRequestValidator = new AddPlaceRequestValidator();
             _updatePlaceRequestValidator = new UpdatePlaceRequestValidator();
         }
@@ -26,6 +37,27 @@ namespace GoVibe.API.Controllers.Places
         {
             await _addPlaceRequestValidator.ValidateAndThrowAsync(request);
             var model = await _placeService.Add(request);
+            
+            var placeCategories = await _categoryService.GetCategoriesOfPlace(model.Id);
+            
+            var categoriesOfPlaceCreatedEvent = placeCategories.Select(x => new CategoryOfPlaceEvent
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).ToList();
+
+            PlaceCreatedEvent placeCreatedEvent = new()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Address = model.Address,
+                Country = model.Country,
+                TotalViews = model.TotalViews,
+                TotalRating = model.TotalRating,
+                TotalReviews = model.TotalReviews,
+                Categories = categoriesOfPlaceCreatedEvent,
+            };
+            await _rabbitMqService.SendMessage<PlaceCreatedEvent>(placeCreatedEvent);
             return Ok(new ApiResponse<object>
             {
                 Item = model

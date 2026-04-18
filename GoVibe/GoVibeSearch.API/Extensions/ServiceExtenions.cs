@@ -1,7 +1,11 @@
-﻿using Elastic.Clients.Elasticsearch;
+﻿using Contracts.Configs;
+using Contracts.Places;
+using Elastic.Clients.Elasticsearch;
 using Elastic.Transport;
 using GoVibeSearch.API.Configs;
+using GoVibeSearch.API.Messaging.RabbitMQ.Consumers;
 using GoVibeSearch.API.Services;
+using MassTransit;
 
 namespace GoVibeSearch.API.Extensions
 {
@@ -10,8 +14,8 @@ namespace GoVibeSearch.API.Extensions
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
             AddElasticService(services, configuration);
-
             AddServices(services, configuration);
+            AddRabbitMQ(services, configuration);
         }
 
         private static void AddServices(IServiceCollection services, IConfiguration configuration)
@@ -34,6 +38,43 @@ namespace GoVibeSearch.API.Extensions
                 .DefaultIndex(defaultIndex);
       
             services.AddSingleton<ElasticsearchClient>(new ElasticsearchClient(settings));
+        }
+
+        private static void AddRabbitMQ(IServiceCollection services, IConfiguration configuration)
+        {
+            List<(Type, string)> consumers = 
+            [
+                (typeof(PlaceCreatedConsumer), PlaceQueueNames.PlaceCreated)
+            ];
+            
+            services.AddMassTransit(x =>
+            {
+                var url = configuration["RabbitMQ:Url"] ?? "";
+                var userName = configuration["RabbitMQ:UserName"] ?? "";
+                var password = configuration["RabbitMQ:Password"] ?? "";
+
+                foreach (var (consumerType, queue) in consumers)
+                {
+                    x.AddConsumer(consumerType);
+                }
+   
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host(url, "/", h =>
+                    {
+                        h.Username(userName);
+                        h.Password(password);
+                    });
+                    
+                    foreach (var (consumerType, queue) in consumers)
+                    {
+                        cfg.ReceiveEndpoint(queue, e =>
+                        {
+                            e.ConfigureConsumer(context, consumerType);
+                        });
+                    }
+                });
+            });
         }
     }
 }

@@ -12,6 +12,7 @@ using GoVibe.Infrastructure.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using GoVibe.Infrastructure.Repositories.PlaceCategories;
 
 namespace GoVibe.API.Services
 {
@@ -390,7 +391,7 @@ namespace GoVibe.API.Services
             // 11. Map sang DTO
             var result = places.Select(p => new PlaceModel
             {
-                Id = p.Id.ToString(),
+                Id = p.Id,
                 Name = p.Name,
                 TotalViews = p.TotalViews,
                 TotalReviews = p.TotalReviews,
@@ -404,7 +405,7 @@ namespace GoVibe.API.Services
                 Categories = p.PlaceCategories
                     .Select(pc => new CategoryModel
                     {
-                        Id = pc.Category!.Id.ToString(),
+                        Id = pc.Category!.Id,
                         Name = pc.Category.Name
                     })
                     .ToList()

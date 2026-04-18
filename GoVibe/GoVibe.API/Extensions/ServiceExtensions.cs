@@ -1,8 +1,8 @@
 ﻿using Amazon;
 using Amazon.S3;
 using GoVibe.API.Configurations;
+using GoVibe.API.Messaging.RabbitMQ;
 using GoVibe.API.Services;
-using GoVibe.API.Services.RabbitMQ;
 using MassTransit;
 
 namespace GoVibe.API.Extensions

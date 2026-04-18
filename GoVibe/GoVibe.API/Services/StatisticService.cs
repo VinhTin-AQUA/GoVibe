@@ -2,6 +2,7 @@
 using GoVibe.API.Models.Places;
 using GoVibe.API.Models.Statistics;
 using GoVibe.Infrastructure.Repositories.Categories;
+using GoVibe.Infrastructure.Repositories.PlaceCategories;
 using GoVibe.Infrastructure.Repositories.PlaceImages;
 using GoVibe.Infrastructure.Repositories.Places;
 using GoVibe.Infrastructure.Repositories.ReviewImages;
@@ -147,7 +148,7 @@ namespace GoVibe.API.Services
             var topRatedPlaces = places
                 .Select(p => new PlaceModel
                 {
-                    Id = p.Id.ToString(),
+                    Id = p.Id,
                     Name = p.Name,
                     TotalReviews = p.TotalReviews,
                     TotalViews = p.TotalViews,
@@ -162,7 +163,7 @@ namespace GoVibe.API.Services
             var mostViewedPlaces = places
                 .Select(p => new PlaceModel
                 {
-                    Id = p.Id.ToString(),
+                    Id = p.Id,
                     Name = p.Name,
                     TotalViews = p.TotalViews,
                     TotalReviews = p.TotalReviews,

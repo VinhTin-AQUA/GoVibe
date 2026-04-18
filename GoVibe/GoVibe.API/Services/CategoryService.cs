@@ -4,6 +4,8 @@ using GoVibe.API.Models;
 using GoVibe.API.Models.Categories;
 using GoVibe.Domain.Entities;
 using GoVibe.Infrastructure.Repositories.Categories;
+using GoVibe.Infrastructure.Repositories.PlaceCategories;
+using Microsoft.EntityFrameworkCore;
 
 namespace GoVibe.API.Services
 {
@@ -11,14 +13,18 @@ namespace GoVibe.API.Services
     {
         private readonly ICategoryCommandRepository _categoryCommandRepository;
         private readonly ICategoryQueryRepository _categoryQueryRepository;
+        private readonly IPlaceCategoryQueryRepository _placeCategoryQueryRepository;
         private readonly IMapper _mapper;
 
-        public CategoryService(ICategoryCommandRepository categoryCommandRepository,
+        public CategoryService(
+            ICategoryCommandRepository categoryCommandRepository,
             ICategoryQueryRepository categoryQueryRepository,
+            IPlaceCategoryQueryRepository placeCategoryQueryRepository,
             IMapper mapper)
         {
             _categoryCommandRepository = categoryCommandRepository;
             _categoryQueryRepository = categoryQueryRepository;
+            _placeCategoryQueryRepository = placeCategoryQueryRepository;
             _mapper = mapper;
         }
 
@@ -101,6 +107,13 @@ namespace GoVibe.API.Services
         {
             var list = await _categoryQueryRepository.GetAllAsync();
             return _mapper.Map<List<Options<string, string>>>(list);
+        }
+        
+        public async Task<List<CategoryModel>> GetCategoriesOfPlace(Guid placeId)
+        {
+            var placeCategories = await _placeCategoryQueryRepository.GetListByPlaceIdIncludeCategory(placeId);
+            var categories = placeCategories.Select(x => x.Category).ToList();
+            return _mapper.Map<List<CategoryModel>>(categories);
         }
     }
 }

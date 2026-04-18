@@ -1,5 +1,6 @@
 using GoVibe.Infrastructure.Data;
 using GoVibe.Infrastructure.Repositories.Categories;
+using GoVibe.Infrastructure.Repositories.PlaceCategories;
 using GoVibe.Infrastructure.Repositories.PlaceImages;
 using GoVibe.Infrastructure.Repositories.Places;
 using GoVibe.Infrastructure.Repositories.ReviewImages;

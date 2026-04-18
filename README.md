@@ -165,3 +165,17 @@ ng g library components --project-root=libs/components;
 
 ng s dashboard
 ```
+
+## Rabbit MQ
+
+- command
+
+```bash
+
+# start
+./sbin/rabbitmq-server
+
+# stop
+./sbin/rabbitmqctl stop
+./sbin/rabbitmqctl shutdown
+```

@@ -6,9 +6,10 @@ namespace GoVibe.API.Models.Places
 {
     public class PlaceModel
     {
-        public string Id { get; set; } = "";
+        public Guid Id { get; set; }
         public string Name { get; set; } = "";
         public string Address { get; set; } = "";
+        public string Country { get; set; } = "";
 
         public double AverageRating { get; set; }
         public int TotalRating { get; set; }
