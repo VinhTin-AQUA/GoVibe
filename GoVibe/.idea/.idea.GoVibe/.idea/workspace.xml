@@ -40,7 +40,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/45867853171383959428d3ea24d21e06543cdc7f915dad677ef67fc04536ec/BoolQuery.g.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8056cd3f452fefb9834f05cdb275b762dd41f27b7766cd71174e78592dc495b/Monitor.CoreCLR.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/81f0124bc89535e5d3db18b6e5aca161b885431a57524c7b36c4bcf611d276e/Query.g.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9032ce4d7c32da349793e28b1a12ef25b55ef3fcffe633ae041f1bbcffe/SearchRequest.g.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/db7395f4add94e6d10e515b3e55373f2821f8323de7dc8e314d78feefacf5584/ActionMethodExecutor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e5bf585880f93fec45b3541cb934525791e2212ac01b2063a929e63af60676f/ClientConfig.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -394,7 +397,7 @@
       <workItem from="1776568375358" duration="3871000" />
       <workItem from="1776587099843" duration="447000" />
       <workItem from="1776604282266" duration="845000" />
-      <workItem from="1776605145508" duration="4130000" />
+      <workItem from="1776605145508" duration="7753000" />
     </task>
     <servers />
   </component>

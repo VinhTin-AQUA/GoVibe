@@ -1,3 +1,5 @@
 import { InjectionToken } from '@angular/core';
 
-export const CORE_API_URL = new InjectionToken<string>('CORE_API_URL');
+export const MAIN_API_URL = new InjectionToken<string>('MAIN_API_URL');
+export const SEARCHING_API_URL = new InjectionToken<string>('SEARCHING_API_URL');
+

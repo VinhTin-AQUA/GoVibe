@@ -253,26 +253,10 @@ namespace GoVibe.API.Controllers.Common
                 var placeCategories = await _placeCategoryQueryRepository.GetAllAsync(false, q => q.Include(pc => pc.Category));
                 var categories = placeCategories
                     .Where(x => x.PlaceId == place.Id)
-                    .Select(x => new CategoryOfPlaceEvent
-                    {
-                        Id = x.CategoryId,
-                        Name = x.Category?.Name ?? "",
-                    })
                     .ToList();
-                
-                PlaceCreatedEvent model = new()
-                {
-                    Id = place.Id,
-                    Name = place.Name,
-                    Address = place.Address,
-                    Country = place.Country,
-                    TotalViews = place.TotalViews,
-                    TotalRating = place.TotalRating,
-                    TotalReviews = place.TotalReviews,
-                    Categories = categories,
-                    Status = place.Status.ToString(),
-                    Tags = place.Tags,
-                };
+                place.PlaceCategories = categories;
+                var model = _mapper.Map<PlaceCreatedEvent>(place);
+
                 await _rabbitMqService.SendMessage<PlaceCreatedEvent>(model);
             }
             

@@ -48,6 +48,9 @@ namespace GoVibeSearch.API.Controllers.Common
                         Name = "Dessert"
                     }
                 },
+                AverageRating = 0,
+                Thumbnail = "",
+                UpdatedAt = DateTime.Now,
                 Status = "Open",
                 Tags = ["Wonder"]
             };

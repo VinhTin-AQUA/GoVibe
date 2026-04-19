@@ -7,7 +7,7 @@ import {
     StatisticDateRangeQuery,
     StatisticOverview,
     StatisticSummary,
-    CORE_API_URL,
+    MAIN_API_URL,
 } from '@govibecore';
 import { Observable } from 'rxjs';
 import { ApiResponse } from '@shared';
@@ -16,8 +16,9 @@ import { ApiResponse } from '@shared';
     providedIn: 'root',
 })
 export class StatisticService {
-    private apiUrl = inject(CORE_API_URL);
-    private baseUrl = `${this.apiUrl}/AdminStatistics`;
+    private mainApi = inject(MAIN_API_URL);
+
+    private baseUrl = `${this.mainApi}/AdminStatistics`;
 
     constructor(private http: HttpClient) {}
 

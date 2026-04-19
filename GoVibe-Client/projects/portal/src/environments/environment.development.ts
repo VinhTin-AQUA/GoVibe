@@ -1,3 +1,4 @@
 export const environment = {
-    API_URL: "https://localhost:7044/api"
+    MAIN_API_URL: "https://localhost:7206/main/api",
+    SEARCHING_API_URL: "https://localhost:7206/searching/api"
 };

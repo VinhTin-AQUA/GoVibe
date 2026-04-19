@@ -1,4 +1,5 @@
-﻿using Contracts.Models;
+﻿using System.Runtime.InteropServices.JavaScript;
+using Contracts.Models;
 
 namespace Contracts.Places
 {
@@ -17,7 +18,10 @@ namespace Contracts.Places
         public int TotalViews { get; set; }
         public double TotalRating { get; set; }
         public int TotalReviews { get; set; }
+        public float AverageRating { get; set; }
         public string Status { get; set; } = "";
+        public string Thumbnail { get; set; } = "";
+        public DateTime UpdatedAt { get; set; }
         public List<string>? Tags { get; set; }
         public ICollection<CategoryOfPlaceEvent> Categories { get; set; } = [];
     }

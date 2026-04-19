@@ -1,16 +1,15 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { CORE_API_URL, ReviewModel } from '@govibecore';
+import { MAIN_API_URL, ReviewModel } from '@govibecore';
 import { ApiResponse, PaginationModel } from '@shared';
 
 @Injectable({
     providedIn: 'root',
 })
 export class ReviewService {
-    private apiUrl = inject(CORE_API_URL);
-    private adminBaseUrl = `${this.apiUrl}/AdminReviews`;
-    private userBaseUrl = `${this.apiUrl}/UserReviews`;
-    private baseUrl = `${this.apiUrl}/Reviews`;
+    private mainApi = inject(MAIN_API_URL);
+
+    private commonMainApi = `${this.mainApi}/Reviews`;
 
     constructor(private http: HttpClient) {}
 
@@ -24,18 +23,18 @@ export class ReviewService {
             formData.append('Images', file);
         });
 
-        return this.http.post<ApiResponse<ReviewModel>>(`${this.baseUrl}`, formData);
+        return this.http.post<ApiResponse<ReviewModel>>(`${this.commonMainApi}`, formData);
     }
 
     getAll(pageIndex: number = 1, pageSize: number = 20) {
         const params = new HttpParams().set('pageIndex', pageIndex).set('pageSize', pageSize);
-        return this.http.get<ApiResponse<PaginationModel<ReviewModel>>>(`${this.baseUrl}`, {
+        return this.http.get<ApiResponse<PaginationModel<ReviewModel>>>(`${this.commonMainApi}`, {
             params,
         });
     }
 
     deleteReview(id: string) {
-        return this.http.delete<ApiResponse<ReviewModel>>(`${this.baseUrl}/${id}`);
+        return this.http.delete<ApiResponse<ReviewModel>>(`${this.commonMainApi}/${id}`);
     }
 
     updateReview(data: {
@@ -58,6 +57,6 @@ export class ReviewService {
             formData.append('Images', file);
         });
 
-        return this.http.put<ApiResponse<ReviewModel>>(`${this.baseUrl}`, formData);
+        return this.http.put<ApiResponse<ReviewModel>>(`${this.commonMainApi}`, formData);
     }
 }

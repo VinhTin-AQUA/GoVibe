@@ -66,7 +66,5 @@ namespace GoVibe.API.Controllers.Places
                 Item = r
             });
         }
-
-
     }
 }

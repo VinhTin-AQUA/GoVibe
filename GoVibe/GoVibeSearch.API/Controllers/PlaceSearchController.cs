@@ -34,8 +34,21 @@ namespace GoVibeSearch.API.Controllers
         public async Task<IActionResult> Search(PlaceSearchRequest request)
         {
             var all = await _placeSearchService.SearchPlacesAsync(request);
+            var totalPlaces = await _placeSearchService.CountPlacesAsync();
             
-            return Ok(new { all });
+            var r = new Pagination<PlaceSearchModel>
+            {
+                Items = all,
+                PageIndex = request.PageIndex,
+                PageSize = request.PageSize,
+                TotalCount = (int)totalPlaces,
+                TotalPage = (int)totalPlaces / request.PageSize + 1
+            };
+            
+            return Ok(new ApiResponse<object>
+            {
+                Item = r,
+            });
         }
     }
 }

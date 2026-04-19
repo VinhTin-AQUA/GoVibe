@@ -144,6 +144,7 @@ export class Searching {
         this.placeService.search(this.filterRequest()).subscribe({
             next: (res) => {
                 this.places.set(res.item.items);
+
                 this.filterRequest.update((x) => {
                     return { ...x, pageIndex: res.item.pageIndex };
                 });

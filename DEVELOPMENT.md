@@ -1,267 +1,70 @@
-# DEV
+# Devlopment
 
-## solution
+## Migration
 
-```txt
-src/
-│
-├── BuildingBlocks (shared libraries)/
-│   ├── EventBus/
-│   │   ├── RabbitMQ/
-│   │   └── Abstractions/
-│   │
-│   ├── Logging/
-│   │   └── Serilog/
-│   │
-│   ├── Common/
-│   │   ├── Extensions/
-│   │   ├── Exceptions/
-│   │   └── Middleware/
-│   │
-│   └── Contracts/
-│       ├── Events/
-│       └── DTOs/
-│
-├── Services/
-│   ├── AuthService/
-│   │   ├── Auth.API/
-│   │   ├── Auth.Application/
-│   │   ├── Auth.Domain/
-│   │   └── Auth.Infrastructure/
-│   │
-│   ├── OrderService/
-│   │   ├── Order.API/
-│   │   ├── Order.Application/
-│   │   ├── Order.Domain/
-│   │   └── Order.Infrastructure/
-│   │
-│   ├── ProductService/
-│   │   ├── Product.API/
-│   │   ├── Product.Application/
-│   │   ├── Product.Domain/
-│   │   └── Product.Infrastructure/
-│   │
-│   ├── SearchService/
-│   │   ├── Search.API/
-│   │   ├── Search.Application/
-│   │   ├── Search.Domain/
-│   │   └── Search.Infrastructure/
-│
-├── ApiGateway/
-│   └── Gateway.API/
-│
-├── BackgroundJobs/
-│   └── WorkerService/
-│
-└── docker/
-    ├── docker-compose.yml
-    └── elk/
+- get
+
+```bash
+dotnet ef migrations list --project GoVibe.Infrastructure --startup-project GoVibe.API
 ```
 
-- controller
+- Add
 
-```txt
-Controllers/
- ├── Products/
- │    ├── AdminProductsController.cs
- │    ├── UserProductsController.cs
- │    └── PublicProductsController.cs
- │
- ├── Users/
- │    ├── AdminUsersController.cs
- │    ├── UserUsersController.cs
- │    └── PublicUsersController.cs
- │
- └── Orders/
-      ├── AdminOrdersController.cs
-      ├── UserOrdersController.cs
+```bash
+dotnet ef migrations add InitialCreate --project GoVibe.Infrastructure --startup-project GoVibe.API
 ```
 
-### EventBus
+- update database
 
-- Wrapper cho RabbitMQ
+```bash
+dotnet ef database update --project GoVibe.Infrastructure --startup-project GoVibe.API
 
-```cs
-public interface IEventBus
-{
-    Task PublishAsync<T>(T @event);
-    void Subscribe<T, TH>();
-}
+dotnet ef database update 0 --project GoVibe.Infrastructure --startup-project GoVibe.API
 ```
 
-### Contracts
+- remove migration
 
-- Chứa Integration Events
-
-```cs
-public class ProductCreatedEvent
-{
-    public Guid Id { get; set; }
-    public string Name { get; set; }
-}
+```bash
+dotnet ef migrations remove --project GoVibe.Infrastructure --startup-project GoVibe.API
 ```
 
-### Common
+## Frontend
 
-- BaseEntity
-- Exception
-- Middleware
+```bash
+ng new my-workspace --no-create-application
 
-### Logging
+cd my-workspace
+ng generate application my-app
+ng generate library my-lib
 
-- Setup Serilog dùng chung
+ng g library components --project-root=libs/components;
 
-```cs
-public static class LoggingExtensions
-{
-    public static void AddCustomLogging(this WebApplicationBuilder builder)
-    {
-        builder.Host.UseSerilog(...);
-    }
-}
+ng s dashboard
 ```
 
-- Gọi hàm log trong mỗi service trực tiếp đến ELK
+## Services
 
-### Cấu trúc bên trong 1 service
+- command
 
-```txt
-OrderService/
+```bash
+# garage installed
+# postgreSQL installed
+# RabbitMQ installed
+# Elastic installed
 
-├── Order.API/
-│   ├── Controllers/
-│   ├── Middleware/
-│   ├── Program.cs
-│
-├── Order.Application/
-│   ├── Commands/
-│   ├── Queries/
-│   ├── Handlers/
-│   ├── DTOs/
-│
-├── Order.Domain/
-│   ├── Entities/
-│   ├── ValueObjects/
-│   ├── Interfaces/
-│
-├── Order.Infrastructure/
-│   ├── Persistence/
-│   ├── Repositories/
-│   ├── EventBus/
+# PostgreSQL
+sudo systemctl unmask postgresql
+sudo systemctl start postgresql
+
+# Elasticsearch
+elasticsearch-9.3.1/bin/elasticsearch
+
+# RabbitMQ 
+rabbitmq_server-3.12.14/sbin/rabbitmq-server
+./sbin/rabbitmqctl stop
+./sbin/rabbitmqctl shutdown
+# http://localhost:15672
+
+# garage
+
 ```
-
-### BackgroundJobs
-
-- Consume RabbitMQ: restart services thì không làm mất consumer
-- Gửi email
-- Sync dữ liệu
-- Cron job
-- Retry failed job
-- Search Worker
-- Notification Worker
-- Analytics Worker
-- Cấu trúc BackgroundJobs
-
-```txt
-BackgroundJobs/
-
-├── SearchWorker/
-│   ├── Worker.cs
-│   ├── EventHandlers/
-│   └── Program.cs
-│
-├── NotificationWorker/
-│   ├── EmailService.cs
-│
-└── Shared/
-```
-
-## resource
-
-- https://vietnamtourism.gov.vn/post/66450
-
-## Features
-
-### Admin:
-
-- CURD phân loại, CURD địa điểm ✅
-- Xem review từng địa điểm ✅
-- Biểu đồ thống kê:
-    - Địa điểm được đi nhiều nhất (dựa vào user_activity_log hoặc itinerary_items)
-    - Số lượt truy cập theo địa điểm (dựa vào user_activity_log với action='view')
-    - Tổng lượt truy cập toàn hệ thống
-- Xem danh sách hỗ trợ & đánh giá sản phẩm từ user (bảng app_feedback)
-- Xem danh sách hỗ trợ thêm địa điểm (bảng support_requests)
-- lý người dùng đăng nhập (CRUD users, block/unblock)
-- thông báo
-
-### Client:
-
-- Đăng nhập Google + thêm sở thích, hay đi 1 mình/nhiều người (lưu vào users.preferences)
-- Tìm kiếm:
-    - Theo tên, đánh giá
-    - Lọc theo nhóm đi cùng (cần mapping với tags hoặc custom field) -> Thêm bảng place_suitability (place_id, group_type)
-    - Lọc theo tâm trạng/hoạt động -> tags
-    - Lọc theo ngân sách (price_min, price_max)
-    - Lọc thời gian thực: "Đang mở cửa" (so sánh giờ hiện tại với opening_hours), "Còn bàn trống" (phức tạp, có thể bỏ qua MVP), "Đang có ưu đãi" (join promotions)
-- Hiển thị bản đồ (Leaflet/Google Maps + PostGIS)
-- Lưu điểm đến yêu thích (favorites)
-- Đánh giá địa điểm (reviews)
-- Lưu lịch trình (itineraries + items)
-- Hỗ trợ thêm địa điểm mới (support_requests)
-- Đánh giá phần mềm (app_feedback)
-
-### AI:
-
-- Hiển thị sự kiện (wiki) & đề xuất 1 điểm đến -> Dùng bảng events + gợi ý place ngẫu nhiên theo sở thích user
-- Gợi ý lịch trình hôm nay theo sự kiện (gợi ý event gần nhất + place liên quan)
-- Tự động lên lịch trình theo sở thích (dùng preferences + gợi ý place phù hợp)
-- Lộ trình di chuyển tối ưu: API riêng nhận danh sách place_id, tính toán thứ tự tối ưu dùng Google Distance Matrix hoặc OSRM
-
-### Vấn đề
-
-- giữa các service có mối quan hệ, ví dụ user thêm sản phẩm vào giỏ hàng => tạo service cardService
-
-- với search engine, mỗi product sẽ có các ảnh, vậy ảnh lưu ở đâu để elastic search trả về kết quả có kèm ảnh trong mỗi product
-    - với ảnh public
-        - tạo image proxy, khi backend gửi url về client thì mã hóa aes key, key này gửi về proxy giải mã để lấy key trả ảnh về client
-
-    - với ảnh private
-        - chỉ lưu key, backend gen presignedurrl
-
-    
-
-### step
-
-- theme
-- CRUD
-- giao diện home
-- giao diện search
-- login
-- profile
-- biểu đồ thống kê
-
-- api tìm kiếm
-    - sử dụng elastíc search
-- đăng nhập google
-- lưu điêm đến yêu thích
-- lưu lịch trình
-- hỗ trợ và trợ giúp thêm các địa điểm mới
-- cào dữ liệu
-- hỗ trợ và đánh giá sản phẩm
-
-## Thiết kế
-
-1. Các vai trò:
-
-- Admin - quản lý nền tảng
-- Client (Người dùng) - người dùng cuối
-- AI - tính năng thông minh (có thể là service riêng hoặc tích hợp)
-
-2. Luồng chức năng chính:
-
-- Tìm kiếm + lọc địa điểm (phức tạp, cần full-text search, geo search)
-- Bản đồ
-- Yêu thích, đánh giá, lịch trình
-- Hỗ trợ thêm địa điểm mới (crowdsourcing)
-- Gợi ý AI (sự kiện, lịch trình, tối ưu lộ trình)
