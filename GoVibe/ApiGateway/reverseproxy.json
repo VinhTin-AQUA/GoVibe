@@ -1,0 +1,48 @@
+{
+  "ReverseProxy": {
+    "Routes": {
+      "mainRoute": {
+        "ClusterId": "mainCluster",
+        "Match": {
+          "Path": "/main/{**catch-all}"
+        },
+        "Transforms": [
+          { "PathRemovePrefix": "/main" },
+          { "RequestHeaderOriginalHost": "true" }
+        ]
+      },
+      "searchingRoute": {
+        "ClusterId": "searchingCluster",
+        "Match": {
+          "Path": "/searching/{**catch-all}"
+        },
+        "Transforms": [
+          { "PathRemovePrefix": "/searching" },
+          { "RequestHeaderOriginalHost": "true" }
+        ]
+      }
+    },
+    "Clusters": {
+      "mainCluster": {
+        "HttpClient": {
+          "DangerousAcceptAnyServerCertificate": true
+        },
+        "Destinations": {
+          "d1": {
+            "Address": "https://localhost:7044/"
+          }
+        }
+      },
+      "searchingCluster": {
+        "HttpClient": {
+          "DangerousAcceptAnyServerCertificate": true
+        },
+        "Destinations": {
+          "d1": {
+            "Address": "https://localhost:7271/"
+          }
+        }
+      }
+    }
+  }
+}
