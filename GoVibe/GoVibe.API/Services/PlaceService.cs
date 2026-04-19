@@ -333,22 +333,15 @@ namespace GoVibe.API.Services
                     (p.TotalRating / p.TotalReviews) >= request.MinRating.Value));
             }
 
-            if (request.MaxRating.HasValue)
-            {
-                queries.Add(q => q.Where(p =>
-                    p.TotalReviews > 0 &&
-                    (p.TotalRating / p.TotalReviews) <= request.MaxRating.Value));
-            }
-
             // Views
             if (request.MinViews.HasValue)
             {
                 queries.Add(q => q.Where(p => p.TotalViews >= request.MinViews));
             }
 
-            if (request.MaxViews.HasValue)
+            if (request.Status.HasValue)
             {
-                queries.Add(q => q.Where(p => p.TotalViews <= request.MaxViews));
+                queries.Add(q => q.Where(p => p.Status == request.Status));
             }
 
             // Tags

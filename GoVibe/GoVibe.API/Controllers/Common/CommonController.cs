@@ -267,6 +267,8 @@ namespace GoVibe.API.Controllers.Common
                     TotalRating = place.TotalRating,
                     TotalReviews = place.TotalReviews,
                     Categories = categories,
+                    Status = place.Status.ToString(),
+                    Tags = place.Tags,
                 };
                 await _rabbitMqService.SendMessage<PlaceCreatedEvent>(model);
             }

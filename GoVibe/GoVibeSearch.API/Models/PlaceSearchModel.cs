@@ -10,6 +10,26 @@
         public int TotalViews { get; set; }
         public double TotalRating { get; set; }
         public int TotalReviews { get; set; }
+        
+        public string Status { get; set; } = "";
+        public List<string>? Tags { get; set; }
+        
         public ICollection<CategorySearchModel> Categories { get; set; } = [];
+    }
+
+    public class PlaceSearchRequest
+    {
+        public string? Keyword { get; set; }          // name + address
+        public string? Country { get; set; }
+        public List<Guid>? CategoryIds { get; set; }
+        public double? MinRating { get; set; }        // >= 1,2,3,4
+        public int? MinViews { get; set; }
+        public string Status { get; set; } = "";
+        public List<string>? Tags { get; set; }
+        public string? SortBy { get; set; }           // rating, views, newest
+        public bool SortDesc { get; set; } = true;
+
+        public int PageIndex { get; set; } = 1;
+        public int PageSize { get; set; } = 10;
     }
 }

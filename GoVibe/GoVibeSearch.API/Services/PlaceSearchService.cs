@@ -12,14 +12,11 @@ namespace GoVibeSearch.API.Services
         Task<List<PlaceSearchModel>> SearchByNameAsync(string keyword);
         Task<List<PlaceSearchModel>> SearchByAddressAsync(string address);
         Task<List<PlaceSearchModel>> SearchByCountryAsync(string country);
-
         Task<List<PlaceSearchModel>> SearchByCategoryAsync(Guid categoryId);
         Task<List<PlaceSearchModel>> SearchByCategoryNameAsync(string categoryName);
-
         Task<List<PlaceSearchModel>> SearchTopRatedAsync(int size = 10);
         Task<List<PlaceSearchModel>> SearchMostViewedAsync(int size = 10);
-
-        Task<List<PlaceSearchModel>> SearchAdvancedAsync(string? keyword, string? country, Guid? categoryId, double? minRating);
+        Task<List<PlaceSearchModel>> SearchPlacesAsync(PlaceSearchRequest filter);
     }
 
     public class PlaceSearchService : ElasticService<PlaceSearchModel>, IPlaceSearchService
@@ -127,69 +124,175 @@ namespace GoVibeSearch.API.Services
             );
         }
 
-        public async Task<List<PlaceSearchModel>> SearchAdvancedAsync(string? keyword, string? country, Guid? categoryId, double? minRating)
+        public async Task<List<PlaceSearchModel>> SearchPlacesAsync(PlaceSearchRequest filter)
         {
             return await SearchAsync(s => s
+                .From((filter.PageIndex - 1) * filter.PageSize)
+                .Size(filter.PageSize)
+                .Sort(ApplySort())
                 .Query(q => q
                     .Bool(b => b
                         .Must(BuildMust())
                         .Filter(BuildFilter())
+                        .Should(BuildShould())
+                        .MinimumShouldMatch(0) // không bắt buộc should, chỉ boost ranking
                     )
                 )
             );
 
-            // ================= MUST =================
+            // ================= MUST (SEARCH TEXT) =================
             List<Query> BuildMust()
             {
                 var list = new List<Query>();
 
-                if (!string.IsNullOrWhiteSpace(keyword))
+                if (!string.IsNullOrWhiteSpace(filter.Keyword))
                 {
-                    list.Add(new MatchQuery
+                    list.Add(new MultiMatchQuery
                     {
-                        Field = "name",
-                        Query = keyword
-                    });
-                }
-
-                if (!string.IsNullOrWhiteSpace(country))
-                {
-                    list.Add(new TermQuery
-                    {
-                        Field = "country",
-                        Value = country
-                    });
-                }
-                //Elastic.Clients.Elasticsearch.QueryDsl.NumberRangeQuery
-                if (minRating.HasValue)
-                {
-                    list.Add(new NumberRangeQuery
-                    {
-                        Field = "totalRating",
-                        Gte = minRating.Value
+                        Fields = new[] { "name", "address" },
+                        Query = filter.Keyword
                     });
                 }
 
                 return list;
             }
 
-            // ================= FILTER =================
+            // ================= FILTER (HARD CONDITIONS - AND) =================
             List<Query> BuildFilter()
             {
-                if (!categoryId.HasValue)  return [];
+                var list = new List<Query>();
 
-                return new List<Query>
+                if (!string.IsNullOrWhiteSpace(filter.Country))
                 {
-                    new NestedQuery
+                    list.Add(new TermQuery
+                    {
+                        Field = "country",
+                        Value = filter.Country
+                    });
+                }
+
+                if (!string.IsNullOrWhiteSpace(filter.Status))
+                {
+                    list.Add(new TermQuery
+                    {
+                        Field = "status",
+                        Value = filter.Status
+                    });
+                }
+
+                if (filter.MinRating.HasValue)
+                {
+                    list.Add(new NumberRangeQuery
+                    {
+                        Field = "totalRating",
+                        Gte = filter.MinRating.Value
+                    });
+                }
+
+                if (filter.MinViews.HasValue)
+                {
+                    list.Add(new NumberRangeQuery
+                    {
+                        Field = "totalViews",
+                        Gte = filter.MinViews.Value
+                    });
+                }
+
+                return list;
+            }
+
+            // ================= SHOULD (BOOST RELEVANCE - OPTIONAL) =================
+            List<Query> BuildShould()
+            {
+                var list = new List<Query>();
+
+                if (filter.Tags != null && filter.Tags.Count > 0)
+                {
+                    list.Add(new TermsQuery
+                    {
+                        Field = "tags.keyword",
+                        Terms = filter.Tags.Select(x => (FieldValue)x).ToArray()
+                    });
+                }
+
+                if (filter.CategoryIds != null && filter.CategoryIds.Count > 0)
+                {
+                    list.Add(new NestedQuery
                     {
                         Path = "categories",
-                        Query = new TermQuery
+                        Query = new TermsQuery
                         {
                             Field = "categories.id",
-                            Value = categoryId.Value.ToString()
+                            Terms = filter.CategoryIds
+                                .Select(x => (FieldValue)x.ToString())
+                                .ToArray()
                         }
-                    }
-                };
+                    });
+                }
+
+                return list;
+            }
+            
+            // ================= ApplySort =================
+            List<SortOptions> ApplySort()
+            {
+                var sort = new List<SortOptions>();
+
+                if (string.IsNullOrWhiteSpace(filter.SortBy))
+                {
+                    // default sort: newest
+                    sort.Add(new SortOptions
+                    {
+                        Field = new FieldSort
+                        {
+                            Field = "createdAt",
+                            Order = SortOrder.Desc
+                        }
+                    });
+
+                    return sort;
+                }
+
+                var order = filter.SortDesc ? SortOrder.Desc : SortOrder.Asc;
+
+                switch (filter.SortBy.ToLower())
+                {
+                    case "rating":
+                        sort.Add(new SortOptions
+                        {
+                            Field = new FieldSort
+                            {
+                                Field = "totalRating",
+                                Order = order
+                            }
+                        });
+                        break;
+
+                    case "views":
+                        sort.Add(new SortOptions
+                        {
+                            Field = new FieldSort
+                            {
+                                Field = "totalViews",
+                                Order = order
+                            }
+                        });
+                        break;
+
+                    case "newest":
+                    default:
+                        sort.Add(new SortOptions
+                        {
+                            Field = new FieldSort
+                            {
+                                Field = "createdAt",
+                                Order = SortOrder.Desc
+                            }
+                        });
+                        break;
+                }
+
+                return sort;
             }
         }
     }

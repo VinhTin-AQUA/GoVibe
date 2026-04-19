@@ -1,4 +1,5 @@
 using GoVibeSearch.API.Extensions;
+using GoVibeSearch.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.RegisterServices(builder.Configuration);
+builder.Services.AddAutoMapperProfiles();
+
+// enable cors
+builder.Services.AddCors(c =>
+{
+    c.AddPolicy("AllowOrigin", option => option
+        .WithOrigins("http://localhost:4200")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials());
+});
+
 
 var app = builder.Build();
 
@@ -21,6 +34,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowOrigin");
+
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 app.UseAuthorization();
 

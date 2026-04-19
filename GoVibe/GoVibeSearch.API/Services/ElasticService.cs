@@ -9,12 +9,15 @@ namespace GoVibeSearch.API.Services
         Task<T?> GetAsync(string id, string? index = null);
         Task<bool> DeleteAsync(string id, string? index = null);
         Task<List<T>> SearchAsync(Func<SearchRequestDescriptor<T>, SearchRequestDescriptor<T>> selector);
-        Task<List<T>> GetAllAsync();
+        Task<List<T>> GetAllAsync(CancellationToken cancellationToken = default);
+        Task<bool> DeleteAllRecordAsync();
+        Task<bool> DeleteIndexAsync();
+        Task<long> CountPlacesAsync();
     }
 
     public class ElasticService<T> : IElasticService<T> where T : class
     {
-        private readonly ElasticsearchClient _client;
+        protected readonly ElasticsearchClient _client;
         protected string _defaultIndex;
 
         public ElasticService(ElasticsearchClient client)
@@ -70,16 +73,18 @@ namespace GoVibeSearch.API.Services
             return response.Documents.ToList();
         }
         
-        public async Task<List<T>> GetAllAsync()
+        public async Task<List<T>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             var response = await _client.SearchAsync<T>(s => s
-                .Indices(_defaultIndex)
-                .Size(10000) // max default
-                .Query(q => q.MatchAll())
+                    .Indices(_defaultIndex)
+                    .Size(1000) // total record
+                    .TrackTotalHits(false)
+                    .Source(src => src
+                            .Filter(i => i.Includes("*")) // or only field
+                    )
+                    .Query(q => q.MatchAll()),
+                cancellationToken
             );
-
-            if (!response.IsValidResponse)
-                throw new Exception("Elastic search failed");
 
             if (!response.IsValidResponse)
             {
@@ -90,6 +95,30 @@ namespace GoVibeSearch.API.Services
             }
 
             return response.Documents.ToList();
+        }
+
+        public async Task<bool> DeleteAllRecordAsync()
+        {
+            var r = await _client.DeleteByQueryAsync<object>(d => d.Indices(_defaultIndex).Query(q => q.MatchAll()));
+            return r.IsSuccess();
+        }
+
+        public async Task<bool> DeleteIndexAsync()
+        {
+           var r = await _client.Indices.CreateAsync(_defaultIndex);
+           return r.IsSuccess();
+        }
+        
+        public async Task<long> CountPlacesAsync()
+        {
+            var response = await _client.CountAsync<object>(c => c
+                .Indices(_defaultIndex)
+            );
+
+            if (!response.IsValidResponse)
+                throw new Exception(response.ElasticsearchServerError?.Error?.Reason);
+
+            return response.Count;
         }
     }
 }
