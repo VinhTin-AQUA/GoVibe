@@ -20,18 +20,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ddba8ae6-6af0-467c-823f-aef2c114acc4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.GoVibe/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GoVibe/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Contracts/Events/PlaceEvents.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Contracts/Events/PlaceEvents.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Contracts/Models/CategoryModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Contracts/Models/CategoryModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoVibe.API/Controllers/Common/CommonController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibe.API/Controllers/Common/CommonController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoVibe.API/Extensions/ServiceExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibe.API/Extensions/ServiceExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoVibe.API/Services/RabbitMQ/RabbitMQService.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoVibeSearch.API/Extensions/ServiceExtenions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibeSearch.API/Extensions/ServiceExtenions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoVibeSearch.API/GoVibeSearch.API.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibeSearch.API/GoVibeSearch.API.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GoVibeSearch.API/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/GoVibeSearch.API/appsettings.Development.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
-    </list>
+    <list default="true" id="ddba8ae6-6af0-467c-823f-aef2c114acc4" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,6 +34,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8056cd3f452fefb9834f05cdb275b762dd41f27b7766cd71174e78592dc495b/Monitor.CoreCLR.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/db7395f4add94e6d10e515b3e55373f2821f8323de7dc8e314d78feefacf5584/ActionMethodExecutor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e5bf585880f93fec45b3541cb934525791e2212ac01b2063a929e63af60676f/ClientConfig.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
@@ -86,7 +76,7 @@
     ]
   }
 }</component>
-  <component name="RunManager" selected=".NET Launch Settings Profile.GoVibeSearch.API: https">
+  <component name="RunManager" selected="Compound.Run All">
     <configuration name="Run All" type="CompoundRunConfigurationType">
       <toRun name="GoVibe: https" type="LaunchSettings" />
       <toRun name="GoVibeSearch.API: https" type="LaunchSettings" />
@@ -393,6 +383,9 @@
       <workItem from="1776564719125" duration="2284000" />
       <workItem from="1776567291027" duration="810000" />
       <workItem from="1776568375358" duration="3871000" />
+      <workItem from="1776587099843" duration="447000" />
+      <workItem from="1776604282266" duration="845000" />
+      <workItem from="1776605145508" duration="1337000" />
     </task>
     <servers />
   </component>

@@ -26,8 +26,8 @@
         public int? MinViews { get; set; }
         public string Status { get; set; } = "";
         public List<string>? Tags { get; set; }
-        public string? SortBy { get; set; }           // rating, views, newest
-        public bool SortDesc { get; set; } = true;
+        public string? SortBy { get; set; }           // rating, views
+        public bool? SortDesc { get; set; } 
 
         public int PageIndex { get; set; } = 1;
         public int PageSize { get; set; } = 10;

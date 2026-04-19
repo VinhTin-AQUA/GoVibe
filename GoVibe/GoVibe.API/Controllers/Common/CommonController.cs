@@ -251,11 +251,14 @@ namespace GoVibe.API.Controllers.Common
             foreach (var place in placeRequests)
             {
                 var placeCategories = await _placeCategoryQueryRepository.GetAllAsync(false, q => q.Include(pc => pc.Category));
-                var categories = placeCategories.Select(x => new CategoryOfPlaceEvent
-                {
-                    Id = x.CategoryId,
-                    Name = x.Category?.Name ?? "",
-                }).ToList();
+                var categories = placeCategories
+                    .Where(x => x.PlaceId == place.Id)
+                    .Select(x => new CategoryOfPlaceEvent
+                    {
+                        Id = x.CategoryId,
+                        Name = x.Category?.Name ?? "",
+                    })
+                    .ToList();
                 
                 PlaceCreatedEvent model = new()
                 {

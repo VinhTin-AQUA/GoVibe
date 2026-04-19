@@ -126,7 +126,7 @@ namespace GoVibeSearch.API.Services
 
         public async Task<List<PlaceSearchModel>> SearchPlacesAsync(PlaceSearchRequest filter)
         {
-            return await SearchAsync(s => s
+            var r =  await SearchAsync(s => s
                 .From((filter.PageIndex - 1) * filter.PageSize)
                 .Size(filter.PageSize)
                 .Sort(ApplySort())
@@ -139,6 +139,8 @@ namespace GoVibeSearch.API.Services
                     )
                 )
             );
+
+            return r;
 
             // ================= MUST (SEARCH TEXT) =================
             List<Query> BuildMust()
@@ -217,16 +219,12 @@ namespace GoVibeSearch.API.Services
 
                 if (filter.CategoryIds != null && filter.CategoryIds.Count > 0)
                 {
-                    list.Add(new NestedQuery
+                    list.Add(new TermsQuery
                     {
-                        Path = "categories",
-                        Query = new TermsQuery
-                        {
-                            Field = "categories.id",
-                            Terms = filter.CategoryIds
-                                .Select(x => (FieldValue)x.ToString())
-                                .ToArray()
-                        }
+                        Field = "categories.id.keyword", // ⚠️ QUAN TRỌNG
+                        Terms = filter.CategoryIds
+                            .Select(x => (FieldValue)x.ToString())
+                            .ToArray()
                     });
                 }
 
@@ -238,7 +236,7 @@ namespace GoVibeSearch.API.Services
             {
                 var sort = new List<SortOptions>();
 
-                if (string.IsNullOrWhiteSpace(filter.SortBy))
+                if (!string.IsNullOrWhiteSpace(filter.SortBy))
                 {
                     // default sort: newest
                     sort.Add(new SortOptions
@@ -250,48 +248,49 @@ namespace GoVibeSearch.API.Services
                         }
                     });
 
-                    return sort;
+                    if (filter.SortDesc.HasValue)
+                    {
+                        var order = filter.SortDesc.Value ? SortOrder.Desc : SortOrder.Asc;
+                    
+                        switch (filter.SortBy.ToLower())
+                        {
+                            case "rating":
+                                sort.Add(new SortOptions
+                                {
+                                    Field = new FieldSort
+                                    {
+                                        Field = "totalRating",
+                                        Order = order
+                                    }
+                                });
+                                break;
+
+                            case "views":
+                                sort.Add(new SortOptions
+                                {
+                                    Field = new FieldSort
+                                    {
+                                        Field = "totalViews",
+                                        Order = order
+                                    }
+                                });
+                                break;
+
+                            case "newest":
+                            default:
+                                sort.Add(new SortOptions
+                                {
+                                    Field = new FieldSort
+                                    {
+                                        Field = "createdAt",
+                                        Order = SortOrder.Desc
+                                    }
+                                });
+                                break;
+                        }
+                    }
                 }
-
-                var order = filter.SortDesc ? SortOrder.Desc : SortOrder.Asc;
-
-                switch (filter.SortBy.ToLower())
-                {
-                    case "rating":
-                        sort.Add(new SortOptions
-                        {
-                            Field = new FieldSort
-                            {
-                                Field = "totalRating",
-                                Order = order
-                            }
-                        });
-                        break;
-
-                    case "views":
-                        sort.Add(new SortOptions
-                        {
-                            Field = new FieldSort
-                            {
-                                Field = "totalViews",
-                                Order = order
-                            }
-                        });
-                        break;
-
-                    case "newest":
-                    default:
-                        sort.Add(new SortOptions
-                        {
-                            Field = new FieldSort
-                            {
-                                Field = "createdAt",
-                                Order = SortOrder.Desc
-                            }
-                        });
-                        break;
-                }
-
+   
                 return sort;
             }
         }
