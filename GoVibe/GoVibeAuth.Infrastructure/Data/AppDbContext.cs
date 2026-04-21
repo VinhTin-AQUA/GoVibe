@@ -1,11 +1,27 @@
+using GoVibeAuth.Domain.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace GoVibeAuth.Infrastructure.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
+        }
+        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                var tableName = entityType.GetTableName();
+                if (string.IsNullOrEmpty(tableName) == false && tableName.StartsWith("AspNet"))
+                {
+                    entityType.SetTableName(tableName[6..]);
+                }
+            }
         }
         
         // public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

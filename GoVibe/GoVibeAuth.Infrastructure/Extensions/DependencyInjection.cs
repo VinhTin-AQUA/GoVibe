@@ -1,4 +1,6 @@
+using GoVibeAuth.Domain.Entities;
 using GoVibeAuth.Infrastructure.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +21,15 @@ namespace GoVibeAuth.Infrastructure.Extensions
         
             services.AddPooledDbContextFactory<AppDbContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("PostgresConnectionString")));
-
+            
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>() // provide our context
+                .AddDefaultTokenProviders() // create email for email confirmation
+                .AddRoles<IdentityRole>() // be able to add roles
+                .AddRoleManager<RoleManager<IdentityRole>>() // be able to make use of RoleManager
+                .AddSignInManager<SignInManager<ApplicationUser>>() // make use of sign in manager
+                .AddUserManager<UserManager<ApplicationUser>>(); // make use of user manager to create user
+            
             return services;
         }
     }

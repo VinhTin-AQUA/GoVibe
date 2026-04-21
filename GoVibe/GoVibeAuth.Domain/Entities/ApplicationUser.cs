@@ -1,9 +1,9 @@
-﻿namespace GoVibeAuth.Domain.Entities
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace GoVibeAuth.Domain.Entities
 {
-    public class ApplicationUser
+    public class ApplicationUser : IdentityUser
     {
-        public Guid Id { get; set; }
-        
         public string? FullName { get; set; }
         public string? AvatarUrl { get; set; }
         public string? GoogleId { get; set; }
