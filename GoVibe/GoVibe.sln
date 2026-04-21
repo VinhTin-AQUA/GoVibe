@@ -57,6 +57,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoVibeMetadata.Domain", "Go
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{C49F3E1B-5B60-40FD-B211-DAD4295EB391}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoVibeAuth.Infrastructure", "GoVibeAuth.Infrastructure\GoVibeAuth.Infrastructure.csproj", "{1E0F29D1-3063-46ED-B3F8-B4D04B57568A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -131,6 +133,10 @@ Global
 		{C49F3E1B-5B60-40FD-B211-DAD4295EB391}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C49F3E1B-5B60-40FD-B211-DAD4295EB391}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C49F3E1B-5B60-40FD-B211-DAD4295EB391}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E0F29D1-3063-46ED-B3F8-B4D04B57568A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E0F29D1-3063-46ED-B3F8-B4D04B57568A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E0F29D1-3063-46ED-B3F8-B4D04B57568A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E0F29D1-3063-46ED-B3F8-B4D04B57568A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -159,6 +165,7 @@ Global
 		{D61E6A7B-0795-4D2D-98A1-6EF2F4818D1F} = {9F2AE012-7810-46BD-B8FF-877CA82F66F4}
 		{95F92655-BB12-41DA-BEEF-D545DC839684} = {9F2AE012-7810-46BD-B8FF-877CA82F66F4}
 		{C49F3E1B-5B60-40FD-B211-DAD4295EB391} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{1E0F29D1-3063-46ED-B3F8-B4D04B57568A} = {425610A9-C12E-4DFC-8258-05205B79DE4E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A41CF192-2806-4F7E-A410-0A16C0D9270E}

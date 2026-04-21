@@ -1,4 +1,4 @@
-namespace GoVibe.Domain.Entities
+namespace GoVibeAuth.Domain.Entities
 {
     public class Entity
     {
