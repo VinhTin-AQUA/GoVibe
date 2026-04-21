@@ -2,7 +2,7 @@
 
 namespace GoVibeAuth.Domain.Entities
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser<Guid>
     {
         public string? FullName { get; set; }
         public string? AvatarUrl { get; set; }

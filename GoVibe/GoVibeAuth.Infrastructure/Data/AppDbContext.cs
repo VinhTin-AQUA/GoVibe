@@ -4,7 +4,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GoVibeAuth.Infrastructure.Data
 {
-    public class AppDbContext : IdentityDbContext<ApplicationUser>
+    public class AppDbContext : IdentityDbContext<
+        ApplicationUser,
+        ApplicationRole,
+        Guid,
+        ApplicationUserClaim,
+        ApplicationUserRole,
+        ApplicationUserLogin,
+        ApplicationRoleClaim,
+        ApplicationUserToken>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -22,6 +30,15 @@ namespace GoVibeAuth.Infrastructure.Data
                     entityType.SetTableName(tableName[6..]);
                 }
             }
+            
+            // optional: rename table
+            // modelBuilder.Entity<ApplicationUser>().ToTable("Users");
+            // modelBuilder.Entity<ApplicationRole>().ToTable("Roles");
+            // modelBuilder.Entity<ApplicationUserRole>().ToTable("UserRoles");
+            // modelBuilder.Entity<ApplicationUserClaim>().ToTable("UserClaims");
+            // modelBuilder.Entity<ApplicationUserLogin>().ToTable("UserLogins");
+            // modelBuilder.Entity<ApplicationUserToken>().ToTable("UserTokens");
+            // modelBuilder.Entity<ApplicationRoleClaim>().ToTable("RoleClaims");
         }
         
         // public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

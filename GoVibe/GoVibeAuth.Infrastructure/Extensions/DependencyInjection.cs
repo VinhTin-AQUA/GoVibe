@@ -22,11 +22,11 @@ namespace GoVibeAuth.Infrastructure.Extensions
             services.AddPooledDbContextFactory<AppDbContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("PostgresConnectionString")));
             
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<AppDbContext>() // provide our context
                 .AddDefaultTokenProviders() // create email for email confirmation
-                .AddRoles<IdentityRole>() // be able to add roles
-                .AddRoleManager<RoleManager<IdentityRole>>() // be able to make use of RoleManager
+                .AddRoles<ApplicationRole>() // be able to add roles
+                .AddRoleManager<RoleManager<ApplicationRole>>() // be able to make use of RoleManager
                 .AddSignInManager<SignInManager<ApplicationUser>>() // make use of sign in manager
                 .AddUserManager<UserManager<ApplicationUser>>(); // make use of user manager to create user
             
