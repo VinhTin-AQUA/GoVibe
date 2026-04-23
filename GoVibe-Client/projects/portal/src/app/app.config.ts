@@ -2,7 +2,7 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
 
 import { routes } from './app.routes';
-import { SEARCHING_API_URL, MAIN_API_URL } from '@govibecore';
+import { SEARCHING_API_URL, MAIN_API_URL, AUTH_API_URL } from '@govibecore';
 import { environment } from '../environments/environment.development';
 
 export const appConfig: ApplicationConfig = {
@@ -14,5 +14,6 @@ export const appConfig: ApplicationConfig = {
         ),
         { provide: MAIN_API_URL, useValue: environment.MAIN_API_URL },
         { provide: SEARCHING_API_URL, useValue: environment.SEARCHING_API_URL },
+        { provide: AUTH_API_URL, useValue: environment.AUTH_API_URL },
     ],
 };

@@ -10,8 +10,12 @@ export const routes: Routes = [
         path: MainRoutes.MAIN.path,
         loadChildren: () => import('./features/main/main.routes').then((r) => r.mainRoutes),
     },
+    // {
+    //     path: '**',
+    //     redirectTo: MainRoutes.MAIN.path,
+    // },
     {
         path: '**',
-        redirectTo: MainRoutes.MAIN.path,
+        redirectTo: AuthRoutes.AUTH.path,
     },
 ];

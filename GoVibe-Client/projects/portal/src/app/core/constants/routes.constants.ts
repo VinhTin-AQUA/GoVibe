@@ -22,4 +22,8 @@ export const AuthRoutes = {
         path: 'auth',
         title: 'auth',
     },
+    LOGIN_WITH_GOOGLE: {
+        path: 'login-with-google',
+        title: 'Login with Google',
+    }
 } as const;

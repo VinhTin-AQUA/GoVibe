@@ -2,6 +2,7 @@
  * Public API Surface of core-services
  */
 
+export * from './lib/auth.service';
 export * from './lib/core-services';
 export * from './lib/common.service';
 export * from './lib/category.service';
