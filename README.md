@@ -11,6 +11,7 @@ _It aims to provide a seamless experience for searching, exploring, and enjoying
 
 ## Features
 
+- Login with GG
 - Smart search with fast results
 - Discover local and global destinations
 - Explore places for food, entertainment, and activities
