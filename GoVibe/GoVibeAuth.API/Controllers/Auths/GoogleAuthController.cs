@@ -18,6 +18,9 @@ namespace GoVibeAuth.API.Controllers.Auths
         [HttpPost("login-with-gg")]
         public async Task<IActionResult> LoginWithGoogle(ExternalAuth externalAuth)
         {
+            if (string.IsNullOrEmpty(externalAuth.Credential))
+                return BadRequest("Missing token");
+            
             var jwt = await _authService.LoginWithGoogleAsync(externalAuth);
             return Ok(new ApiResponse<object>()
             {

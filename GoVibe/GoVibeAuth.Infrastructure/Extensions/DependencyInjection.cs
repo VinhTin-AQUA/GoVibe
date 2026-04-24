@@ -1,12 +1,10 @@
-using System.Text;
 using GoVibeAuth.Domain.Entities;
 using GoVibeAuth.Infrastructure.Data;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 
 namespace GoVibeAuth.Infrastructure.Extensions
 {
@@ -33,21 +31,18 @@ namespace GoVibeAuth.Infrastructure.Extensions
                 .AddSignInManager<SignInManager<ApplicationUser>>() // make use of sign in manager
                 .AddUserManager<UserManager<ApplicationUser>>(); // make use of user manager to create user
             
-            services.AddAuthentication()
-                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+            services.AddAuthentication(options =>
                 {
-                    options.SaveToken = true;
-                    options.RequireHttpsMetadata = true;
+                    options.DefaultScheme = IdentityConstants.ApplicationScheme;
+                    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+                })
+                .AddCookie()
+                .AddGoogle(options =>
+                {
+                    var googleAuth = configuration.GetSection("GoogleSettings");
 
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidateAudience = false,
-                        ValidIssuer = configuration["JWT:Issuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(
-                            Encoding.UTF8.GetBytes(configuration["JWT:Key"]))
-                    };
+                    options.ClientId = googleAuth["ClientId"] ?? "";
+                    options.ClientSecret = googleAuth["ClientSecret"] ?? "";
                 });
             
             return services;

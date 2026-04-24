@@ -22,15 +22,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ddba8ae6-6af0-467c-823f-aef2c114acc4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../GoVibe-Client/projects/portal/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../GoVibe-Client/projects/portal/src/app/app.routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GoVibe-Client/projects/portal/src/app/core/constants/routes.constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../GoVibe-Client/projects/portal/src/app/core/constants/routes.constants.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GoVibe-Client/projects/portal/src/app/features/auth/auth.html" beforeDir="false" afterPath="$PROJECT_DIR$/../GoVibe-Client/projects/portal/src/app/features/auth/auth.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GoVibe-Client/projects/portal/src/app/features/auth/auth.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../GoVibe-Client/projects/portal/src/app/features/auth/auth.routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GoVibe-Client/projects/portal/src/app/features/auth/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../GoVibe-Client/projects/portal/src/app/features/auth/auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GoVibe-Client/projects/portal/src/environments/environment.development.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../GoVibe-Client/projects/portal/src/environments/environment.development.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GoVibe-Client/projects/portal/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../GoVibe-Client/projects/portal/src/index.html" afterDir="false" />
-    </list>
+    <list default="true" id="ddba8ae6-6af0-467c-823f-aef2c114acc4" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,6 +42,8 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/45867853171383959428d3ea24d21e06543cdc7f915dad677ef67fc04536ec/BoolQuery.g.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7d382df578ec93391918cfaa4ce7f4b8f35c9aed1241d6556dc9be26df13c/IdentityUser.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7d81b2d4f22bee75e5438c707251ae43cb0974c207db91ffc159118c84b4eb9/ServiceProvider.cs" root0="FORCE_HIGHLIGHTING" />
@@ -74,33 +68,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.ApiGateway: https.executor": "Debug",
-    ".NET Launch Settings Profile.GoVibe: https.executor": "Debug",
-    ".NET Launch Settings Profile.GoVibeAuth.API: https.executor": "Debug",
-    ".NET Launch Settings Profile.GoVibeSearch.API: https.executor": "Debug",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Compound.Run All.executor": "Debug",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "CodeLensConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.ApiGateway: https.executor&quot;: &quot;Debug&quot;,
+    &quot;.NET Launch Settings Profile.GoVibe: https.executor&quot;: &quot;Debug&quot;,
+    &quot;.NET Launch Settings Profile.GoVibeAuth.API: https.executor&quot;: &quot;Debug&quot;,
+    &quot;.NET Launch Settings Profile.GoVibeSearch.API: https.executor&quot;: &quot;Debug&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Compound.Run All.executor&quot;: &quot;Debug&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;CodeLensConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "GitStage.ChangesTree.GroupingKeys": [
-      "directory",
-      "module",
-      "repository"
+  &quot;keyToStringList&quot;: {
+    &quot;GitStage.ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;,
+      &quot;module&quot;,
+      &quot;repository&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Compound.Run All">
     <configuration name="Run All" type="CompoundRunConfigurationType">
       <toRun name="ApiGateway: https" type="LaunchSettings" />
@@ -412,6 +406,7 @@
       <workItem from="1776604282266" duration="845000" />
       <workItem from="1776605145508" duration="7753000" />
       <workItem from="1776955483471" duration="5188000" />
+      <workItem from="1777043251728" duration="2796000" />
     </task>
     <servers />
   </component>
@@ -438,19 +433,6 @@
           <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
           <option name="timeStamp" value="3" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/GoVibeAuth.API/Services/AuthService.cs</url>
-          <line>28</line>
-          <properties documentPath="$PROJECT_DIR$/GoVibeAuth.API/Services/AuthService.cs" containingFunctionPresentation="Method 'LoginWithGoogleAsync'">
-            <startOffsets>
-              <option value="950" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1018" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

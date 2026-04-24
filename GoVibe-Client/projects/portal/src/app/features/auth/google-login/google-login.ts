@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from '@core-services';
 import { environment } from '../../../../environments/environment.development';
+import { Router } from '@angular/router';
+import { MainRoutes } from '../../../core/constants/routes.constants';
 
 declare const google: any;
 
@@ -11,7 +13,10 @@ declare const google: any;
     styleUrl: './google-login.css',
 })
 export class GoogleLogin {
-    constructor(private authService: AuthService) {}
+    constructor(
+        private authService: AuthService,
+        private router: Router,
+    ) {}
 
     ngOnInit() {
         google.accounts.id.initialize({
@@ -28,24 +33,14 @@ export class GoogleLogin {
     handleLogin(response: any) {
         const idToken = response.credential;
 
-        console.log(idToken);
-
         this.authService.loginWithGG({ Credential: idToken }).subscribe({
             next: (res) => {
                 console.log(res);
+                this.router.navigateByUrl(MainRoutes.MAIN.path)
             },
             error: (err) => {
                 console.log(err);
             },
         });
-
-        // gửi token về backend
-        // this.http
-        //     .post('https://localhost:5001/api/auth/google', {
-        //         token: idToken,
-        //     })
-        //     .subscribe((res) => {
-        //         console.log(res);
-        //     });
     }
 }

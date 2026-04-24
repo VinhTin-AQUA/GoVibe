@@ -13,7 +13,7 @@ namespace GoVibeAuth.API.Services
             _googleSettings = googleSettings;
         }
 
-        public async Task<UserModel?> VerifyGoogleToken(ExternalAuth externalAuth)
+        public async Task<GooglePayloadResult?> VerifyGoogleToken(ExternalAuth externalAuth)
         {
             var settings = new GoogleJsonWebSignature.ValidationSettings()
             {
@@ -21,14 +21,14 @@ namespace GoVibeAuth.API.Services
             };
 
             var payload = await GoogleJsonWebSignature.ValidateAsync(externalAuth.Credential, settings);
-            
-            var userInfo = new UserModel
+            var googlePayloadResult = new GooglePayloadResult
             {
                 Email = payload.Email,
                 Name = payload.Name,
-                GoogleId = payload.Subject // Google user id
+                Subject = payload.Subject, // Google user id
+                Picture = payload.Picture
             };
-            return userInfo;
+            return googlePayloadResult;
         }
     }
 }

@@ -1,4 +1,5 @@
 using GoVibeAuth.API.Models.Auths;
+using GoVibeAuth.Domain.Constants;
 using GoVibeAuth.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 
@@ -13,7 +14,7 @@ namespace GoVibeAuth.API.Services
         
         public AuthService(
             GoogleService googleService, 
-            JwtService  jwtService, 
+            JwtService jwtService, 
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager
         )
@@ -26,57 +27,43 @@ namespace GoVibeAuth.API.Services
 
         public async Task<string> LoginWithGoogleAsync(ExternalAuth externalAuth)
         {
-            var userInfo = await _googleService.VerifyGoogleToken(externalAuth);
-            if (userInfo == null)
+            var payload = await _googleService.VerifyGoogleToken(externalAuth);
+            if (payload == null)
             {
-                throw new ArgumentException("Login with Google Failed");
+                throw new UnauthorizedAccessException("Login with Google Failed");
             }
-            
-            var info = await _signInManager.GetExternalLoginInfoAsync();
-            if (info == null)
+     
+            var providerKey = payload.Subject;
+
+            // tìm user bằng login provider
+            var user = await _userManager.FindByLoginAsync(LoginProviders.Google, providerKey);
+            if (user == null)
             {
-                throw new ArgumentException("Error loading external login info");
-            }
-            
-            // check record in AspNetUserLogins
-            var signInResult = await _signInManager.ExternalLoginSignInAsync(
-                info.LoginProvider,
-                info.ProviderKey,
-                isPersistent: false);
-            
-            ApplicationUser? user;
-            if (signInResult.Succeeded)
-            {
-                user = await _userManager.FindByLoginAsync(
-                    info.LoginProvider,
-                    info.ProviderKey);
-            }
-            else
-            {
-                user = await _userManager.FindByEmailAsync(userInfo.Email);
+                // nếu chưa có → tìm bằng email
+                user = await _userManager.FindByEmailAsync(payload.Email);
                 if (user == null)
                 {
                     user = new ApplicationUser
                     {
-                        UserName = userInfo.Email,
-                        Email = userInfo.Email,
-                        EmailConfirmed = true
+                        UserName = payload.Email,
+                        Email = payload.Email,
+                        EmailConfirmed = true,
+                        AvatarUrl = payload.Picture,
+                        FullName = payload.Name
                     };
 
-                    var createResult = await _userManager.CreateAsync(user);
-                    if (!createResult.Succeeded)
-                        throw new ArgumentException("Login with Google Failed");
+                    await _userManager.CreateAsync(user);
                 }
 
-                // Link Google login
-                await _userManager.AddLoginAsync(user, info);
+                // link google vào user
+                var loginInfo = new UserLoginInfo(
+                    LoginProviders.Google,
+                    providerKey,
+                    LoginProviders.Google
+                );
+                await _userManager.AddLoginAsync(user, loginInfo);
             }
-
-            if (user == null)
-            {
-                throw new ArgumentException("Login with Google Failed");
-            }
-
+            
             var jwt = await _jwtService.CreateJWT(user);
             return jwt;
         }

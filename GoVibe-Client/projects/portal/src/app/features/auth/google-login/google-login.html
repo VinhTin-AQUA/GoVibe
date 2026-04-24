@@ -1,1 +1,53 @@
-<div id="googleBtn"></div>
+<!-- app.component.html -->
+<div class="min-h-screen flex items-center justify-center p-4 bg-theme-gradient">
+    <div class="w-full max-w-md">
+        <!-- Main Card -->
+        <div class="card-bg rounded-2xl shadow-xl overflow-hidden">
+            <!-- Header -->
+            <div class="px-6 py-8 text-center header-gradient">
+                <div
+                    class="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-4 icon-backdrop"
+                >
+                    <svg class="w-10 h-10 icon-color" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm0 13c-2.33 0-4.31-1.46-5.11-3.5h10.22c-.8 2.04-2.78 3.5-5.11 3.5z"
+                        />
+                    </svg>
+                </div>
+                <h1 class="text-3xl font-bold mb-2 text-theme-white">Welcome back</h1>
+                <p class="text-theme-muted">Sign in to continue your experience</p>
+            </div>
+
+            <!-- Body -->
+            <div class="px-6 py-8">
+                <!-- Google Button -->
+                <div class="flex justify-center">
+                    <div
+                        id="googleBtn"
+                        class="transform transition-all duration-200 hover:scale-105"
+                    ></div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="px-6 py-4 border-t footer-theme">
+                <p class="text-xs text-center text-theme-muted">
+                    By signing in, you agree to our
+                    <a href="#" class="link-theme">Terms of Service</a>
+                    and
+                    <a href="#" class="link-theme">Privacy Policy</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Decorative elements -->
+        <div
+            class="absolute top-20 left-10 w-72 h-72 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"
+            style="background: var(--blue); opacity: 0.2"
+        ></div>
+        <div
+            class="absolute bottom-20 right-10 w-72 h-72 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"
+            style="background: var(--magenta); opacity: 0.2"
+        ></div>
+    </div>
+</div>

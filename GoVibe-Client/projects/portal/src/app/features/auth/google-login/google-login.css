@@ -1,0 +1,43 @@
+.card-bg {
+    background: var(--background);
+}
+
+.bg-theme-gradient {
+    background: linear-gradient(to bottom right, var(--blue), var(--background), var(--magenta));
+}
+
+.header-gradient {
+    background: linear-gradient(to right, var(--blue), var(--magenta));
+}
+
+.icon-backdrop {
+    background: var(--cursorAccent);
+    opacity: 0.2;
+    backdrop-filter: blur(4px);
+}
+
+.icon-color {
+    color: var(--magenta);
+}
+
+.text-theme-white {
+    color: var(--cursorAccent);
+}
+
+.text-theme-muted {
+    color: var(--white);
+}
+
+.footer-theme {
+    background: var(--background);
+    border-color: var(--brightBlack);
+}
+
+.link-theme {
+    color: var(--blue);
+    text-decoration: none;
+}
+
+.link-theme:hover {
+    text-decoration: underline;
+}

@@ -27,12 +27,11 @@ namespace GoVibeAuth.API.Services
         {
             var userClaims = new List<Claim>()
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Email, user.Email!),
-                new Claim(JwtRegisteredClaimNames.Sub,user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.UserName!),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new (ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new (ClaimTypes.Email, user.Email!),
+                new (JwtRegisteredClaimNames.Sub,user.Id.ToString()),
+                new (ClaimTypes.Name, user.UserName!),
+                new (JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             };
 
             var userRoles = await _userManager.GetRolesAsync(user);
